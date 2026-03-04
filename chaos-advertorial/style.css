@@ -1,0 +1,515 @@
+:root {
+    --bg-color: #1a1a1a;
+    --text-color: #f0f0f0;
+    --neon-green: #39FF14;
+    --tape-color: rgba(255, 255, 255, 0.4);
+    --font-header: 'Archivo Black', sans-serif;
+    --font-body: 'Courier Prime', monospace;
+    --font-marker: 'Permanent Marker', cursive;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    line-height: 1.5;
+}
+
+/* Background Grime */
+.background-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: url('assets/messy_room.jpg');
+    background-size: cover;
+    opacity: 0.1;
+    z-index: -1;
+    pointer-events: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+    box-shadow: 10px 10px 0px #000;
+}
+
+/* --- UTILITIES --- */
+.tilt-1 {
+    transform: rotate(1deg);
+    transform-origin: center;
+}
+
+.tilt-2 {
+    transform: rotate(2deg);
+    transform-origin: center;
+}
+
+.tilt-3 {
+    transform: rotate(3deg);
+    transform-origin: center;
+}
+
+.tilt-4 {
+    transform: rotate(4deg);
+    transform-origin: center;
+}
+
+.tilt-neg-1 {
+    transform: rotate(-1deg);
+    transform-origin: center;
+}
+
+.tilt-neg-2 {
+    transform: rotate(-2deg);
+    transform-origin: center;
+}
+
+.tilt-neg-3 {
+    transform: rotate(-3deg);
+    transform-origin: center;
+}
+
+.tilt-neg-4 {
+    transform: rotate(-4deg);
+    transform-origin: center;
+}
+
+/* The Tape Effect */
+.tape-effect {
+    position: relative;
+}
+
+.tape-effect::after {
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(2px);
+    top: -15px;
+    right: -20px;
+    /* Sits across top-right corner */
+    transform: rotate(15deg);
+    z-index: 20;
+    pointer-events: none;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* --- HEADER --- */
+.chaos-header {
+    padding: 60px 20px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-container {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    border: 5px solid #fff;
+    background: #000;
+}
+
+.hero-img {
+    width: 100%;
+    filter: grayscale(100%);
+}
+
+.warning-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-5deg);
+    background: var(--neon-green);
+    color: #000;
+    font-family: var(--font-header);
+    font-size: 2rem;
+    padding: 15px 30px;
+    border: 3px solid #000;
+    box-shadow: 8px 8px 0px #000;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+/* --- INTRO / RANT --- */
+.intro-section {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.intro-box {
+    background: #000;
+    border: 2px solid #fff;
+    padding: 40px;
+    margin-bottom: 50px;
+    box-shadow: 10px 10px 0px #000;
+    position: relative;
+}
+
+.main-headline {
+    font-family: var(--font-header);
+    font-size: 3rem;
+    line-height: 1;
+    margin: 0 0 20px;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.warning-sub {
+    font-family: var(--font-body);
+    font-weight: bold;
+    color: var(--neon-green);
+    margin-bottom: 20px;
+}
+
+.sub-headline {
+    font-family: var(--font-header);
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.text-columns {
+    column-count: 2;
+    column-gap: 40px;
+    font-size: 1.1rem;
+    margin-bottom: 40px;
+}
+
+.highlight {
+    background: var(--neon-green);
+    color: #000;
+    font-family: var(--font-header);
+    font-size: 1.4rem;
+    padding: 5px 10px;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+}
+
+/* --- THE LIST --- */
+.the-list-section {
+    position: relative;
+    max-width: 1100px;
+    margin: 0 auto 150px;
+    padding: 0 20px;
+}
+
+
+
+.list-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 60px;
+    position: relative;
+    z-index: 10;
+}
+
+.list-card {
+    background: #000;
+    border: 1px solid #000;
+    padding: 30px;
+    position: relative;
+    box-shadow: 10px 10px 0px #000;
+}
+
+.list-card h3 {
+    font-family: var(--font-header);
+    font-size: 1.5rem;
+    color: var(--neon-green);
+    margin: 0 0 15px;
+    text-transform: uppercase;
+}
+
+.list-card p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* --- MANIFESTO --- */
+.manifesto-section {
+    padding: 100px 20px;
+    background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.8));
+    text-align: center;
+}
+
+.manifesto-title {
+    font-family: var(--font-header);
+    font-size: 4rem;
+    line-height: 0.9;
+    margin-bottom: 80px;
+    text-transform: uppercase;
+    color: #fff;
+    text-shadow: 4px 4px 0 var(--neon-green);
+}
+
+.manifesto-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.photo-stack {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    /* Kept constraint */
+    /* Removed fixed height to let base-photo dictate */
+    margin: 0 auto;
+    /* Centering helper just in case */
+}
+
+.base-photo {
+    position: relative;
+    /* Anchor for section */
+    top: auto;
+    left: auto;
+    width: 100%;
+    z-index: 5;
+    border: 15px solid #fff;
+}
+
+.overlay-photo {
+    position: absolute;
+    bottom: -60px;
+    right: -40px;
+    width: 280px;
+    z-index: 20;
+    background: transparent;
+    padding: 0;
+    border: 10px solid #fff;
+    border-bottom: 40px solid #fff;
+    box-shadow: 15px 15px 0px #000;
+}
+
+.overlay-photo img {
+    box-shadow: none;
+    width: 100%;
+    display: block;
+}
+
+.manifesto-text {
+    flex: 1 1 400px;
+    text-align: left;
+    font-size: 1.2rem;
+}
+
+.marker-quote {
+    font-family: var(--font-marker);
+    font-size: 1.8rem;
+    color: var(--neon-green);
+    margin: 40px 0;
+    line-height: 1.3;
+}
+
+.manifesto-footer {
+    font-family: var(--font-header);
+    font-size: 2rem;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.neon-text {
+    color: var(--neon-green);
+}
+
+/* --- ARTISTRY --- */
+.artistry-section {
+    padding: 100px 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.artistry-container {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+    flex-wrap: wrap-reverse;
+}
+
+.makeup-photo {
+    flex: 1 1 500px;
+    position: relative;
+    border: 5px solid var(--neon-green);
+    z-index: 2;
+}
+
+.artistry-text {
+    flex: 1 1 300px;
+    z-index: 1;
+    position: relative;
+    margin-left: -40px;
+}
+
+.artistry-text h3 {
+    font-family: var(--font-header);
+    font-size: 1.8rem;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.quote-block {
+    background: #fff;
+    color: #000;
+    font-family: var(--font-body);
+    font-style: italic;
+    font-weight: bold;
+    padding: 20px;
+    border-left: 10px solid var(--neon-green);
+    margin: 0 0 20px;
+    font-size: 1.2rem;
+    transform: rotate(-1deg);
+}
+
+.response-text {
+    font-size: 1.2rem;
+}
+
+/* --- PRODUCT FINALE --- */
+.product-finale {
+    padding: 100px 20px 150px;
+    background: #000;
+    color: #fff;
+    position: relative;
+    border-top: 5px solid var(--neon-green);
+}
+
+.finale-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.weapon-intro {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.big-statement {
+    font-family: var(--font-header);
+    font-size: 3rem;
+    color: var(--neon-green);
+    margin: 0;
+}
+
+.product-showcase {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 60px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.product-hero {
+    flex: 1 1 400px;
+}
+
+.product-details {
+    flex: 1 1 400px;
+}
+
+.product-name {
+    font-family: var(--font-header);
+    font-size: 2.5rem;
+    line-height: 1;
+    margin: 30px 0 20px;
+    border-bottom: 3px solid var(--neon-green);
+    padding-bottom: 10px;
+    display: inline-block;
+}
+
+.massive-button {
+    display: block;
+    width: 100%;
+    background: #000;
+    color: var(--neon-green);
+    font-family: var(--font-header);
+    font-size: 2.5rem;
+    padding: 30px;
+    text-align: center;
+    text-decoration: none;
+    border: 4px solid var(--neon-green);
+    margin-top: 50px;
+    transition: all 0.1s;
+    box-shadow: 15px 15px 0 #fff;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+}
+
+.massive-button:hover {
+    background: var(--neon-green);
+    color: #000;
+    box-shadow: 20px 20px 0 #000;
+    transform: translate(-5px, -5px) skewX(-2deg);
+    border-color: #000;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .text-columns {
+        column-count: 1;
+    }
+
+
+
+    .manifesto-title,
+    .big-statement {
+        font-size: 2.5rem;
+    }
+
+    .photo-stack {
+        height: auto;
+        width: 100%;
+        margin-bottom: 50px;
+    }
+
+    .base-photo {
+        width: 100%;
+        position: relative;
+        /* Reset from absolute on mobile to flow naturally */
+    }
+
+    .overlay-photo {
+        position: relative;
+        /* Reset from absolute on mobile */
+        width: 90%;
+        margin: -50px auto 0;
+        bottom: auto;
+        right: auto;
+        transform: rotate(2deg);
+    }
+
+    .artistry-container {
+        flex-direction: column-reverse;
+    }
+
+    .artistry-text {
+        margin-left: 0;
+    }
+
+    .hero-container {
+        margin-bottom: 30px;
+    }
+
+    .warning-box {
+        font-size: 1.2rem;
+        padding: 10px 15px;
+        width: 90%;
+    }
+}
