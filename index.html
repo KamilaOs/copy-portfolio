@@ -372,7 +372,7 @@
     =========================== */
         .hero {
             position: relative;
-            padding: 120px 0 80px;
+            padding: 120px 0 48px;
             border-bottom: 1px solid var(--rule);
             overflow: hidden;
         }
@@ -579,14 +579,14 @@
 
         .hero-bg-number {
             position: absolute;
-            right: 48px;
-            bottom: -0.1em;
+            right: 0;
+            bottom: -0.15em;
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: clamp(200px, 25vw, 360px);
+            font-size: clamp(220px, 28vw, 400px);
             line-height: 1;
             color: transparent;
-            -webkit-text-stroke: 1px var(--rule);
+            -webkit-text-stroke: 2px var(--rule);
             user-select: none;
             pointer-events: none;
             letter-spacing: -0.05em;
@@ -747,15 +747,12 @@
     =========================== */
         .services-strip {
             border-bottom: 1px solid #333;
-            border-top: 1px solid #333;
         }
 
         .services-strip .container {
             background: var(--ink);
             padding-top: 0;
             padding-bottom: 0;
-            border-left: 1px solid #2A2A2A;
-            border-right: 1px solid #2A2A2A;
         }
 
         .services-grid {
@@ -812,26 +809,42 @@
 
         .work-header .container {
             display: flex;
-            align-items: baseline;
+            align-items: center;
             justify-content: space-between;
-            padding-top: 32px;
-            padding-bottom: 28px;
+            padding-top: 28px;
+            padding-bottom: 24px;
+            position: relative;
         }
 
         .work-header h2 {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: clamp(24px, 3vw, 36px);
-            letter-spacing: -0.02em;
+            font-size: clamp(36px, 5vw, 64px);
+            letter-spacing: -0.03em;
+            line-height: 1;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .work-header h2::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--lime);
         }
 
         .work-count {
             font-family: 'DM Mono', monospace;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 400;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--mid);
+            border: 1px solid var(--rule);
+            padding: 6px 12px;
         }
 
         .work-grid-container {
@@ -850,7 +863,7 @@
         .work-card {
             display: flex;
             flex-direction: column;
-            height: 340px;
+            height: 380px;
             border-right: 1px solid var(--rule);
             border-bottom: 1px solid var(--rule);
             transition: background 0.3s ease;
@@ -882,7 +895,7 @@
         }
 
         .card-thumb-wrap {
-            flex: 7;
+            flex: 65;
             width: 100%;
             overflow: hidden;
             background: #ECEAE4;
@@ -927,12 +940,13 @@
         }
 
         .card-body {
-            flex: 3;
-            padding: 10px 14px 12px;
+            flex: 35;
+            padding: 12px 14px 14px;
             display: flex;
             flex-direction: column;
-            gap: 5px;
+            gap: 4px;
             overflow: hidden;
+            min-height: 0;
         }
 
         .card-number {
@@ -963,15 +977,6 @@
             font-weight: 700;
             font-size: clamp(14px, 1.4vw, 20px);
             line-height: 1.1;
-            transition: color 0.3s ease;
-        }
-
-        .card-teaser {
-            font-family: 'Barlow', sans-serif;
-            font-size: 12px;
-            font-weight: 300;
-            color: var(--mid);
-            line-height: 1.5;
             transition: color 0.3s ease;
         }
 
@@ -1012,10 +1017,6 @@
         }
 
         .work-card:hover .card-title {
-            color: var(--bg);
-        }
-
-        .work-card:hover .card-teaser {
             color: var(--bg);
         }
 
@@ -1116,35 +1117,25 @@
             flex-wrap: wrap;
         }
 
-        .contact-divider {
-            color: var(--rule);
-            font-size: 18px;
-        }
-
-        .contact-inline-link {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            transition: opacity 0.2s ease;
-        }
-
-        .contact-inline-link:hover {
-            opacity: 0.6;
-        }
-
-        .contact-inline-label {
+        .contact-linkedin-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             font-family: 'DM Mono', monospace;
-            font-size: 10px;
-            letter-spacing: 0.12em;
+            font-size: 12px;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            color: var(--mid);
+            color: var(--ink);
+            border: 1px solid var(--rule);
+            padding: 12px 20px;
+            transition: border-color 0.2s ease, color 0.2s ease,
+                background 0.2s ease;
         }
 
-        .contact-inline-value {
-            font-family: 'Playfair Display', serif;
-            font-size: 17px;
-            font-style: italic;
-            color: var(--ink);
+        .contact-linkedin-btn:hover {
+            border-color: var(--ink);
+            background: var(--ink);
+            color: var(--bg);
         }
 
         /* ===========================
@@ -1247,7 +1238,7 @@
 
             /* Hero */
             .hero {
-                padding: 100px 0 56px;
+                padding: 100px 0 40px;
             }
 
             .hero-bottom {
@@ -1335,6 +1326,7 @@
 
             .card-body {
                 flex: none;
+                overflow: visible;
             }
 
             /* Contact */
@@ -1548,8 +1540,6 @@
                         <span class="card-number">001</span>
                         <span class="card-type">Landing Page</span>
                         <h3 class="card-title">Fleming AI</h3>
-                        <p class="card-teaser">A sharp, feature-forward landing page for an AI platform ready to make
-                            noise. Every line engineered for sign-ups.</p>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
                     </div>
                 </a>
@@ -1564,8 +1554,6 @@
                         <span class="card-number">002</span>
                         <span class="card-type">Advertorial</span>
                         <h3 class="card-title">Chaos</h3>
-                        <p class="card-teaser">An editorial-style advertorial that reads like a story and sells like a
-                            machine. Blurs the line — by design.</p>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
                     </div>
                 </a>
@@ -1580,8 +1568,6 @@
                         <span class="card-number">003</span>
                         <span class="card-type">Product Launch</span>
                         <h3 class="card-title">Flockly</h3>
-                        <p class="card-teaser">Launch copy for a community-first product. Warm, punchy, direct — built
-                            to convert early adopters into true believers.</p>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
                     </div>
                 </a>
@@ -1596,8 +1582,6 @@
                         <span class="card-number">004</span>
                         <span class="card-type">Landing Page</span>
                         <h3 class="card-title">Verta</h3>
-                        <p class="card-teaser">A minimalist landing page for a DTC wellness brand. Clean copy, strong
-                            hook, zero fluff.</p>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
                     </div>
                 </a>
@@ -1612,8 +1596,6 @@
                         <span class="card-number">005</span>
                         <span class="card-type">Advertorial</span>
                         <h3 class="card-title">The Deep Edit</h3>
-                        <p class="card-teaser">Long-form advertorial disguised as editorial. Built to hold attention and
-                            convert at the bottom.</p>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
                     </div>
                 </a>
@@ -1628,8 +1610,6 @@
                         <span class="card-number">006</span>
                         <span class="card-type">Email Sequence</span>
                         <h3 class="card-title">Bloom Studio</h3>
-                        <p class="card-teaser">5-part welcome sequence for a beauty brand. Each email earns the next
-                            open.</p>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
                     </div>
                 </a>
@@ -1644,8 +1624,6 @@
                         <span class="card-number">007</span>
                         <span class="card-type">Product Launch</span>
                         <h3 class="card-title">Kinfolk</h3>
-                        <p class="card-teaser">Launch copy for a slow-living homeware brand. Tone that feels like a
-                            conversation, not a pitch.</p>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
                     </div>
                 </a>
@@ -1660,8 +1638,6 @@
                         <span class="card-number">008</span>
                         <span class="card-type">Landing Page</span>
                         <h3 class="card-title">Sable</h3>
-                        <p class="card-teaser">Fashion-forward landing page for a premium accessories drop. Urgency
-                            baked in without being pushy.</p>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
                     </div>
                 </a>
@@ -1676,8 +1652,6 @@
                         <span class="card-number">009</span>
                         <span class="card-type">Advertorial</span>
                         <h3 class="card-title">Raw &amp; Co</h3>
-                        <p class="card-teaser">Gut-punch advertorial for a supplement brand ready to disrupt a crowded
-                            market.</p>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
                     </div>
                 </a>
@@ -1692,8 +1666,6 @@
                         <span class="card-number">010</span>
                         <span class="card-type">Landing Page</span>
                         <h3 class="card-title">Groundwork</h3>
-                        <p class="card-teaser">Positioning-led landing page for a B2B SaaS tool. Serious tone, zero
-                            corporate speak.</p>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
                     </div>
                 </a>
@@ -1715,15 +1687,13 @@
                         Send a message →
                     </a>
                     <div class="contact-links-row">
-                        <a href="mailto:kamila.copy.hq@gmail.com" class="contact-inline-link">
-                            <span class="contact-inline-label">Email</span>
-                            <span class="contact-inline-value">kamila.copy.hq@gmail.com</span>
-                        </a>
-                        <span class="contact-divider">·</span>
                         <a href="https://www.linkedin.com/in/kamila-osmanova" target="_blank" rel="noopener noreferrer"
-                            class="contact-inline-link">
-                            <span class="contact-inline-label">LinkedIn</span>
-                            <span class="contact-inline-value">kamila-osmanova</span>
+                            class="contact-linkedin-btn">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z" />
+                            </svg>
+                            LinkedIn
                         </a>
                     </div>
                 </div>
@@ -1742,7 +1712,7 @@
             </div>
             <div class="footer-bottom">
                 <span class="footer-name">Kamila Osmanova</span>
-                <span class="footer-copy">© 2025 — All work is original copy</span>
+                <span class="footer-copy">© 2026 — All work is original copy</span>
             </div>
         </div>
     </footer>
@@ -1835,13 +1805,15 @@
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     navLinks.forEach((link) => link.classList.remove('active'));
-                    const active = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+                    const active = document.querySelector(
+                        '.nav-links a[href="#' + entry.target.id + '"]'
+                    );
                     if (active) active.classList.add('active');
                 }
             });
-        }, { threshold: 0.4 });
+        }, { threshold: 0.3 });
 
-        sections.forEach((s) => sectionObserver.observe(s));
+        sections.forEach(s => sectionObserver.observe(s));
     </script>
 
 </body>
