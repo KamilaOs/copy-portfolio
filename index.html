@@ -189,16 +189,6 @@
             }
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
         /* ===========================
        1. FIXED NAV & MOBILE MENU
     =========================== */
@@ -389,6 +379,7 @@
         /* ===========================
        2. HERO SECTION
     =========================== */
+
         .hero {
             padding: 120px 0 48px;
             overflow: hidden;
@@ -400,8 +391,6 @@
             border-bottom: 1px solid var(--rule);
             padding-bottom: 48px;
         }
-
-        /* hero-eyebrow removed */
 
         .hero h1 {
             font-family: 'Playfair Display', serif;
@@ -592,8 +581,6 @@
             flex-shrink: 0;
         }
 
-        /* hero-vertical-label removed */
-
         .hero-portrait {
             position: absolute;
             right: 0;
@@ -634,13 +621,9 @@
             }
         }
 
-        /* hero-bg-number removed */
-
         /* ===========================
        4. ABOUT SECTION
     =========================== */
-        .about-wrap {}
-
         .about {
             display: grid;
             grid-template-columns: 380px 1fr;
@@ -797,9 +780,9 @@
             color: var(--ink);
         }
 
-
-
-        /* Why Me Strip */
+        /* ===========================
+       WHY ME STRIP
+    =========================== */
         .why-me-strip {
             background: var(--ink);
             border-bottom: 1px solid #2A2A2A;
@@ -891,8 +874,6 @@
         /* ===========================
        5. SERVICES STRIP
     =========================== */
-        .services-strip {}
-
         .services-strip .container {
             background: var(--ink);
             padding-top: 0;
@@ -948,8 +929,6 @@
         /* ===========================
        6. WORK SECTION
     =========================== */
-        .work-header {}
-
         /* Work header — two-row layout */
         .work-header .container {
             display: flex;
@@ -976,12 +955,6 @@
             font-size: clamp(36px, 5vw, 64px);
             letter-spacing: -0.03em;
             line-height: 1;
-            position: relative;
-            padding-left: 0;
-        }
-
-        .work-header h2::before {
-            display: none;
         }
 
         .work-count {
@@ -1235,7 +1208,6 @@
         /* ===========================
        7. CONTACT SECTION
     =========================== */
-        /* Contact rewrite */
         #contact .container {
             border-left: 1px solid var(--rule);
             border-right: 1px solid var(--rule);
@@ -1250,13 +1222,6 @@
             flex-wrap: wrap;
             padding-top: 64px;
             padding-bottom: 64px;
-        }
-
-        .contact-statement {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            max-width: 520px;
         }
 
         .contact-body-text {
@@ -1278,28 +1243,6 @@
             border-top: 1px solid var(--rule);
             padding-top: 16px;
             margin-top: 4px;
-        }
-
-        .contact-actions {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-
-        .contact-response-time {
-            font-family: 'DM Mono', monospace;
-            font-size: 10px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            color: var(--mid);
-        }
-
-        .contact-statement {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
         }
 
         .contact-overline {
@@ -1510,8 +1453,6 @@
         /* ===========================
        8. FOOTER
     =========================== */
-        footer {}
-
         footer .container {
             padding-top: 0;
             padding-bottom: 0;
@@ -1623,14 +1564,6 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 24px;
-            }
-
-            .hero-vertical-label {
-                display: none;
-            }
-
-            .hero-bg-number {
-                display: none;
             }
 
             .hero-badges {
@@ -1788,10 +1721,6 @@
                 white-space: normal;
             }
         }
-
-        /* section-divider removed */
-
-        /* copy-sample-strip removed */
     </style>
 </head>
 
@@ -1852,11 +1781,6 @@
   ========================= -->
     <section id="hero" class="hero">
         <div class="container">
-            <p class="hero-eyebrow" style="display:none" aria-hidden="true">
-                <span class="hero-eyebrow-dot"></span>
-                Copywriter — Digital Ecom
-            </p>
-
             <h1>
                 <span class="hero-headline-line1">Self-taught.</span>
                 <span class="hero-headline-line2">Obsessed with <span class="hero-headline-accent">copy.</span></span>
