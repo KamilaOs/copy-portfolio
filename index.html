@@ -371,14 +371,15 @@
        2. HERO SECTION
     =========================== */
         .hero {
-            position: relative;
             padding: 120px 0 48px;
-            border-bottom: 1px solid var(--rule);
             overflow: hidden;
+            position: relative;
         }
 
         .hero .container {
             position: relative;
+            border-bottom: 1px solid var(--rule);
+            padding-bottom: 48px;
         }
 
         .hero-eyebrow {
@@ -598,14 +599,13 @@
         /* ===========================
        4. ABOUT SECTION
     =========================== */
-        .about-wrap {
-            border-bottom: 1px solid var(--rule);
-        }
+        .about-wrap {}
 
         .about {
             display: grid;
             grid-template-columns: 380px 1fr;
             align-items: stretch;
+            border-bottom: 1px solid var(--rule);
         }
 
         .about-image-col {
@@ -745,14 +745,13 @@
         /* ===========================
        5. SERVICES STRIP
     =========================== */
-        .services-strip {
-            border-bottom: 1px solid #333;
-        }
+        .services-strip {}
 
         .services-strip .container {
             background: var(--ink);
             padding-top: 0;
             padding-bottom: 0;
+            border-bottom: 1px solid #333;
         }
 
         .services-grid {
@@ -803,9 +802,7 @@
         /* ===========================
        6. WORK SECTION
     =========================== */
-        .work-header {
-            border-bottom: 1px solid var(--rule);
-        }
+        .work-header {}
 
         .work-header .container {
             display: flex;
@@ -814,6 +811,7 @@
             padding-top: 28px;
             padding-bottom: 24px;
             position: relative;
+            border-bottom: 1px solid var(--rule);
         }
 
         .work-header h2 {
@@ -1031,50 +1029,48 @@
         /* ===========================
        7. CONTACT SECTION
     =========================== */
-        #contact {
-            border-bottom: 1px solid var(--rule);
-        }
+        #contact {}
 
         #contact .container {
-            padding-top: 48px;
-            padding-bottom: 48px;
+            padding-top: 36px;
+            padding-bottom: 36px;
             border-left: 1px solid var(--rule);
             border-right: 1px solid var(--rule);
-            display: block;
+            border-bottom: 1px solid var(--rule);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            flex-wrap: wrap;
         }
 
         .contact-statement {
-            position: relative;
-            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
         }
 
         .contact-overline {
             font-family: 'DM Mono', monospace;
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 0.18em;
             text-transform: uppercase;
             color: var(--mid);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 0;
         }
 
         .contact-overline::after {
-            content: '';
-            display: block;
-            height: 1px;
-            background: var(--rule);
-            width: 60px;
+            display: none;
         }
 
         .contact-big {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: clamp(32px, 4.5vw, 64px);
-            line-height: 1.0;
+            font-size: clamp(22px, 2.8vw, 38px);
+            line-height: 1.05;
             letter-spacing: -0.02em;
-            margin-bottom: 36px;
+            margin-bottom: 0;
+            white-space: nowrap;
         }
 
         .contact-big em {
@@ -1086,8 +1082,9 @@
         .contact-actions {
             display: flex;
             align-items: center;
-            gap: 48px;
+            gap: 16px;
             flex-wrap: wrap;
+            flex-shrink: 0;
         }
 
         .contact-cta-btn {
@@ -1096,25 +1093,19 @@
             background: var(--lime);
             color: var(--ink);
             font-family: 'DM Mono', monospace;
-            font-size: 13px;
+            font-size: 12px;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            padding: 18px 36px;
+            padding: 14px 28px;
             transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
             flex-shrink: 0;
+            white-space: nowrap;
         }
 
         .contact-cta-btn:hover {
             background: var(--ink);
             color: var(--lime);
             transform: translateY(-2px);
-        }
-
-        .contact-links-row {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            flex-wrap: wrap;
         }
 
         .contact-linkedin-btn {
@@ -1141,15 +1132,14 @@
         /* ===========================
        8. FOOTER
     =========================== */
-        footer {
-            border-top: 1px solid var(--rule);
-        }
+        footer {}
 
         footer .container {
             padding-top: 20px;
             padding-bottom: 20px;
             border-left: 1px solid var(--rule);
             border-right: 1px solid var(--rule);
+            border-top: 1px solid var(--rule);
         }
 
         .footer-top {
@@ -1331,14 +1321,15 @@
 
             /* Contact */
             #contact .container {
-                padding-top: 56px;
-                padding-bottom: 48px;
-            }
-
-            .contact-actions {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 32px;
+                gap: 24px;
+                padding-top: 28px;
+                padding-bottom: 28px;
+            }
+
+            .contact-big {
+                white-space: normal;
             }
 
             /* Footer */
@@ -1679,24 +1670,25 @@
   ========================= -->
     <section id="contact">
         <div class="container">
-            <div class="contact-statement fade-in">
+            <div class="contact-statement">
                 <p class="contact-overline">Let's work together</p>
-                <h2 class="contact-big">Got a brand that<br>needs copy with<br><em>an edge?</em></h2>
-                <div class="contact-actions">
-                    <a href="mailto:kamila.copy.hq@gmail.com" class="contact-cta-btn">
-                        Send a message →
-                    </a>
-                    <div class="contact-links-row">
-                        <a href="https://www.linkedin.com/in/kamila-osmanova" target="_blank" rel="noopener noreferrer"
-                            class="contact-linkedin-btn">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                                <path
-                                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z" />
-                            </svg>
-                            LinkedIn
-                        </a>
-                    </div>
-                </div>
+                <h2 class="contact-big">Got a brand that needs copy with <em>an edge?</em></h2>
+            </div>
+            <div class="contact-actions">
+                <a href="mailto:kamila.copy.hq@gmail.com" class="contact-cta-btn">
+                    Send a message →
+                </a>
+                <a href="https://www.linkedin.com/in/kamila-osmanova" target="_blank" rel="noopener noreferrer"
+                    class="contact-linkedin-btn">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853
+            0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9
+            1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337
+            7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063
+            2.065zm1.782 13.019H3.555V9h3.564v11.452z" />
+                    </svg>
+                    LinkedIn
+                </a>
             </div>
         </div>
     </section>
