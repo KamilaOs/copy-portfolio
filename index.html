@@ -8,6 +8,25 @@
     <meta name="description"
         content="Kamila Osmanova is a copywriter specialising in digital ecom — landing pages, advertorials, and product launches built around what actually makes people click." />
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./favicon.png" />
+    <link rel="apple-touch-icon" href="./favicon.png" />
+
+    <!-- Open Graph (LinkedIn, Facebook, Slack, iMessage) -->
+    <meta property="og:title" content="Kamila Osmanova — Copywriter for Digital Ecom" />
+    <meta property="og:description"
+        content="Landing pages, advertorials, and product launches built around what actually makes people click." />
+    <meta property="og:image" content="https://kamilaos.github.io/copy-portfolio/og-image.jpg" />
+    <meta property="og:url" content="https://kamilaos.github.io/copy-portfolio/" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kamila Osmanova — Copywriter for Digital Ecom" />
+    <meta name="twitter:description"
+        content="Landing pages, advertorials, and product launches built around what actually makes people click." />
+    <meta name="twitter:image" content="https://kamilaos.github.io/copy-portfolio/og-image.jpg" />
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -825,7 +844,7 @@
             font-family: 'Barlow', sans-serif;
             font-size: 13px;
             font-weight: 300;
-            color: #888;
+            color: #B3B3B3;
             line-height: 1.6;
         }
 
@@ -1066,6 +1085,39 @@
     =========================== */
         #contact {}
 
+        .contact-inner {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 48px;
+            flex-wrap: wrap;
+            padding-top: 48px;
+            padding-bottom: 48px;
+        }
+
+        .contact-checklist {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 16px;
+        }
+
+        .contact-checklist span {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            color: var(--mid);
+        }
+
+        .contact-response-time {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--mid);
+            margin-top: 4px;
+        }
+
         #contact .container {
             padding-top: 36px;
             padding-bottom: 36px;
@@ -1116,9 +1168,9 @@
 
         .contact-actions {
             display: flex;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
             flex-shrink: 0;
         }
 
@@ -1165,23 +1217,157 @@
         }
 
         /* ===========================
+       TICKER STRIP
+    =========================== */
+        .ticker-wrap {
+            background: var(--ink);
+            border-top: 1px solid #2A2A2A;
+            border-bottom: 1px solid #2A2A2A;
+            overflow: hidden;
+            padding: 14px 0;
+            white-space: nowrap;
+        }
+
+        .ticker {
+            display: inline-flex;
+            gap: 24px;
+            animation: ticker-scroll 28s linear infinite;
+        }
+
+        .ticker span {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .ticker .ticker-dot {
+            color: var(--lime);
+            letter-spacing: 0;
+        }
+
+        @keyframes ticker-scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ===========================
+       PROCESS SECTION
+    =========================== */
+        .process-section {
+            background: var(--ink);
+        }
+
+        .process-section .container {
+            padding-top: 0;
+            padding-bottom: 0;
+            border-bottom: 1px solid #2A2A2A;
+        }
+
+        .process-header {
+            padding-top: 40px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #2A2A2A;
+        }
+
+        .process-header-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #555;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .process-header-label::after {
+            content: '';
+            display: block;
+            height: 1px;
+            background: #2A2A2A;
+            width: 60px;
+            flex-shrink: 0;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .process-item {
+            padding: 40px 32px;
+            border-right: 1px solid #2A2A2A;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .process-item:last-child {
+            border-right: none;
+        }
+
+        .process-num {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            color: #444;
+        }
+
+        .process-step-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 20px;
+            color: var(--bg);
+            line-height: 1.1;
+            transition: color 0.2s ease;
+        }
+
+        .process-desc {
+            font-family: 'Barlow', sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            color: #B3B3B3;
+            line-height: 1.6;
+        }
+
+        .process-item:hover .process-step-name {
+            color: var(--lime);
+        }
+
+        /* ===========================
        8. FOOTER
     =========================== */
         footer {}
 
         footer .container {
-            padding-top: 20px;
-            padding-bottom: 20px;
+            padding-top: 0;
+            padding-bottom: 0;
             border-left: 1px solid var(--rule);
             border-right: 1px solid var(--rule);
             border-top: 1px solid var(--rule);
         }
 
-        .footer-bottom {
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 0;
+            padding-top: 40px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .footer-col {
             display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 12px;
+            flex-direction: column;
+            gap: 10px;
+            padding-right: 40px;
         }
 
         .footer-name {
@@ -1190,6 +1376,44 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--ink);
+        }
+
+        .footer-tagline {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            color: var(--mid);
+        }
+
+        .footer-col-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--rule);
+            margin-bottom: 4px;
+        }
+
+        .footer-link {
+            font-family: 'DM Mono', monospace;
+            font-size: 12px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--mid);
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--ink);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 16px;
+            padding-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .footer-copy {
@@ -1318,9 +1542,8 @@
             }
 
             /* Contact */
-            #contact .container {
+            .contact-inner {
                 flex-direction: column;
-                align-items: flex-start;
                 gap: 24px;
                 padding-top: 28px;
                 padding-bottom: 28px;
@@ -1330,14 +1553,39 @@
                 white-space: normal;
             }
 
+            /* Process */
+            .process-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .process-item {
+                padding: 28px 20px;
+                border-right: none;
+                border-bottom: 1px solid #2A2A2A;
+            }
+
+            .process-item:last-child {
+                border-bottom: none;
+            }
+
             /* Footer */
-            footer .container {
-                padding-top: 16px;
-                padding-bottom: 16px;
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+
+            .footer-col:first-child {
+                grid-column: 1 / -1;
             }
 
             .footer-bottom {
                 flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .process-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -1366,6 +1614,7 @@
 
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
                 <li><a href="#work">Work</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -1382,6 +1631,7 @@
         <button class="mobile-menu-close" id="mobile-menu-close">✕ Close</button>
         <nav class="mobile-menu-nav">
             <a href="#about" class="mobile-menu-link">About</a>
+            <a href="#services" class="mobile-menu-link">Services</a>
             <a href="#work" class="mobile-menu-link">Work</a>
             <a href="#contact" class="mobile-menu-link">Contact</a>
         </nav>
@@ -1402,27 +1652,27 @@
             </p>
 
             <h1>
-                <span class="hero-headline-line1">Words that sell.</span>
-                <span class="hero-headline-line2">Copy that <span class="hero-headline-accent">converts.</span></span>
+                <span class="hero-headline-line1">Ecom Copy That</span>
+                <span class="hero-headline-line2">Actually <span class="hero-headline-accent">Converts.</span></span>
             </h1>
 
             <div class="hero-bottom">
                 <p class="hero-sub">
-                    Landing pages, advertorials, product launches —
-                    built around what actually makes people click.
+                    Landing pages built for cold traffic. Advertorials that don't feel like ads. Product launches that
+                    sell out — not sit out.
                 </p>
                 <a href="#work" class="hero-cta">See My Work ↓</a>
             </div>
 
             <div class="hero-badges">
                 <span class="hero-badge hero-badge--lime">
-                    <span class="badge-dot"></span>100% Original Copy
+                    <span class="badge-dot"></span>10+ Projects Delivered
                 </span>
                 <span class="hero-badge hero-badge--blue">
-                    <span class="badge-dot"></span>Self-Taught
+                    <span class="badge-dot"></span>Ecom Specialist
                 </span>
                 <span class="hero-badge hero-badge--amber">
-                    <span class="badge-dot"></span>Always Learning
+                    <span class="badge-dot"></span>Fast Turnaround
                 </span>
             </div>
 
@@ -1430,6 +1680,36 @@
             <span class="hero-bg-number" aria-hidden="true">01</span>
         </div>
     </section>
+
+    <!-- ========================
+       TICKER STRIP
+  ========================= -->
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span>Landing Pages</span>
+            <span class="ticker-dot">·</span>
+            <span>Advertorials</span>
+            <span class="ticker-dot">·</span>
+            <span>Product Launches</span>
+            <span class="ticker-dot">·</span>
+            <span>Brand Voice</span>
+            <span class="ticker-dot">·</span>
+            <span>Email Sequences</span>
+            <span class="ticker-dot">·</span>
+            <span>Conversion Copy</span>
+            <span class="ticker-dot">·</span>
+            <span>Ecom Brands</span>
+            <span class="ticker-dot">·</span>
+            <span>Landing Pages</span>
+            <span class="ticker-dot">·</span>
+            <span>Advertorials</span>
+            <span class="ticker-dot">·</span>
+            <span>Product Launches</span>
+            <span class="ticker-dot">·</span>
+            <span>Brand Voice</span>
+            <span class="ticker-dot">·</span>
+        </div>
+    </div>
 
     <!-- ========================
        4. ABOUT SECTION
@@ -1454,9 +1734,11 @@
                     </h2>
 
                     <p class="about-bio fade-in">
-                        I write copy for ecom brands that want to stop blending in. Landing pages,
-                        advertorials, product launches — built around what actually makes people
-                        click. Based online. Available everywhere.
+                        I got into copywriting because I was obsessed with what makes people stop scrolling. Not just
+                        good writing — but the kind that quietly understands what someone wants before they do. I write
+                        exclusively for ecom brands: landing pages that hold attention, advertorials that feel editorial
+                        but sell, launch copy that builds real anticipation. Self-taught, fast to brief, and always in
+                        it for results.
                     </p>
 
                     <div class="about-tags fade-in">
@@ -1474,7 +1756,7 @@
     <!-- ========================
        5. SERVICES STRIP
   ========================= -->
-    <section class="services-strip">
+    <section id="services" class="services-strip">
         <div class="container">
             <div class="services-grid">
                 <div class="service-item fade-in">
@@ -1663,29 +1945,63 @@
     </section>
 
     <!-- ========================
+       PROCESS SECTION
+  ========================= -->
+    <section class="process-section" id="process">
+        <div class="container">
+            <div class="process-header">
+                <p class="process-header-label">My Process</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-item fade-in">
+                    <span class="process-num">01</span>
+                    <h3 class="process-step-name">Research &amp; Customer Mining</h3>
+                    <p class="process-desc">Before I write a word, I dig into your customer's language — reviews,
+                        forums, DMs. The best copy doesn't invent an angle. It finds one hiding in plain sight.</p>
+                </div>
+                <div class="process-item fade-in">
+                    <span class="process-num">02</span>
+                    <h3 class="process-step-name">The Conversion Draft</h3>
+                    <p class="process-desc">You get a full, structured draft built around a single psychological hook.
+                        Every headline, every transition, every CTA has a reason to be there.</p>
+                </div>
+                <div class="process-item fade-in">
+                    <span class="process-num">03</span>
+                    <h3 class="process-step-name">The Final Polish</h3>
+                    <p class="process-desc">Two rounds of revision included. I tighten, cut what's not working, and make
+                        sure the copy feels native to your brand voice before it goes live.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================
        7. CONTACT SECTION
   ========================= -->
     <section id="contact">
         <div class="container">
-            <div class="contact-statement">
-                <p class="contact-overline">Let's work together</p>
-                <h2 class="contact-big">Got a brand that needs copy with <em>an edge?</em></h2>
-            </div>
-            <div class="contact-actions">
-                <a href="mailto:kamila.copy.hq@gmail.com" class="contact-cta-btn">
-                    Send a message →
-                </a>
-                <a href="https://www.linkedin.com/in/kamila-osmanova" target="_blank" rel="noopener noreferrer"
-                    class="contact-linkedin-btn">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853
-            0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9
-            1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337
-            7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063
-            2.065zm1.782 13.019H3.555V9h3.564v11.452z" />
-                    </svg>
-                    LinkedIn
-                </a>
+            <div class="contact-inner">
+                <div class="contact-statement">
+                    <p class="contact-overline">Let's work together</p>
+                    <h2 class="contact-big">Got a brand that needs copy with <em>an edge?</em></h2>
+                    <div class="contact-checklist">
+                        <span>→ What project do you need copy for?</span>
+                        <span>→ What's your timeline?</span>
+                        <span>→ Who's your target customer?</span>
+                    </div>
+                </div>
+                <div class="contact-actions">
+                    <a href="mailto:kamila.copy.hq@gmail.com" class="contact-cta-btn">Send a Message →</a>
+                    <a href="https://www.linkedin.com/in/kamila-osmanova" target="_blank" rel="noopener noreferrer"
+                        class="contact-linkedin-btn">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                            <path
+                                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452z" />
+                        </svg>
+                        LinkedIn
+                    </a>
+                    <p class="contact-response-time">Usually responds within 24 hours.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1695,9 +2011,28 @@
   ========================= -->
     <footer>
         <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <span class="footer-name">Kamila Osmanova</span>
+                    <span class="footer-tagline">Copywriter for digital ecom brands.</span>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-label">Navigation</span>
+                    <a href="#about" class="footer-link">About</a>
+                    <a href="#services" class="footer-link">Services</a>
+                    <a href="#work" class="footer-link">Work</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <span class="footer-col-label">Connect</span>
+                    <a href="mailto:kamila.copy.hq@gmail.com" class="footer-link">Email</a>
+                    <a href="https://www.linkedin.com/in/kamila-osmanova" target="_blank" rel="noopener noreferrer"
+                        class="footer-link">LinkedIn</a>
+                </div>
+            </div>
             <div class="footer-bottom">
-                <span class="footer-name">Kamila Osmanova</span>
                 <span class="footer-copy">© 2026 — All work is original copy</span>
+                <span class="footer-copy">Built with intention.</span>
             </div>
         </div>
     </footer>
@@ -1719,37 +2054,39 @@
         const cursor = document.getElementById('cursor');
         const cursorLabel = document.getElementById('cursor-label');
 
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursorLabel.style.left = e.clientX + 'px';
-            cursorLabel.style.top = e.clientY + 'px';
-        });
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.left = e.clientX + 'px';
+                cursor.style.top = e.clientY + 'px';
+                cursorLabel.style.left = e.clientX + 'px';
+                cursorLabel.style.top = e.clientY + 'px';
+            });
 
-        document.querySelectorAll('a:not(.work-card), button').forEach(el => {
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('hovered');
-                cursorLabel.classList.remove('visible');
+            document.querySelectorAll('a:not(.work-card), button').forEach(el => {
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hovered');
+                    cursorLabel.classList.remove('visible');
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hovered');
+                });
             });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hovered');
-            });
-        });
 
-        document.querySelectorAll('.work-card').forEach(el => {
-            const title = el.querySelector('.card-title');
-            el.addEventListener('mouseenter', () => {
-                cursor.classList.add('hovered');
-                if (title) {
-                    cursorLabel.textContent = title.textContent.trim();
-                    cursorLabel.classList.add('visible');
-                }
+            document.querySelectorAll('.work-card').forEach(el => {
+                const title = el.querySelector('.card-title');
+                el.addEventListener('mouseenter', () => {
+                    cursor.classList.add('hovered');
+                    if (title) {
+                        cursorLabel.textContent = title.textContent.trim();
+                        cursorLabel.classList.add('visible');
+                    }
+                });
+                el.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('hovered');
+                    cursorLabel.classList.remove('visible');
+                });
             });
-            el.addEventListener('mouseleave', () => {
-                cursor.classList.remove('hovered');
-                cursorLabel.classList.remove('visible');
-            });
-        });
+        }
 
         // --- Mobile menu ---
         const hamburger = document.getElementById('hamburger');
@@ -1783,7 +2120,7 @@
         document.querySelectorAll('.fade-in').forEach((el) => fadeObserver.observe(el));
 
         // --- Active nav highlight on scroll ---
-        const sections = document.querySelectorAll('#about, #work, #contact');
+        const sections = document.querySelectorAll('#about, #services, #work, #contact');
         const navLinks = document.querySelectorAll('.nav-links a');
 
         const sectionObserver = new IntersectionObserver((entries) => {
