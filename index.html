@@ -484,43 +484,79 @@
             font-size: 11px;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: var(--mid);
-            border: 1px solid var(--rule);
-            padding: 7px 14px;
-            transition: border-color 0.2s ease, color 0.2s ease;
+            padding: 7px 16px;
+            transition: box-shadow 0.3s ease, transform 0.2s ease;
         }
 
         .hero-badge:hover {
-            border-color: var(--ink);
-            color: var(--ink);
+            transform: translateY(-1px);
         }
 
-        .hero-badge--glow {
-            border-color: var(--lime);
+        /* Badge 1 — 100% Original Copy: Lime (existing brand accent) */
+        .hero-badge--lime {
+            border: 1px solid var(--lime);
             color: var(--ink);
-            background: rgba(200, 241, 53, 0.08);
-            box-shadow: 0 0 12px rgba(200, 241, 53, 0.25),
-                0 0 24px rgba(200, 241, 53, 0.1);
+            background: rgba(200, 241, 53, 0.07);
+            box-shadow: 0 0 10px rgba(200, 241, 53, 0.2),
+                0 0 20px rgba(200, 241, 53, 0.08);
         }
 
-        .hero-badge--glow:hover {
-            box-shadow: 0 0 18px rgba(200, 241, 53, 0.4),
-                0 0 36px rgba(200, 241, 53, 0.15);
-            border-color: var(--lime);
+        .hero-badge--lime:hover {
+            box-shadow: 0 0 16px rgba(200, 241, 53, 0.45),
+                0 0 32px rgba(200, 241, 53, 0.18);
+        }
+
+        .hero-badge--lime .badge-dot {
+            background: var(--lime);
+            box-shadow: 0 0 5px rgba(200, 241, 53, 0.9);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        /* Badge 2 — Self-Taught: Blue/cyan */
+        .hero-badge--blue {
+            border: 1px solid #5B9CF6;
+            color: var(--ink);
+            background: rgba(91, 156, 246, 0.06);
+            box-shadow: 0 0 10px rgba(91, 156, 246, 0.15),
+                0 0 20px rgba(91, 156, 246, 0.06);
+        }
+
+        .hero-badge--blue:hover {
+            box-shadow: 0 0 16px rgba(91, 156, 246, 0.35),
+                0 0 32px rgba(91, 156, 246, 0.14);
+        }
+
+        .hero-badge--blue .badge-dot {
+            background: #5B9CF6;
+            box-shadow: 0 0 5px rgba(91, 156, 246, 0.8);
+            animation: pulse-dot 2.4s ease-in-out infinite;
+        }
+
+        /* Badge 3 — Always Learning: Warm amber/orange */
+        .hero-badge--amber {
+            border: 1px solid #F59E42;
+            color: var(--ink);
+            background: rgba(245, 158, 66, 0.06);
+            box-shadow: 0 0 10px rgba(245, 158, 66, 0.15),
+                0 0 20px rgba(245, 158, 66, 0.06);
+        }
+
+        .hero-badge--amber:hover {
+            box-shadow: 0 0 16px rgba(245, 158, 66, 0.35),
+                0 0 32px rgba(245, 158, 66, 0.14);
+        }
+
+        .hero-badge--amber .badge-dot {
+            background: #F59E42;
+            box-shadow: 0 0 5px rgba(245, 158, 66, 0.8);
+            animation: pulse-dot 2.8s ease-in-out infinite;
         }
 
         .badge-dot {
             width: 5px;
             height: 5px;
             border-radius: 50%;
-            background: var(--rule);
             flex-shrink: 0;
-        }
-
-        .hero-badge--glow .badge-dot {
-            background: var(--lime);
-            box-shadow: 0 0 6px rgba(200, 241, 53, 0.8);
-            animation: pulse-dot 2s ease-in-out infinite;
         }
 
         .hero-vertical-label {
@@ -560,51 +596,6 @@
         }
 
         /* ===========================
-       3. TICKER / MARQUEE BAR
-    =========================== */
-        .ticker {
-            width: 100%;
-            background: var(--ink);
-            overflow: hidden;
-            white-space: nowrap;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--rule);
-        }
-
-        .ticker:hover .ticker-track {
-            animation-play-state: paused;
-        }
-
-        .ticker-track {
-            display: inline-flex;
-            animation: ticker-scroll 20s linear infinite;
-        }
-
-        .ticker-item {
-            font-family: 'DM Mono', monospace;
-            font-size: 12px;
-            font-weight: 400;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--lime);
-        }
-
-        .ticker-dot {
-            color: var(--mid);
-            margin: 0 20px;
-        }
-
-        @keyframes ticker-scroll {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-50%);
-            }
-        }
-
-        /* ===========================
        4. ABOUT SECTION
     =========================== */
         .about-wrap {
@@ -614,12 +605,14 @@
         .about {
             display: grid;
             grid-template-columns: 380px 1fr;
+            align-items: stretch;
         }
 
         .about-image-col {
             border-right: 1px solid var(--rule);
             border-left: 1px solid var(--rule);
-            height: 360px;
+            height: auto;
+            min-height: 320px;
             position: relative;
             overflow: hidden;
         }
@@ -628,7 +621,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 25%;
+            object-position: center 20%;
             filter: grayscale(15%) contrast(1.05);
             transition: filter 0.4s ease;
         }
@@ -753,13 +746,16 @@
        5. SERVICES STRIP
     =========================== */
         .services-strip {
-            background: var(--ink);
             border-bottom: 1px solid #333;
+            border-top: 1px solid #333;
         }
 
         .services-strip .container {
+            background: var(--ink);
             padding-top: 0;
             padding-bottom: 0;
+            border-left: 1px solid #2A2A2A;
+            border-right: 1px solid #2A2A2A;
         }
 
         .services-grid {
@@ -838,17 +834,23 @@
             color: var(--mid);
         }
 
+        .work-grid-container {
+            border-left: 1px solid var(--rule);
+            border-right: 1px solid var(--rule);
+            padding-left: 0;
+            padding-right: 0;
+        }
+
         .work-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            border-left: 1px solid var(--rule);
-            border-right: 1px solid var(--rule);
             background-color: var(--bg);
         }
 
         .work-card {
             display: flex;
             flex-direction: column;
+            height: 340px;
             border-right: 1px solid var(--rule);
             border-bottom: 1px solid var(--rule);
             transition: background 0.3s ease;
@@ -879,17 +881,12 @@
             transition: background 0.3s ease;
         }
 
-        /* Thumbnail — 1:1 cover */
         .card-thumb-wrap {
+            flex: 7;
             width: 100%;
-            aspect-ratio: 1 / 1;
             overflow: hidden;
             background: #ECEAE4;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
-            flex-shrink: 0;
         }
 
         .card-thumb {
@@ -930,11 +927,12 @@
         }
 
         .card-body {
-            padding: 12px 14px 16px;
+            flex: 3;
+            padding: 10px 14px 12px;
             display: flex;
             flex-direction: column;
-            gap: 6px;
-            flex-shrink: 0;
+            gap: 5px;
+            overflow: hidden;
         }
 
         .card-number {
@@ -1037,14 +1035,11 @@
         }
 
         #contact .container {
-            padding-top: 80px;
-            padding-bottom: 72px;
+            padding-top: 48px;
+            padding-bottom: 48px;
             border-left: 1px solid var(--rule);
             border-right: 1px solid var(--rule);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0;
-            align-items: center;
+            display: block;
         }
 
         .contact-statement {
@@ -1061,7 +1056,7 @@
             display: flex;
             align-items: center;
             gap: 16px;
-            margin-bottom: 40px;
+            margin-bottom: 24px;
         }
 
         .contact-overline::after {
@@ -1075,10 +1070,10 @@
         .contact-big {
             font-family: 'Playfair Display', serif;
             font-weight: 900;
-            font-size: clamp(48px, 7vw, 100px);
+            font-size: clamp(32px, 4.5vw, 64px);
             line-height: 1.0;
             letter-spacing: -0.02em;
-            margin-bottom: 56px;
+            margin-bottom: 36px;
         }
 
         .contact-big em {
@@ -1150,63 +1145,6 @@
             font-size: 17px;
             font-style: italic;
             color: var(--ink);
-        }
-
-        .contact-deco {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 100%;
-            padding-left: 64px;
-            border-left: 1px solid var(--rule);
-            min-height: 280px;
-        }
-
-        .contact-deco-inner {
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-        }
-
-        .contact-deco-line {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-size: clamp(40px, 5.5vw, 80px);
-            line-height: 1.0;
-            letter-spacing: -0.02em;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--rule);
-            display: block;
-            transition: -webkit-text-stroke-color 0.3s ease, color 0.3s ease;
-        }
-
-        .contact-deco-line--italic {
-            font-style: italic;
-            font-weight: 400;
-        }
-
-        .contact-deco:hover .contact-deco-line {
-            -webkit-text-stroke-color: var(--ink);
-        }
-
-        .contact-deco:hover .contact-deco-line--italic {
-            color: var(--lime);
-            -webkit-text-stroke-color: transparent;
-        }
-
-        .contact-deco-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            margin-top: 32px;
-        }
-
-        .contact-deco-meta span {
-            font-family: 'DM Mono', monospace;
-            font-size: 10px;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--rule);
         }
 
         /* ===========================
@@ -1386,21 +1324,29 @@
                 border-bottom: none;
             }
 
+            .work-card {
+                height: auto;
+            }
+
+            .card-thumb-wrap {
+                flex: none;
+                aspect-ratio: 4/3;
+            }
+
+            .card-body {
+                flex: none;
+            }
+
             /* Contact */
             #contact .container {
                 padding-top: 56px;
                 padding-bottom: 48px;
-                grid-template-columns: 1fr;
             }
 
             .contact-actions {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 32px;
-            }
-
-            .contact-deco {
-                display: none;
             }
 
             /* Footer */
@@ -1489,13 +1435,13 @@
             </div>
 
             <div class="hero-badges">
-                <span class="hero-badge hero-badge--glow">
+                <span class="hero-badge hero-badge--lime">
                     <span class="badge-dot"></span>100% Original Copy
                 </span>
-                <span class="hero-badge">
+                <span class="hero-badge hero-badge--blue">
                     <span class="badge-dot"></span>Self-Taught
                 </span>
-                <span class="hero-badge">
+                <span class="hero-badge hero-badge--amber">
                     <span class="badge-dot"></span>Always Learning
                 </span>
             </div>
@@ -1504,42 +1450,6 @@
             <span class="hero-bg-number" aria-hidden="true">01</span>
         </div>
     </section>
-
-    <!-- ========================
-       3. TICKER / MARQUEE BAR
-  ========================= -->
-    <div class="ticker" aria-hidden="true">
-        <div class="ticker-track">
-            <span class="ticker-item">Landing Pages</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Advertorials</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Product Launches</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Ecom Copy</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Brand Voice</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Conversion Copy</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Digital-First</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Landing Pages</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Advertorials</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Product Launches</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Ecom Copy</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Brand Voice</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Conversion Copy</span>
-            <span class="ticker-dot">·</span>
-            <span class="ticker-item">Digital-First</span>
-            <span class="ticker-dot">·</span>
-        </div>
-    </div>
 
     <!-- ========================
        4. ABOUT SECTION
@@ -1626,7 +1536,7 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container work-grid-container">
             <div class="work-grid">
                 <!-- Card 1: Fleming AI -->
                 <a href="./ai_fleming_landing/index.html" class="work-card fade-in">
@@ -1816,19 +1726,6 @@
                             <span class="contact-inline-value">kamila-osmanova</span>
                         </a>
                     </div>
-                </div>
-            </div>
-
-            <div class="contact-deco fade-in" aria-hidden="true">
-                <div class="contact-deco-inner">
-                    <span class="contact-deco-line">Write.</span>
-                    <span class="contact-deco-line contact-deco-line--italic">Sell.</span>
-                    <span class="contact-deco-line">Repeat.</span>
-                </div>
-                <div class="contact-deco-meta">
-                    <span>EST. 2022</span>
-                    <span>DIGITAL ECOM</span>
-                    <span>VILNIUS → WORLDWIDE</span>
                 </div>
             </div>
         </div>
