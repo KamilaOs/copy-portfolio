@@ -126,6 +126,17 @@ body {
     margin-bottom: 10px;
 }
 
+.portfolio-label {
+    font-size: 6.5pt;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-align: center;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 3px;
+    margin-top: -6px;
+}
+
 .portfolio-link {
     display: block;
     font-size: 7.5pt;
@@ -245,33 +256,35 @@ hr.divider {
 }
 
 .hero-line1 {
-    font-size: 24pt;
+    font-size: 19pt;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.2;
+    white-space: nowrap;
 }
 
 .hero-line2 {
-    font-size: 24pt;
+    font-size: 19pt;
     font-weight: 700;
     font-style: italic;
     color: var(--accent);
     line-height: 1.2;
+    white-space: nowrap;
 }
 
 .main-column hr.divider {
-    margin: 22px 0;
+    margin: 14px 0;
 }
 
 .content-section {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 }
 
 .body-text p {
-    font-size: 10pt;
+    font-size: 9.5pt;
     font-weight: 400;
     color: var(--text-body);
-    line-height: 15pt;
+    line-height: 14pt;
 }
 
 .body-text p:not(:last-child) {
@@ -283,7 +296,7 @@ hr.divider {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin: 10px 0 28px 0;
+    margin: 10px 0 16px 0;
 }
 
 .stat-item {
@@ -320,7 +333,7 @@ hr.divider {
 
 /* EXPERIENCE */
 .job {
-    margin-bottom: 20px;
+    margin-bottom: 14px;
 }
 
 .job:last-child {
@@ -363,10 +376,10 @@ hr.divider {
 }
 
 .job-bullets li {
-    font-size: 9.5pt;
+    font-size: 9pt;
     color: var(--text-body);
-    line-height: 15pt;
-    margin-bottom: 6px;
+    line-height: 13.5pt;
+    margin-bottom: 5px;
     padding-left: 12px;
     position: relative;
 }
