@@ -256,7 +256,7 @@ hr.divider {
 }
 
 .hero-line1 {
-    font-size: 19pt;
+    font-size: 21pt;
     font-weight: 700;
     color: var(--text-primary);
     line-height: 1.2;
@@ -264,7 +264,7 @@ hr.divider {
 }
 
 .hero-line2 {
-    font-size: 19pt;
+    font-size: 21pt;
     font-weight: 700;
     font-style: italic;
     color: var(--accent);
@@ -369,6 +369,7 @@ hr.divider {
 
 .why-me {
     margin-bottom: 0;
+    margin-top: -6px;
 }
 
 .job-bullets {
