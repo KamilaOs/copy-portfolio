@@ -509,13 +509,12 @@
 
         .hero-cta-row {
             display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 16px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
             animation: fadeUp 0.7s ease forwards;
             animation-delay: 0.65s;
             opacity: 0;
-            flex-wrap: wrap;
         }
 
         .hero-cta {
@@ -531,6 +530,7 @@
             text-transform: uppercase;
             padding: 0 28px;
             height: 48px;
+            width: 260px;
             white-space: nowrap;
             flex-shrink: 0;
             transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
@@ -561,12 +561,13 @@
         }
 
         .hero-cta-note {
-            font-family: 'DM Mono', 'Courier New', monospace;
-            font-size: 10px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 13px;
+            letter-spacing: 0em;
             color: var(--mid);
-            flex-shrink: 1;
+            padding-left: 4px;
         }
 
         .hero-stats {
@@ -733,6 +734,11 @@
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 12px;
+            }
+
+            .hero-cta {
+                width: 100%;
+                max-width: 320px;
             }
 
             .hero-stats {
@@ -2022,7 +2028,7 @@
                         <div class="hero-cta-row">
                             <a href="./resume/" class="hero-cta hero-cta--violet">See My Resume →</a>
                             <a href="#work" class="hero-cta">See My Work ↓</a>
-                            <span class="hero-cta-note">9 live projects — no fluff</span>
+                            <span class="hero-cta-note">9 live projects</span>
                         </div>
                         <div class="hero-stats">
                             <div class="hero-stat">
