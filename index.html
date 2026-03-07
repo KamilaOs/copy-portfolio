@@ -1049,11 +1049,11 @@
         .work-card {
             display: flex;
             flex-direction: column;
-            height: 460px;
+            height: 500px;
             border-right: 1px solid var(--rule);
             border-bottom: 1px solid var(--rule);
             transition: background 0.3s ease;
-            cursor: none;
+            cursor: default;
             color: var(--ink);
         }
 
@@ -1187,7 +1187,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
-            overflow: hidden;
+            overflow: visible;
             min-height: 0;
         }
 
@@ -1270,26 +1270,53 @@
             transform: translateX(4px);
         }
 
-        .card-doc-link {
+        .card-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-top: auto;
+            padding-top: 8px;
+            border-top: 1px solid var(--rule);
+        }
+
+        .work-card:hover .card-links {
+            border-color: #333;
+        }
+
+        .card-link {
             font-family: 'DM Mono', monospace;
             font-size: 10px;
             letter-spacing: 0.08em;
             text-transform: uppercase;
             color: var(--mid);
-            border-top: 1px solid var(--rule);
-            padding-top: 6px;
-            margin-top: 2px;
-            display: block;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             transition: color 0.2s ease;
+            border-bottom: 1px solid var(--rule);
         }
 
-        .card-doc-link:hover {
+        .card-link:last-child {
+            border-bottom: none;
+        }
+
+        .card-link:hover {
+            color: var(--ink);
+        }
+
+        .work-card:hover .card-link {
+            color: #888;
+            border-color: #2a2a2a;
+        }
+
+        .work-card:hover .card-link:hover {
             color: var(--lime);
         }
 
-        .work-card:hover .card-doc-link {
-            color: #888;
-            border-color: #333;
+        .card-link--disabled {
+            opacity: 0.35;
+            pointer-events: none;
         }
 
         /* ===========================
@@ -1968,7 +1995,7 @@
         <div class="container work-grid-container">
             <div class="work-grid">
                 <!-- Card 1: Fleming AI -->
-                <a href="./ai_fleming_landing/index.html" class="work-card fade-in">
+                <div class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./ai-fleming-thumb.jpg" alt="Heally project thumbnail" class="card-thumb" />
@@ -1978,14 +2005,17 @@
                         <span class="card-type">Landing Page</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Heally</h3>
-                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
-                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
+                        <div class="card-links">
+                            <a href="./ai_fleming_landing/index.html" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Live Page <span>→</span></a>
+                            <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Google Doc <span>→</span></a>
+                        </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Card 2: Chaos -->
-                <a href="./chaos-advertorial/index.html" class="work-card fade-in">
+                <div class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./chaos-thumb.jpg" alt="Chaos project thumbnail" class="card-thumb" />
@@ -1995,14 +2025,17 @@
                         <span class="card-type">Advertorial</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Chaos</h3>
-                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
-                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
+                        <div class="card-links">
+                            <a href="./chaos-advertorial/index.html" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Live Page <span>→</span></a>
+                            <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Google Doc <span>→</span></a>
+                        </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Card 3: Flockly -->
-                <a href="./flockly-landing-page/index.html" class="work-card fade-in">
+                <div class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./flockly-thumb.jpg" alt="Flockly project thumbnail" class="card-thumb" />
@@ -2012,14 +2045,17 @@
                         <span class="card-type">Product Launch</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Flockly</h3>
-                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
-                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
+                        <div class="card-links">
+                            <a href="./flockly-landing-page/index.html" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Live Page <span>→</span></a>
+                            <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Google Doc <span>→</span></a>
+                        </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Card 4: Verta -->
-                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
+                <div class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./verta-thumb.jpg" alt="Verta project thumbnail" class="card-thumb" />
@@ -2029,14 +2065,16 @@
                         <span class="card-type">Landing Page</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Verta</h3>
-                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
-                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
+                        <div class="card-links">
+                            <span class="card-link card-link--disabled">Live Page <span>→</span></span>
+                            <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Google Doc <span>→</span></a>
+                        </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Card 5: The Deep Edit -->
-                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
+                <div class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./deep-edit-thumb.jpg" alt="The Deep Edit project thumbnail" class="card-thumb" />
@@ -2046,14 +2084,16 @@
                         <span class="card-type">Advertorial</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">The Deep Edit</h3>
-                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
-                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
+                        <div class="card-links">
+                            <span class="card-link card-link--disabled">Live Page <span>→</span></span>
+                            <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Google Doc <span>→</span></a>
+                        </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Card 6: Bloom Studio -->
-                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
+                <div class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./bloom-thumb.jpg" alt="Bloom Studio project thumbnail" class="card-thumb" />
@@ -2063,14 +2103,16 @@
                         <span class="card-type">Email Sequence</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Bloom Studio</h3>
-                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
-                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
+                        <div class="card-links">
+                            <span class="card-link card-link--disabled">Live Page <span>→</span></span>
+                            <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Google Doc <span>→</span></a>
+                        </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Card 7: Kinfolk -->
-                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
+                <div class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./kinfolk-thumb.jpg" alt="Kinfolk project thumbnail" class="card-thumb" />
@@ -2080,14 +2122,16 @@
                         <span class="card-type">Product Launch</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Kinfolk</h3>
-                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
-                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
+                        <div class="card-links">
+                            <span class="card-link card-link--disabled">Live Page <span>→</span></span>
+                            <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Google Doc <span>→</span></a>
+                        </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Card 8: Sable -->
-                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
+                <div class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./sable-thumb.jpg" alt="Sable project thumbnail" class="card-thumb" />
@@ -2097,14 +2141,16 @@
                         <span class="card-type">Landing Page</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Sable</h3>
-                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
-                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
+                        <div class="card-links">
+                            <span class="card-link card-link--disabled">Live Page <span>→</span></span>
+                            <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Google Doc <span>→</span></a>
+                        </div>
                     </div>
-                </a>
+                </div>
 
                 <!-- Card 9: Raw & Co -->
-                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
+                <div class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./rawco-thumb.jpg" alt="Raw and Co project thumbnail" class="card-thumb" />
@@ -2114,11 +2160,13 @@
                         <span class="card-type">Advertorial</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Raw &amp; Co</h3>
-                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
-                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
+                        <div class="card-links">
+                            <span class="card-link card-link--disabled">Live Page <span>→</span></span>
+                            <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer"
+                                class="card-link">Google Doc <span>→</span></a>
+                        </div>
                     </div>
-                </a>
+                </div>
 
             </div>
         </div>
