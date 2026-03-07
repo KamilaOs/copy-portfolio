@@ -8,13 +8,20 @@
 }
 
 :root {
-    --bg-dark: #2D1B5E; /* Deep violet */
-    --bg-mid: #3D2875;  /* Mid violet */
-    --accent: #5CF4E4;  /* Icy cyan */
-    --text-primary: #FFFFFF; /* White */
-    --text-body: #C4BAE8; /* Lavender-gray */
-    --text-muted: #8A7AB0; /* Medium purple-gray */
-    --divider: #4A3A70; /* Dark purple */
+    --bg-dark: #2D1B5E;
+    /* Deep violet */
+    --bg-mid: #3D2875;
+    /* Mid violet */
+    --accent: #8EEEE6;
+    /* Icy cyan */
+    --text-primary: #FFFFFF;
+    /* White */
+    --text-body: #C4BAE8;
+    /* Lavender-gray */
+    --text-muted: #8A7AB0;
+    /* Medium purple-gray */
+    --divider: #4A3A70;
+    /* Dark purple */
 }
 
 body {
@@ -34,7 +41,7 @@ body {
     flex-direction: row;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
 }
 
 /* =========================================
@@ -49,6 +56,24 @@ body {
     justify-content: space-between;
     padding: 30px 20px 20px 20px;
     flex-shrink: 0;
+    position: relative;
+}
+
+.sidebar::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+    mix-blend-mode: overlay;
+}
+
+.sidebar>* {
+    position: relative;
+    z-index: 2;
 }
 
 .sidebar-top {
@@ -209,7 +234,7 @@ hr.divider {
 }
 
 .main-column hr.divider {
-    margin: 20px 0;
+    margin: 22px 0;
 }
 
 .content-section {
@@ -232,7 +257,7 @@ hr.divider {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin: 10px 0;
+    margin: 10px 0 28px 0;
 }
 
 .stat-item {
@@ -244,7 +269,7 @@ hr.divider {
 }
 
 .stat-num {
-    font-size: 42pt;
+    font-size: clamp(32pt, 5.5vw, 42pt);
     font-weight: 700;
     color: var(--accent);
     line-height: 1;
