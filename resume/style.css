@@ -116,6 +116,32 @@ body {
     letter-spacing: 0.05em;
 }
 
+.niche {
+    font-size: 7pt;
+    font-weight: 400;
+    color: var(--text-muted);
+    text-align: center;
+    letter-spacing: 0.04em;
+    margin-top: 4px;
+    margin-bottom: 10px;
+}
+
+.portfolio-link {
+    display: block;
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: var(--accent);
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    margin-bottom: 16px;
+    word-break: break-all;
+}
+
+.portfolio-link:hover {
+    text-decoration: underline;
+}
+
 hr.divider {
     width: 100%;
     border: none;
@@ -326,6 +352,10 @@ hr.divider {
     font-weight: 400;
     color: var(--text-muted);
     margin-bottom: 8px;
+}
+
+.why-me {
+    margin-bottom: 0;
 }
 
 .job-bullets {
