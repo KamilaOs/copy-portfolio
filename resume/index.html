@@ -94,10 +94,11 @@
 
         <!-- RIGHT MAIN COLUMN -->
         <main class="main-column">
+            <div class="dot-grid" aria-hidden="true"></div>
 
             <header class="hero">
                 <h2 class="hero-line1">Most copywriters send a text file.</h2>
-                <h2 class="hero-line2">I send a page you can launch.</h2>
+                <h2 class="hero-line2">I send a page you can launch.<span class="hero-bar"></span></h2>
             </header>
             <hr class="divider">
 
@@ -193,6 +194,28 @@
         </main>
     </div>
 
+    <script>
+        function countUp(el, target, suffix, duration) {
+            const isFloat = target % 1 !== 0;
+            let start = 0;
+            const step = target / (duration / 16);
+            const timer = setInterval(() => {
+                start += step;
+                if (start >= target) {
+                    el.textContent = target + suffix;
+                    clearInterval(timer);
+                } else {
+                    el.textContent = Math.floor(start) + suffix;
+                }
+            }, 16);
+        }
+
+        window.addEventListener('load', () => {
+            setTimeout(() => countUp(document.querySelectorAll('.stat-num')[0], 9, '', 800), 400);
+            setTimeout(() => countUp(document.querySelectorAll('.stat-num')[1], 6, '+', 900), 500);
+            setTimeout(() => countUp(document.querySelectorAll('.stat-num')[2], 40, 'K+', 1000), 600);
+        });
+    </script>
 </body>
 
 </html>
