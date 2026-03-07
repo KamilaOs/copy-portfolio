@@ -436,7 +436,8 @@
             color: var(--bg);
             background: var(--ink);
             padding: 0 8px 4px;
-            display: inline;
+            display: inline-block;
+            vertical-align: bottom;
         }
 
         .hero-bottom {
@@ -489,8 +490,9 @@
 
         .hero-badges {
             display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
+            gap: 8px;
+            flex-wrap: nowrap;
+            white-space: nowrap;
             margin-top: 40px;
             padding-top: 28px;
             max-width: 62%;
@@ -505,10 +507,10 @@
             align-items: center;
             gap: 8px;
             font-family: 'DM Mono', monospace;
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            padding: 7px 16px;
+            padding: 5px 10px;
             transition: box-shadow 0.3s ease, transform 0.2s ease;
         }
 
@@ -1848,7 +1850,7 @@
                     <span class="badge-dot"></span>Built From Zero. Still Learning.
                 </span>
                 <span class="hero-badge hero-badge--amber">
-                    <span class="badge-dot"></span>Open to Full-Time Roles
+                    <span class="badge-dot"></span>Open to Full-Time
                 </span>
             </div>
 
@@ -1976,9 +1978,9 @@
                         <span class="card-type">Landing Page</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Heally</h3>
-                        <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
                         <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (Google Doc) →</a>
+                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
                     </div>
                 </a>
 
@@ -1993,9 +1995,9 @@
                         <span class="card-type">Advertorial</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Chaos</h3>
-                        <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
                         <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (Google Doc) →</a>
+                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
                     </div>
                 </a>
 
@@ -2010,9 +2012,9 @@
                         <span class="card-type">Product Launch</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Flockly</h3>
-                        <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
                         <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
-                            onclick="event.stopPropagation();">Read Copy (Google Doc) →</a>
+                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
                     </div>
                 </a>
 
@@ -2027,7 +2029,9 @@
                         <span class="card-type">Landing Page</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Verta</h3>
-                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
+                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
+                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
                     </div>
                 </a>
 
@@ -2042,7 +2046,9 @@
                         <span class="card-type">Advertorial</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">The Deep Edit</h3>
-                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
+                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
+                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
                     </div>
                 </a>
 
@@ -2057,7 +2063,9 @@
                         <span class="card-type">Email Sequence</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Bloom Studio</h3>
-                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
+                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
+                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
                     </div>
                 </a>
 
@@ -2072,7 +2080,9 @@
                         <span class="card-type">Product Launch</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Kinfolk</h3>
-                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
+                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
+                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
                     </div>
                 </a>
 
@@ -2087,7 +2097,9 @@
                         <span class="card-type">Landing Page</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Sable</h3>
-                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
+                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
+                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
                     </div>
                 </a>
 
@@ -2102,7 +2114,9 @@
                         <span class="card-type">Advertorial</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Raw &amp; Co</h3>
-                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy (web) <span class="card-arrow">→</span></div>
+                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
+                            onclick="event.stopPropagation();">Read Copy (doc) →</a>
                     </div>
                 </a>
 
@@ -2214,7 +2228,6 @@
                         </svg>
                         LinkedIn
                     </a>
-                    <p class="contact-response-time">Usually responds within 24 hours.</p>
                 </div>
 
             </div>
