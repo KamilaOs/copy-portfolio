@@ -509,18 +509,13 @@
 
         .hero-cta-row {
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
+            flex-direction: row;
+            align-items: center;
             gap: 16px;
             animation: fadeUp 0.7s ease forwards;
             animation-delay: 0.65s;
             opacity: 0;
-        }
-
-        .hero-cta-group {
-            display: flex;
-            align-items: center;
-            gap: 16px;
+            flex-wrap: wrap;
         }
 
         .hero-cta {
@@ -529,19 +524,20 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            background: var(--lime);
-            color: var(--ink);
             font-family: 'DM Mono', 'Courier New', monospace;
             font-size: 12px;
             font-weight: 500;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            padding: 14px 28px;
+            padding: 0 28px;
             height: 48px;
+            white-space: nowrap;
+            flex-shrink: 0;
             transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
             outline: 2px solid transparent;
             outline-offset: 0px;
-            flex-shrink: 0;
+            background: var(--lime);
+            color: var(--ink);
         }
 
         .hero-cta:hover {
@@ -554,14 +550,14 @@
 
         .hero-cta--violet {
             background: #9D72FF;
-            color: var(--bg);
-            font-size: 11px;
+            color: #fff;
         }
 
         .hero-cta--violet:hover {
             background: var(--ink);
             color: #9D72FF;
             outline-color: #9D72FF;
+            transform: translateY(-2px);
         }
 
         .hero-cta-note {
@@ -570,6 +566,7 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
             color: var(--mid);
+            flex-shrink: 1;
         }
 
         .hero-stats {
@@ -735,6 +732,7 @@
             .hero-cta-row {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 12px;
             }
 
             .hero-stats {
@@ -2022,13 +2020,9 @@
                     </div>
                     <div class="hero-left-bottom">
                         <div class="hero-cta-row">
-                            <div class="hero-cta-group">
-                                <a href="./resume/" class="hero-cta hero-cta--violet">See My Resume →</a>
-                            </div>
-                            <div class="hero-cta-group">
-                                <a href="#work" class="hero-cta">See My Work ↓</a>
-                                <span class="hero-cta-note">9 live projects — no fluff</span>
-                            </div>
+                            <a href="./resume/" class="hero-cta hero-cta--violet">See My Resume →</a>
+                            <a href="#work" class="hero-cta">See My Work ↓</a>
+                            <span class="hero-cta-note">9 live projects — no fluff</span>
                         </div>
                         <div class="hero-stats">
                             <div class="hero-stat">
