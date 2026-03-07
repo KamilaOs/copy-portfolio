@@ -126,47 +126,77 @@ body {
     margin-bottom: 10px;
 }
 
-.portfolio-label {
-    font-size: 6.5pt;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-align: center;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 3px;
-    margin-top: -6px;
-}
-
-.portfolio-link {
-    display: block;
-    font-size: 7.5pt;
-    font-weight: 700;
-    color: var(--accent);
-    text-align: center;
+.portfolio-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background: var(--accent);
+    border-radius: 6px;
+    padding: 10px 12px 8px 12px;
+    margin-bottom: 18px;
+    margin-top: 2px;
     text-decoration: none;
-    letter-spacing: 0.03em;
-    margin-bottom: 16px;
-    word-break: break-all;
-    animation: pulse 3s ease-in-out infinite;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 0px rgba(142, 238, 230, 0);
+    animation: portfolioPulse 3s ease-in-out infinite;
 }
 
-@keyframes pulse {
+.portfolio-block:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(142, 238, 230, 0.35);
+    animation: none;
+}
+
+@keyframes portfolioPulse {
     0% {
-        opacity: 1;
+        box-shadow: 0 0 0px rgba(142, 238, 230, 0);
     }
 
     50% {
-        opacity: 0.6;
+        box-shadow: 0 0 14px rgba(142, 238, 230, 0.4);
     }
 
     100% {
-        opacity: 1;
+        box-shadow: 0 0 0px rgba(142, 238, 230, 0);
     }
 }
 
-.portfolio-link:hover {
-    text-decoration: underline;
-    animation: none;
+.portfolio-block-label {
+    font-size: 7pt;
+    font-weight: 700;
+    color: var(--bg-dark);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1.2;
+}
+
+.portfolio-block-url {
+    font-size: 6.5pt;
+    font-weight: 400;
+    color: var(--bg-dark);
+    opacity: 0.7;
+    letter-spacing: 0.02em;
+    margin-top: 2px;
+    word-break: break-all;
+    text-align: center;
+}
+
+.portfolio-block-arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 11pt;
+    color: var(--bg-dark);
+    opacity: 0.6;
+    transition: right 0.2s ease, opacity 0.2s ease;
+}
+
+.portfolio-block:hover .portfolio-block-arrow {
+    right: 7px;
     opacity: 1;
 }
 
