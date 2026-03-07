@@ -462,11 +462,17 @@ hr.divider {
 
 .why-me {
     margin-bottom: 0;
-    margin-top: 2px;
-    background: rgba(142, 238, 230, 0.04);
-    border-left: 3px solid var(--accent);
-    padding: 16px 20px;
-    border-radius: 0 6px 6px 0;
+    margin-top: 6px;
+    background: rgba(142, 238, 230, 0.08);
+    border: 1px solid rgba(142, 238, 230, 0.2);
+    border-left: 4px solid var(--accent);
+    padding: 18px 22px;
+    border-radius: 4px 8px 8px 4px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.why-me .body-text p {
+    color: var(--text-primary);
 }
 
 .job-bullets {
