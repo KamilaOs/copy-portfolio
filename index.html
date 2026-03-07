@@ -383,107 +383,139 @@
         }
 
         /* ===========================
-       2. HERO SECTION
-    =========================== */
-
+           2. HERO SECTION — REDESIGNED
+        =========================== */
         .hero {
-            padding: 120px 0 48px;
+            padding-top: 56px;
             overflow: hidden;
             position: relative;
-        }
-
-        .hero .container {
-            position: relative;
             border-bottom: 1px solid var(--rule);
-            padding-bottom: 48px;
         }
 
-        .hero h1 {
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            min-height: calc(100vh - 56px);
+            max-height: 860px;
+        }
+
+        .hero-left {
+            padding: 64px 56px 48px 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid var(--rule);
+        }
+
+        .hero-left-top {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'DM Mono', 'Courier New', monospace;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--mid);
+            margin-bottom: 28px;
+            animation: fadeUp 0.6s ease forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            display: block;
+            width: 32px;
+            height: 2px;
+            background: var(--lime);
+            flex-shrink: 0;
+        }
+
+        .hero-h1 {
             font-family: 'Playfair Display', Georgia, serif;
             font-weight: 900;
-            font-size: clamp(52px, 8.5vw, 128px);
+            font-size: clamp(48px, 6vw, 96px);
             line-height: 1.0;
-            letter-spacing: -0.02em;
-            max-width: 62%;
-            margin-bottom: 28px;
+            letter-spacing: -0.025em;
+            color: var(--ink);
+            margin-bottom: 32px;
+            animation: fadeUp 0.7s ease forwards;
+            animation-delay: 0.35s;
+            opacity: 0;
         }
 
-        .hero-headline-line1 {
+        .hero-h1 .line-mono {
             display: block;
             font-family: 'DM Mono', 'Courier New', monospace;
+            font-size: clamp(18px, 2vw, 28px);
             font-weight: 500;
-            font-size: clamp(28px, 4vw, 60px);
-            letter-spacing: 0.04em;
+            letter-spacing: 0.06em;
             text-transform: uppercase;
-            color: var(--ink);
-            animation: fadeUp 0.7s ease forwards;
-            animation-delay: 0.3s;
-            opacity: 0;
-            margin-bottom: 4px;
-            position: relative;
-            z-index: 3;
+            color: var(--mid);
+            margin-bottom: 8px;
         }
 
-        .hero-headline-line2 {
+        .hero-h1 .line-serif {
             display: block;
-            font-family: 'Playfair Display', Georgia, serif;
-            font-weight: 900;
-            font-size: clamp(52px, 8.5vw, 128px);
-            letter-spacing: -0.02em;
-            line-height: 0.95;
-            color: var(--ink);
-            font-style: normal;
+        }
+
+        .hero-h1 .line-accent {
+            display: inline-block;
+            background: var(--ink);
+            color: var(--bg);
+            padding: 2px 10px 6px;
+            line-height: 1;
+        }
+
+        .hero-sub {
+            font-family: 'Barlow', system-ui, -apple-system, sans-serif;
+            font-size: 15px;
+            font-weight: 300;
+            color: var(--mid);
+            line-height: 1.7;
+            max-width: 42ch;
             animation: fadeUp 0.7s ease forwards;
             animation-delay: 0.5s;
             opacity: 0;
         }
 
-        .hero-headline-accent {
-            color: var(--bg);
-            background: var(--ink);
-            padding: 0 8px 4px;
-            display: inline-block;
-            vertical-align: bottom;
-        }
-
-        .hero-bottom {
+        .hero-left-bottom {
             display: flex;
-            align-items: flex-end;
-            justify-content: space-between;
-            gap: 40px;
-            max-width: 62%;
+            flex-direction: column;
+            gap: 24px;
         }
 
-        .hero-sub {
-            font-family: 'Barlow', system-ui, -apple-system, sans-serif;
-            font-size: 16px;
-            font-weight: 300;
-            color: var(--mid);
-            max-width: 38ch;
-            line-height: 1.6;
+        .hero-cta-row {
+            display: flex;
+            align-items: center;
+            gap: 20px;
             animation: fadeUp 0.7s ease forwards;
-            animation-delay: 0.7s;
+            animation-delay: 0.65s;
             opacity: 0;
         }
 
         .hero-cta {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             background: var(--lime);
             color: var(--ink);
             font-family: 'DM Mono', 'Courier New', monospace;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 500;
             letter-spacing: 0.08em;
             text-transform: uppercase;
-            padding: 16px 32px;
-            border: none;
-            flex-shrink: 0;
+            padding: 14px 28px;
             transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
-            animation: fadeUp 0.7s ease forwards;
-            animation-delay: 0.9s;
-            opacity: 0;
             outline: 2px solid transparent;
             outline-offset: 0px;
+            flex-shrink: 0;
         }
 
         .hero-cta:hover {
@@ -494,140 +526,189 @@
             outline-offset: 3px;
         }
 
-        .hero-badges {
-            display: flex;
-            gap: 8px;
-            flex-wrap: nowrap;
-            white-space: nowrap;
-            margin-top: 40px;
-            padding-top: 28px;
-            max-width: 62%;
-            border-top: 3px solid var(--lime);
-            animation: fadeUp 0.7s ease forwards;
-            animation-delay: 1.1s;
-            opacity: 0;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+        .hero-cta-note {
             font-family: 'DM Mono', 'Courier New', monospace;
             font-size: 10px;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            padding: 5px 10px;
-            transition: box-shadow 0.3s ease, transform 0.2s ease;
+            color: var(--mid);
         }
 
-        .hero-badge:hover {
-            transform: translateY(-1px);
+        .hero-stats {
+            display: flex;
+            gap: 0;
+            border-top: 1px solid var(--rule);
+            padding-top: 24px;
+            animation: fadeUp 0.7s ease forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
         }
 
-        /* Badge 1 — 100% Original Copy: Lime (existing brand accent) */
-        .hero-badge--lime {
-            border: 1px solid var(--lime);
+        .hero-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            padding-right: 32px;
+            border-right: 1px solid var(--rule);
+            margin-right: 32px;
+        }
+
+        .hero-stat:last-child {
+            border-right: none;
+            margin-right: 0;
+        }
+
+        .hero-stat-num {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 900;
+            font-size: clamp(24px, 2.5vw, 36px);
+            line-height: 1;
+            letter-spacing: -0.02em;
             color: var(--ink);
-            background: rgba(200, 241, 53, 0.07);
-            box-shadow: 0 0 10px rgba(200, 241, 53, 0.2),
-                0 0 20px rgba(200, 241, 53, 0.08);
         }
 
-        .hero-badge--lime:hover {
-            box-shadow: 0 0 16px rgba(200, 241, 53, 0.45),
-                0 0 32px rgba(200, 241, 53, 0.18);
+        .hero-stat-label {
+            font-family: 'DM Mono', 'Courier New', monospace;
+            font-size: 10px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--mid);
         }
 
-        .hero-badge--lime .badge-dot {
-            background: var(--lime);
-            box-shadow: 0 0 5px rgba(200, 241, 53, 0.9);
-            animation: pulse-dot 2s ease-in-out infinite;
-        }
-
-        /* Badge 2 — Self-Taught: Blue/cyan */
-        .hero-badge--blue {
-            border: 1px solid #5B9CF6;
-            color: var(--ink);
-            background: rgba(91, 156, 246, 0.06);
-            box-shadow: 0 0 10px rgba(91, 156, 246, 0.15),
-                0 0 20px rgba(91, 156, 246, 0.06);
-        }
-
-        .hero-badge--blue:hover {
-            box-shadow: 0 0 16px rgba(91, 156, 246, 0.35),
-                0 0 32px rgba(91, 156, 246, 0.14);
-        }
-
-        .hero-badge--blue .badge-dot {
-            background: #5B9CF6;
-            box-shadow: 0 0 5px rgba(91, 156, 246, 0.8);
-            animation: pulse-dot 2.4s ease-in-out infinite;
-        }
-
-        /* Badge 3 — Always Learning: Warm amber/orange */
-        .hero-badge--amber {
-            border: 1px solid #F59E42;
-            color: var(--ink);
-            background: rgba(245, 158, 66, 0.06);
-            box-shadow: 0 0 10px rgba(245, 158, 66, 0.15),
-                0 0 20px rgba(245, 158, 66, 0.06);
-        }
-
-        .hero-badge--amber:hover {
-            box-shadow: 0 0 16px rgba(245, 158, 66, 0.35),
-                0 0 32px rgba(245, 158, 66, 0.14);
-        }
-
-        .hero-badge--amber .badge-dot {
-            background: #F59E42;
-            box-shadow: 0 0 5px rgba(245, 158, 66, 0.8);
-            animation: pulse-dot 2.8s ease-in-out infinite;
-        }
-
-        .badge-dot {
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .hero-portrait {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 32%;
+        .hero-right {
+            position: relative;
             overflow: hidden;
-            pointer-events: none;
-            z-index: 0;
+            background: #E8E7E2;
         }
 
-        .hero-portrait img {
+        .hero-right img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            object-position: center 15%;
-            filter: grayscale(20%) contrast(1.05);
-            opacity: 0.55;
+            object-position: center 10%;
+            filter: grayscale(15%) contrast(1.05);
             display: block;
+            transition: filter 0.5s ease;
         }
 
-        .hero-portrait::before {
+        .hero-right:hover img {
+            filter: grayscale(0%) contrast(1);
+        }
+
+        .hero-right::before {
             content: '';
             position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, var(--bg) 0%, transparent 40%);
-            z-index: 1;
-        }
-
-        .hero .container>*:not(.hero-portrait) {
-            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--lime);
             z-index: 2;
         }
 
+        .hero-photo-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px 28px 28px;
+            background: linear-gradient(to top, rgba(26, 26, 26, 0.85) 0%, transparent 100%);
+            z-index: 1;
+        }
+
+        .hero-photo-name {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: var(--bg);
+            letter-spacing: -0.01em;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .hero-photo-role {
+            font-family: 'DM Mono', 'Courier New', monospace;
+            font-size: 10px;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: rgba(245, 244, 240, 0.5);
+            display: block;
+        }
+
+        .hero-available-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(26, 26, 26, 0.75);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(200, 241, 53, 0.3);
+            padding: 6px 12px;
+            z-index: 2;
+            font-family: 'DM Mono', 'Courier New', monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--lime);
+        }
+
+        .hero-available-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--lime);
+            animation: pulse-dot 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
         @media (max-width: 900px) {
-            .hero-portrait {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                max-height: none;
+                min-height: auto;
+            }
+
+            .hero-right {
+                height: 320px;
+                order: -1;
+            }
+
+            .hero-right::before {
                 display: none;
+            }
+
+            .hero-left {
+                padding: 40px 24px;
+                border-right: none;
+                gap: 40px;
+            }
+
+            .hero-eyebrow {
+                margin-bottom: 20px;
+            }
+
+            .hero-cta-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 20px;
+            }
+
+            .hero-stat {
+                border-right: none;
+                margin-right: 0;
+                padding-right: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-right {
+                height: 260px;
             }
         }
 
@@ -1879,37 +1960,53 @@
        2. HERO SECTION
   ========================= -->
     <section id="hero" class="hero">
-        <div class="container">
-            <h1>
-                <span class="hero-headline-line1">Self-taught.</span>
-                <span class="hero-headline-line2">Always learning. <span class="hero-headline-accent">Hungry to
-                        start.</span></span>
-            </h1>
-
-            <div class="hero-bottom">
-                <p class="hero-sub">
-                    No agency background, no mentor, no one to copy from. Just me pulling apart
-                    campaigns I respected until I understood why they worked — then
-                    building my own from scratch. I don't have years of experience.
-                    I have complete, undivided attention on getting this right.
-                </p>
-                <a href="#work" class="hero-cta">See My Work ↓</a>
+        <div class="hero-grid">
+            <div class="hero-left">
+                <div class="hero-left-top">
+                    <p class="hero-eyebrow">Direct Response Copywriter</p>
+                    <h1 class="hero-h1">
+                        <span class="line-mono">Self-taught.</span>
+                        <span class="line-serif">Always learning.<br><span class="line-accent">Hungry to
+                                start.</span></span>
+                    </h1>
+                    <p class="hero-sub">
+                        No agency background, no mentor, no one to copy from. Just me pulling apart
+                        campaigns I respected until I understood why they worked — then building my own
+                        from scratch. I don't have years of experience. I have complete, undivided
+                        attention on getting this right.
+                    </p>
+                </div>
+                <div class="hero-left-bottom">
+                    <div class="hero-cta-row">
+                        <a href="#work" class="hero-cta">See My Work ↓</a>
+                        <span class="hero-cta-note">9 live projects — no fluff</span>
+                    </div>
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="hero-stat-num">9</span>
+                            <span class="hero-stat-label">Projects Live</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-num">6+</span>
+                            <span class="hero-stat-label">Niches</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-num">40K+</span>
+                            <span class="hero-stat-label">Words Written</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="hero-badges">
-                <span class="hero-badge hero-badge--lime">
-                    <span class="badge-dot"></span>9 Self-Built Campaigns
-                </span>
-                <span class="hero-badge hero-badge--blue">
-                    <span class="badge-dot"></span>Built From Zero. Still Learning.
-                </span>
-                <span class="hero-badge hero-badge--amber">
-                    <span class="badge-dot"></span>Open to Full-Time
-                </span>
-            </div>
-
-            <div class="hero-portrait">
+            <div class="hero-right">
                 <img src="./kamila.jpg" alt="Kamila Osmanova" />
+                <div class="hero-available-badge">
+                    <span class="hero-available-dot"></span>
+                    Available now
+                </div>
+                <div class="hero-photo-label">
+                    <span class="hero-photo-name">Kamila Osmanova</span>
+                    <span class="hero-photo-role">Copywriter · Vilnius, Lithuania</span>
+                </div>
             </div>
         </div>
     </section>
