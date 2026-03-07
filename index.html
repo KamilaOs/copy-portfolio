@@ -390,13 +390,14 @@
             overflow: hidden;
             position: relative;
             border-bottom: 1px solid var(--rule);
+            min-height: calc(100vh - 56px);
+            max-height: 860px;
         }
 
         .hero-grid {
             display: grid;
             grid-template-columns: 1fr 420px;
-            min-height: calc(100vh - 56px);
-            max-height: 860px;
+            height: 100%;
         }
 
         .hero-left {
@@ -1960,52 +1961,54 @@
        2. HERO SECTION
   ========================= -->
     <section id="hero" class="hero">
-        <div class="hero-grid">
-            <div class="hero-left">
-                <div class="hero-left-top">
-                    <p class="hero-eyebrow">Direct Response Copywriter</p>
-                    <h1 class="hero-h1">
-                        <span class="line-mono">Self-taught.</span>
-                        <span class="line-serif">Always learning.<br><span class="line-accent">Hungry to
-                                start.</span></span>
-                    </h1>
-                    <p class="hero-sub">
-                        No agency background, no mentor, no one to copy from. Just me pulling apart
-                        campaigns I respected until I understood why they worked — then building my own
-                        from scratch. I don't have years of experience. I have complete, undivided
-                        attention on getting this right.
-                    </p>
-                </div>
-                <div class="hero-left-bottom">
-                    <div class="hero-cta-row">
-                        <a href="#work" class="hero-cta">See My Work ↓</a>
-                        <span class="hero-cta-note">9 live projects — no fluff</span>
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-left">
+                    <div class="hero-left-top">
+                        <p class="hero-eyebrow">Direct Response Copywriter</p>
+                        <h1 class="hero-h1">
+                            <span class="line-mono">Self-taught.</span>
+                            <span class="line-serif">Always learning.<br><span class="line-accent">Hungry to
+                                    start.</span></span>
+                        </h1>
+                        <p class="hero-sub">
+                            No agency background, no mentor, no one to copy from. Just me pulling apart
+                            campaigns I respected until I understood why they worked — then building my own
+                            from scratch. I don't have years of experience. I have complete, undivided
+                            attention on getting this right.
+                        </p>
                     </div>
-                    <div class="hero-stats">
-                        <div class="hero-stat">
-                            <span class="hero-stat-num">9</span>
-                            <span class="hero-stat-label">Projects Live</span>
+                    <div class="hero-left-bottom">
+                        <div class="hero-cta-row">
+                            <a href="#work" class="hero-cta">See My Work ↓</a>
+                            <span class="hero-cta-note">9 live projects — no fluff</span>
                         </div>
-                        <div class="hero-stat">
-                            <span class="hero-stat-num">6+</span>
-                            <span class="hero-stat-label">Niches</span>
-                        </div>
-                        <div class="hero-stat">
-                            <span class="hero-stat-num">40K+</span>
-                            <span class="hero-stat-label">Words Written</span>
+                        <div class="hero-stats">
+                            <div class="hero-stat">
+                                <span class="hero-stat-num">9</span>
+                                <span class="hero-stat-label">Projects Live</span>
+                            </div>
+                            <div class="hero-stat">
+                                <span class="hero-stat-num">6+</span>
+                                <span class="hero-stat-label">Niches</span>
+                            </div>
+                            <div class="hero-stat">
+                                <span class="hero-stat-num">40K+</span>
+                                <span class="hero-stat-label">Words Written</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="hero-right">
-                <img src="./kamila.jpg" alt="Kamila Osmanova" />
-                <div class="hero-available-badge">
-                    <span class="hero-available-dot"></span>
-                    Available now
-                </div>
-                <div class="hero-photo-label">
-                    <span class="hero-photo-name">Kamila Osmanova</span>
-                    <span class="hero-photo-role">Copywriter · Vilnius, Lithuania</span>
+                <div class="hero-right">
+                    <img src="./kamila.jpg" alt="Kamila Osmanova" />
+                    <div class="hero-available-badge">
+                        <span class="hero-available-dot"></span>
+                        Available now
+                    </div>
+                    <div class="hero-photo-label">
+                        <span class="hero-photo-name">Kamila Osmanova</span>
+                        <span class="hero-photo-role">Copywriter · Vilnius, Lithuania</span>
+                    </div>
                 </div>
             </div>
         </div>
