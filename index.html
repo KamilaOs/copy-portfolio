@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kamila Osmanova — Copywriter for Digital Ecom</title>
+    <title>Kamila Osmanova — Copywriter</title>
     <meta name="description"
         content="Kamila Osmanova is a copywriter specialising in digital ecom — landing pages, advertorials, and product launches built around what actually makes people click." />
 
@@ -13,18 +13,18 @@
     <link rel="apple-touch-icon" href="./favicon.png" />
 
     <!-- Open Graph (LinkedIn, Facebook, Slack, iMessage) -->
-    <meta property="og:title" content="Kamila Osmanova — Copywriter for Digital Ecom" />
+    <meta property="og:title" content="Kamila Osmanova — Copywriter" />
     <meta property="og:description"
-        content="Landing pages, advertorials, and product launches built around what actually makes people click." />
+        content="Self-taught copywriter. Landing pages, advertorials, product launches — built around what makes people take action." />
     <meta property="og:image" content="https://kamilaos.github.io/copy-portfolio/og-image.jpg" />
     <meta property="og:url" content="https://kamilaos.github.io/copy-portfolio/" />
     <meta property="og:type" content="website" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Kamila Osmanova — Copywriter for Digital Ecom" />
+    <meta name="twitter:title" content="Kamila Osmanova — Copywriter" />
     <meta name="twitter:description"
-        content="Landing pages, advertorials, and product launches built around what actually makes people click." />
+        content="Self-taught copywriter. Landing pages, advertorials, product launches — built around what makes people take action." />
     <meta name="twitter:image" content="https://kamilaos.github.io/copy-portfolio/og-image.jpg" />
 
     <!-- Google Fonts -->
@@ -414,6 +414,8 @@
             animation-delay: 0.3s;
             opacity: 0;
             margin-bottom: 4px;
+            position: relative;
+            z-index: 3;
         }
 
         .hero-headline-line2 {
@@ -697,6 +699,67 @@
             transform: translateY(0);
         }
 
+        .about-image-col--text {
+            display: flex;
+            align-items: flex-end;
+            padding: 40px 32px;
+            background: var(--ink);
+        }
+
+        .about-text-identity {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .about-identity-name {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-size: clamp(22px, 2.5vw, 34px);
+            color: var(--bg);
+            letter-spacing: -0.02em;
+            line-height: 1;
+        }
+
+        .about-identity-role {
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: #555;
+        }
+
+        .about-identity-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'DM Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--lime);
+        }
+
+        .about-identity-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--lime);
+            animation: pulse-dot 2s ease-in-out infinite;
+            flex-shrink: 0;
+        }
+
+        .about-identity-note {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #444;
+            border-top: 1px solid #2A2A2A;
+            padding-top: 16px;
+            line-height: 1.7;
+        }
+
         .about-text-col {
             padding: 48px;
             border-right: 1px solid var(--rule);
@@ -938,7 +1001,7 @@
             position: relative;
             border-bottom: 1px solid var(--rule);
             border-left: 4px solid var(--lime);
-            padding-left: 44px;
+            padding-left: 16px;
         }
 
         /* Top row: title + count */
@@ -1205,6 +1268,28 @@
             transform: translateX(4px);
         }
 
+        .card-doc-link {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--mid);
+            border-top: 1px solid var(--rule);
+            padding-top: 6px;
+            margin-top: 2px;
+            display: block;
+            transition: color 0.2s ease;
+        }
+
+        .card-doc-link:hover {
+            color: var(--lime);
+        }
+
+        .work-card:hover .card-doc-link {
+            color: #888;
+            border-color: #333;
+        }
+
         /* ===========================
        7. CONTACT SECTION
     =========================== */
@@ -1324,46 +1409,7 @@
             color: var(--bg);
         }
 
-        /* ===========================
-       TICKER STRIP
-    =========================== */
-        .ticker-wrap {
-            background: var(--ink);
-            border-top: 1px solid #2A2A2A;
-            border-bottom: 1px solid #2A2A2A;
-            overflow: hidden;
-            padding: 14px 0;
-            white-space: nowrap;
-        }
 
-        .ticker {
-            display: inline-flex;
-            gap: 24px;
-            animation: ticker-scroll 28s linear infinite;
-        }
-
-        .ticker span {
-            font-family: 'DM Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: #555;
-        }
-
-        .ticker .ticker-dot {
-            color: var(--lime);
-            letter-spacing: 0;
-        }
-
-        @keyframes ticker-scroll {
-            from {
-                transform: translateX(0);
-            }
-
-            to {
-                transform: translateX(-50%);
-            }
-        }
 
         /* ===========================
        PROCESS SECTION
@@ -1772,7 +1818,7 @@
         </nav>
         <div class="mobile-menu-footer">
             <span>K. Osmanova</span>
-            <span>Copywriter — Digital Ecom</span>
+            <span>Copywriter — Open to All Industries</span>
         </div>
     </div>
 
@@ -1799,7 +1845,7 @@
                     <span class="badge-dot"></span>9 Self-Built Campaigns
                 </span>
                 <span class="hero-badge hero-badge--blue">
-                    <span class="badge-dot"></span>Zero-to-Pro in 6 Months
+                    <span class="badge-dot"></span>Built From Zero. Still Learning.
                 </span>
                 <span class="hero-badge hero-badge--amber">
                     <span class="badge-dot"></span>Open to Full-Time Roles
@@ -1812,35 +1858,7 @@
         </div>
     </section>
 
-    <!-- ========================
-       TICKER STRIP
-  ========================= -->
-    <div class="ticker-wrap">
-        <div class="ticker">
-            <span>Landing Pages</span>
-            <span class="ticker-dot">·</span>
-            <span>Advertorials</span>
-            <span class="ticker-dot">·</span>
-            <span>Product Launches</span>
-            <span class="ticker-dot">·</span>
-            <span>Brand Voice</span>
-            <span class="ticker-dot">·</span>
-            <span>Email Sequences</span>
-            <span class="ticker-dot">·</span>
-            <span>Conversion Copy</span>
-            <span class="ticker-dot">·</span>
-            <span>Ecom Brands</span>
-            <span class="ticker-dot">·</span>
-            <span>Landing Pages</span>
-            <span class="ticker-dot">·</span>
-            <span>Advertorials</span>
-            <span class="ticker-dot">·</span>
-            <span>Product Launches</span>
-            <span class="ticker-dot">·</span>
-            <span>Brand Voice</span>
-            <span class="ticker-dot">·</span>
-        </div>
-    </div>
+
 
     <!-- ========================
        4. ABOUT SECTION
@@ -1848,11 +1866,14 @@
     <section id="about" class="about-wrap">
         <div class="container">
             <div class="about">
-                <div class="about-image-col">
-                    <img src="./kamila.jpg" alt="Kamila Osmanova — Copywriter" />
-                    <span class="about-image-label">Kamila Osmanova</span>
-                    <div class="about-overlay">
-                        <span>Copywriter. Digital native. Available now.</span>
+                <div class="about-image-col about-image-col--text">
+                    <div class="about-text-identity">
+                        <span class="about-identity-name">Kamila Osmanova</span>
+                        <span class="about-identity-role">Copywriter</span>
+                        <span class="about-identity-status">
+                            <span class="about-identity-dot"></span>Available Now
+                        </span>
+                        <span class="about-identity-note">Self-taught · Direct Response · Open to all industries</span>
                     </div>
                 </div>
 
@@ -1915,7 +1936,7 @@
                 <div class="service-item fade-in">
                     <span class="service-num">04</span>
                     <h3 class="service-name">Brand Voice</h3>
-                    <p class="service-desc">Most ecom brands write in the same voice: urgent, generic, forgettable. I
+                    <p class="service-desc">Most brands write in the same voice: urgent, generic, forgettable. I
                         help you find the one that makes someone say "that's exactly how I talk."</p>
                 </div>
             </div>
@@ -1956,6 +1977,8 @@
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Heally</h3>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
+                            onclick="event.stopPropagation();">Read Copy (Google Doc) →</a>
                     </div>
                 </a>
 
@@ -1971,6 +1994,8 @@
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Chaos</h3>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
+                            onclick="event.stopPropagation();">Read Copy (Google Doc) →</a>
                     </div>
                 </a>
 
@@ -1986,11 +2011,13 @@
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Flockly</h3>
                         <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="card-doc-link"
+                            onclick="event.stopPropagation();">Read Copy (Google Doc) →</a>
                     </div>
                 </a>
 
                 <!-- Card 4: Verta -->
-                <a href="#" class="work-card fade-in">
+                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./verta-thumb.jpg" alt="Verta project thumbnail" class="card-thumb" />
@@ -2000,12 +2027,12 @@
                         <span class="card-type">Landing Page</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Verta</h3>
-                        <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
                     </div>
                 </a>
 
                 <!-- Card 5: The Deep Edit -->
-                <a href="#" class="work-card fade-in">
+                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./deep-edit-thumb.jpg" alt="The Deep Edit project thumbnail" class="card-thumb" />
@@ -2015,12 +2042,12 @@
                         <span class="card-type">Advertorial</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">The Deep Edit</h3>
-                        <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
                     </div>
                 </a>
 
                 <!-- Card 6: Bloom Studio -->
-                <a href="#" class="work-card fade-in">
+                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./bloom-thumb.jpg" alt="Bloom Studio project thumbnail" class="card-thumb" />
@@ -2030,12 +2057,12 @@
                         <span class="card-type">Email Sequence</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Bloom Studio</h3>
-                        <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
                     </div>
                 </a>
 
                 <!-- Card 7: Kinfolk -->
-                <a href="#" class="work-card fade-in">
+                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./kinfolk-thumb.jpg" alt="Kinfolk project thumbnail" class="card-thumb" />
@@ -2045,12 +2072,12 @@
                         <span class="card-type">Product Launch</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Kinfolk</h3>
-                        <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
                     </div>
                 </a>
 
                 <!-- Card 8: Sable -->
-                <a href="#" class="work-card fade-in">
+                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./sable-thumb.jpg" alt="Sable project thumbnail" class="card-thumb" />
@@ -2060,12 +2087,12 @@
                         <span class="card-type">Landing Page</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Sable</h3>
-                        <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
                     </div>
                 </a>
 
                 <!-- Card 9: Raw & Co -->
-                <a href="#" class="work-card fade-in">
+                <a href="GOOGLE_DOC_LINK_HERE" target="_blank" rel="noopener noreferrer" class="work-card fade-in">
                     <div class="card-accent"></div>
                     <div class="card-thumb-wrap">
                         <img src="./rawco-thumb.jpg" alt="Raw and Co project thumbnail" class="card-thumb" />
@@ -2075,7 +2102,7 @@
                         <span class="card-type">Advertorial</span>
                         <span class="card-spec-badge">Spec Work</span>
                         <h3 class="card-title">Raw &amp; Co</h3>
-                        <div class="card-cta">View Project <span class="card-arrow">→</span></div>
+                        <div class="card-cta">Read Copy <span class="card-arrow">→</span></div>
                     </div>
                 </a>
 
@@ -2096,24 +2123,26 @@
                 <div class="why-me-right fade-in">
                     <div class="why-me-item">
                         <span class="why-me-num">01</span>
-                        <p class="why-me-text">No bad habits. No lazy defaults from writing the same brief 500
-                            times.
-                            Every project gets my full, first-principles thinking.</p>
+                        <p class="why-me-text">I have zero bad habits. I haven't done the same landing page 400 times
+                            and stopped thinking. Every brief gets treated like it actually matters — because for me
+                            right now, it does.</p>
                     </div>
                     <div class="why-me-item">
                         <span class="why-me-num">02</span>
-                        <p class="why-me-text">I have everything to prove. Which means I'll overdeliver,
-                            over-communicate, and work until you say "damn, she gets it."</p>
+                        <p class="why-me-text">I'm trying to build a real career here. That means I care more about
+                            getting this right than someone who's been doing it long enough to go on autopilot.</p>
                     </div>
                     <div class="why-me-item">
                         <span class="why-me-num">03</span>
-                        <p class="why-me-text">I'm native to the ecom world I'm writing for. Not a seasoned ad exec
-                            learning what a conversion funnel is in 2025.</p>
+                        <p class="why-me-text">I spend my evenings reading copy breakdowns. Not because anyone told me
+                            to — because I genuinely want to know why one hook works and another dies in the first line.
+                        </p>
                     </div>
                     <div class="why-me-item">
                         <span class="why-me-num">04</span>
-                        <p class="why-me-text">First project is intentionally underpriced. I want the result, the
-                            testimonial, and the relationship — in that order.</p>
+                        <p class="why-me-text">I'll come back with questions, notes, and ideas you didn't ask for.
+                            That's either annoying or exactly what you want. If it's the latter, we'll get along just
+                            fine.</p>
                     </div>
                 </div>
             </div>
@@ -2164,12 +2193,12 @@
                     <p class="contact-overline">The offer</p>
                     <h2 class="contact-big">Don't take my word for it.<br><em>Let's do a test run.</em></h2>
                     <p class="contact-body-text">
-                        Send me a piece of copy that isn't converting — an email, a landing page
-                        above-the-fold, a Facebook ad. I'll rewrite it. If you love it, we talk
-                        about a larger project. If you don't, you've lost nothing.
+                        Send me a piece of copy that isn't converting — an email, a landing page above-the-fold, a
+                        Facebook ad. I'll rewrite it. No charge. If it lands, I'd love to have a conversation about a
+                        full-time role, a junior position, or a longer collaboration — whatever makes sense on your end.
                     </p>
                     <p class="contact-looking-for">
-                        Looking for ecom brands willing to take a small bet on someone with a big point of view.
+                        Open to full-time roles, junior positions, and long-term creative partnerships. Industry: open.
                     </p>
                 </div>
 
@@ -2200,7 +2229,7 @@
             <div class="footer-grid">
                 <div class="footer-col">
                     <span class="footer-name">Kamila Osmanova</span>
-                    <span class="footer-tagline">Copywriter for digital ecom brands.</span>
+                    <span class="footer-tagline">Copywriter. Open to any brief, any industry.</span>
                 </div>
                 <div class="footer-col">
                     <span class="footer-col-label">Navigation</span>
