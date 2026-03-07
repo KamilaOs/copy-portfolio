@@ -391,7 +391,7 @@
             position: relative;
             border-bottom: 1px solid var(--rule);
             min-height: calc(100vh - 56px);
-            max-height: 860px;
+            max-height: none;
         }
 
         .hero-grid {
@@ -401,7 +401,7 @@
         }
 
         .hero-left {
-            padding: 64px 56px 48px 48px;
+            padding: 40px 48px 36px 48px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -441,7 +441,7 @@
         .hero-h1 {
             font-family: 'Playfair Display', Georgia, serif;
             font-weight: 900;
-            font-size: clamp(48px, 6vw, 96px);
+            font-size: clamp(40px, 5vw, 76px);
             line-height: 1.0;
             letter-spacing: -0.025em;
             color: var(--ink);
@@ -467,11 +467,13 @@
         }
 
         .hero-h1 .line-accent {
-            display: inline-block;
+            display: inline;
             background: var(--ink);
             color: var(--bg);
             padding: 2px 10px 6px;
             line-height: 1;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
         }
 
         .hero-sub {
