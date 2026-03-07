@@ -509,11 +509,18 @@
 
         .hero-cta-row {
             display: flex;
-            align-items: center;
-            gap: 20px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
             animation: fadeUp 0.7s ease forwards;
             animation-delay: 0.65s;
             opacity: 0;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
         .hero-cta {
@@ -540,6 +547,19 @@
             transform: translateY(-2px);
             outline-color: var(--lime);
             outline-offset: 3px;
+        }
+
+        .hero-cta--outline {
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--ink);
+        }
+
+        .hero-cta--outline:hover {
+            background: var(--ink);
+            color: var(--bg);
+            border-color: var(--ink);
+            outline-color: var(--ink);
         }
 
         .hero-cta-note {
@@ -2000,8 +2020,13 @@
                     </div>
                     <div class="hero-left-bottom">
                         <div class="hero-cta-row">
-                            <a href="#work" class="hero-cta">See My Work ↓</a>
-                            <span class="hero-cta-note">9 live projects — no fluff</span>
+                            <div class="hero-cta-group">
+                                <a href="./resume/" class="hero-cta hero-cta--outline">See My Resume →</a>
+                            </div>
+                            <div class="hero-cta-group">
+                                <a href="#work" class="hero-cta">See My Work ↓</a>
+                                <span class="hero-cta-note">9 live projects — no fluff</span>
+                            </div>
                         </div>
                         <div class="hero-stats">
                             <div class="hero-stat">
