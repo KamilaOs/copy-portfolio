@@ -1,14 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
+const fs = require('fs');
+const path = require('path');
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SleepBear Pro</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap"
-    rel="stylesheet">
-  <style>
+const filepath = path.join(__dirname, 'sleepbear-pro', 'index.html');
+let html = fs.readFileSync(filepath, 'utf8');
+
+// 1. UPDATE CSS VARIABLES & ROOT
+html = html.replace(/--muted:\s*#[a-fA-F0-9]{6};/, '--muted: #6B5A50;');
+
+// 2. ENTIRE STYLE REPLACEMENT
+const styleStart = html.indexOf('<style>');
+const styleEnd = html.indexOf('</style>') + 8;
+
+const newStyle = `<style>
     :root {
       --honey: #F5A623;
       --honey-pale: #FFF8ED;
@@ -715,274 +718,70 @@
     .f-links a:hover {
       color: var(--honey);
     }
-  </style>
-</head>
+  </style>`;
 
-<body>
-  <div class="custom-cursor" id="custom-cursor"></div>
-  <nav id="nav">
-    <div class="nav-logo">Sleep🐻Bear Pro</div>
-    <a href="#" class="nav-btn">Buy Now &rarr;</a>
-  </nav>
+html = html.substring(0, styleStart) + newStyle + html.substring(styleEnd);
 
-  <!-- SECTION 1 -->
-  <section class="hero">
-    <div class="hero-grid">
-      <div class="hero-left-content">
-        <div class="hero-eyebrow fade-in" style="text-align: left;">FINALLY. A GOOD NIGHT'S SLEEP. 🌙</div>
-        <div class="hero-headline">
-          <div class="fade-up" style="--delay: 0s">You're not lazy.</div>
-          <div class="fade-up" style="--delay: 0.12s">You're not dramatic.</div>
-          <div class="honey fade-up" style="--delay: 0.24s">You just haven't</div>
-          <div class="honey fade-up" style="--delay: 0.36s">been sleeping well.</div>
-        </div>
-        <div class="hero-body fade-in" style="--delay: 0.8s">
-          <span class="lead">The assignment that needed to be finished three days ago still sits unopened on your desk.</span> Your friends can't
-          understand why you won't come out on Friday night.
-        </div>
-        <div class="hero-body fade-in">
-          <span class="lead">You can't exactly tell them you've been stockpiling sleep supplements trying to find one that actually works.</span>
-          That's a conversation that ends with them joking about you getting old. So you just say you're tired.
-        </div>
-      </div>
-      <div class="hero-right-visual fade-in" style="--delay: 0.5s">
-        <svg class="hero-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-  <!-- abstract blob -->
-  <path fill="var(--honey)" fill-opacity="0.8" d="M373.5,-375C466.5,-269,512.5,-134.5,516,-3.5C519.5,127.5,480.5,255,387.5,334C294.5,413,147.5,443.5,6.5,437C-134.5,430.5,-269,387,-349.5,308C-430,229,-456.5,114.5,-445.5,11C-434.5,-92.5,-386,-185,-305.5,-291C-225,-397,-112.5,-516,11,-527C134.5,-538,280.5,-481,373.5,-375Z" transform="translate(250 250) scale(0.65)" />
-  <path fill="var(--terra-warm)" fill-opacity="0.6" d="M304.5,-339.5C397,-250,476.5,-125,489.5,13C502.5,151,449,302,356.5,404C264,506,132,559,1.5,557.5C-129,556,-258,500,-354.5,398C-451,296,-515,148,-487,-28C-459,-204,-339,-408,-246.5,-497.5C-154,-587,-77,-562,24,-586C125,-610,212,-429,304.5,-339.5Z" transform="translate(250 250) scale(0.55)" />
-  <g fill="var(--terracotta)">
-    <circle cx="150" cy="180" r="15"/>
-    <circle cx="138" cy="168" r="6"/>
-    <circle cx="162" cy="168" r="6"/>
-    <circle cx="380" cy="300" r="22"/>
-    <circle cx="362" cy="285" r="9"/>
-    <circle cx="398" cy="285" r="9"/>
-    <circle cx="100" cy="350" r="10"/>
-    <circle cx="92" cy="342" r="4"/>
-    <circle cx="108" cy="342" r="4"/>
-  </g>
-  <g fill="var(--text)" opacity="0.3">
-    <circle cx="450" cy="120" r="3"/>
-    <circle cx="250" cy="80" r="2"/>
-    <circle cx="80" cy="220" r="1.5"/>
-    <circle cx="280" cy="420" r="2.5"/>
-  </g>
-  <g fill="rgba(196,113,79,0.7)" font-family="Nunito, sans-serif" font-weight="900">
-    <text x="200" y="140" font-size="24" transform="rotate(-15 200 140)">z</text>
-    <text x="220" y="110" font-size="18" transform="rotate(-5 220 110)">z</text>
-    <text x="240" y="90" font-size="14" transform="rotate(10 240 90)">z</text>
-    <text x="320" y="220" font-size="32" transform="rotate(-10 320 220)">z</text>
-    <text x="350" y="190" font-size="24" transform="rotate(5 350 190)">z</text>
-  </g>
-</svg>
-      </div>
-    </div>
-  </section>
+// Remove the HTML div completely for the texture
+html = html.replace(/[ \t]*<div class="texture-overlay"><\/div>\n?/, '');
 
-  <!-- AGAIN BANNER -->
-  <section class="again-section">
-    <div class="again-glow"></div>
-    <div class="again-word fade-in">Again.</div>
-    <div class="again-emoji fade-in" style="--delay: 0.4s">😮‍💨</div>
-  </section>
+// Adjust Hero styling for span entry bold tags inside exact copy strings
+html = html.replace(
+    "The assignment that needed to be finished three days ago still sits unopened on your desk.",
+    "<span class=\"lead\">The assignment that needed to be finished three days ago still sits unopened on your desk.</span>"
+);
+html = html.replace(
+    "You can't exactly tell them you've been stockpiling sleep supplements trying to find one that actually works.",
+    "<span class=\"lead\">You can't exactly tell them you've been stockpiling sleep supplements trying to find one that actually works.</span>"
+);
 
-  <!-- SECTION 2 -->
-  <section class="strip">
-    <div class="strip-grid">
-      <div class="strip-left">
+// Absorb the "At 7am..." body into Strip 
+const orphanRegex = /<!-- AGAIN POST BODY -->\s*<section class="again-post-body">\s*<div class="hero-body fade-up">\s*(At 7am the coffee is already on\. The day hasn't started and you're already behind it\. Everything feels harder than\s*it should\. Not impossible\. Just heavier than it used to be\.)\s*<\/div>\s*<\/section>\s*/m;
+
+const stripMatch = html.match(orphanRegex);
+if (stripMatch) {
+    // Rip it out of original location
+    html = html.replace(orphanRegex, '');
+    // Extract exact copy text unharmed
+    const orphanText = stripMatch[1];
+
+    // Inject inside the strip-left right above strip-title
+    html = html.replace(
+        '<div class="strip-left">',
+        `<div class="strip-left">
+        <div class="strip-lead-body fade-up">
+          ${orphanText}
+        </div>`
+    );
+} else {
+    // fallback for newline differences
+    html = html.replace(
+        /<!-- AGAIN POST BODY -->\s*<section class="again-post-body">\s*<div class="hero-body fade-up">([\s\S]*?)<\/div>\s*<\/section>/,
+        ''
+    );
+    html = html.replace(
+        '<div class="strip-left">',
+        `<div class="strip-left">
         <div class="strip-lead-body fade-up">
           At 7am the coffee is already on. The day hasn't started and you're already behind it. Everything feels harder than
-      it should. Not impossible. Just heavier than it used to be.
-        </div>
-        <div class="strip-title fade-up">You deserve real sleep.</div>
-        <div class="strip-subtitle fade-up" style="--delay: 0.1s">Not an overpriced magic potion in a capsule that promises
-          you'll sleep like a newborn every night.</div>
-      </div>
-      <div class="strip-right fade-up" style="--delay: 0.2s">
-        <div class="strip-aside">Had anyone actually slept with a newborn in the room?</div>
-        <div class="strip-clarify">Not the experience we want to give you.</div>
-      </div>
-    </div>
-    <svg class="strip-deco-bear" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <g fill="var(--terra-warm)">
-    <circle cx="100" cy="110" r="50"/>
-    <circle cx="65" cy="70" r="20"/>
-    <circle cx="135" cy="70" r="20"/>
-  </g>
-</svg>
-  </section>
+          it should. Not impossible. Just heavier than it used to be.
+        </div>`
+    );
+}
 
-  <!-- SECTION 3 -->
-  <section class="reveal">
-    <svg class="reveal-halo" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="var(--honey)" stroke-opacity="0.15">
-    <circle cx="500" cy="500" r="200" stroke-width="60"/>
-    <circle cx="500" cy="500" r="320" stroke-width="40"/>
-    <circle cx="500" cy="500" r="420" stroke-width="20"/>
-    <circle cx="500" cy="500" r="500" stroke-width="10"/>
-    <circle cx="500" cy="500" r="560" stroke-width="4"/>
-    <circle cx="500" cy="500" r="700" stroke-width="2"/>
-    <circle cx="500" cy="500" r="850" stroke-width="1"/>
-  </g>
-</svg>
-    <div class="reveal-inner">
-      <div class="reveal-intro fade-up">The only thing we can offer you is this:</div>
-      <div class="reveal-main fade-in slow">Gummy Bears. 🐻</div>
-      <div class="reveal-sub fade-in slow" style="--delay: 0.3s">SleepBear Pro.</div>
-      <div class="trust-lines">
-        <div class="trust-line fade-up" style="--delay: 0.5s">✓ No side effects.</div>
-        <div class="trust-line fade-up" style="--delay: 0.7s">✓ No empty promises.</div>
-        <div class="trust-line fade-up" style="--delay: 0.9s">✓ No newborns.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 4 -->
-  <section class="promise">
-    <div class="promise-header-group">
-      <div class="promise-eye fade-in">WHAT WE CAN PROMISE</div>
+// Wrap Promise tightly formatted block
+html = html.replace(
+    /<div class="promise-eye fade-in">([^<]+)<\/div>\s*<div class="promise-strike-wrap">\s*<div class="promise-strike-container fade-in" style="--delay: 0\.1s">\s*<span class="promise-strike">([^<]+)<\/span>\s*<\/div>\s*<\/div>\s*<div class="promise-title fade-up" style="--delay: 0\.2s">([^<]+)<\/div>/g,
+    `<div class="promise-header-group">
+      <div class="promise-eye fade-in">$1</div>
       <div class="promise-strike-wrap">
         <div class="promise-strike-container fade-in" style="--delay: 0.1s">
-          <span class="promise-strike">We can't promise you'll sleep like a newborn.</span>
+          <span class="promise-strike">$2</span>
         </div>
       </div>
-      <div class="promise-title fade-up" style="--delay: 0.2s">But we can promise this:</div>
-    </div>
+      <div class="promise-title fade-up" style="--delay: 0.2s">$3</div>
+    </div>`
+);
 
-    <div class="promise-grid">
-      <div class="promise-block fade-up" style="--delay: 0.1s">
-        <div class="p-ghost">01</div>
-        <div class="p-label">The assignment. 📋</div>
-        <div class="p-body">After a restful sleep, that work that felt impossible will just feel like work again.</div>
-      </div>
-      <div class="promise-block fade-up" style="--delay: 0.2s">
-        <div class="p-ghost">02</div>
-        <div class="p-label">The Friday night. 🍻</div>
-        <div class="p-body">You'll have enough energy to actually show up. And mean it.</div>
-      </div>
-      <div class="promise-block fade-up" style="--delay: 0.3s">
-        <div class="p-ghost">03</div>
-        <div class="p-label">The life. 🎁</div>
-        <div class="p-body">The one everyone keeps telling you should feel like a gift. Will start to feel a little more
-          like one.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 5 -->
-  <section class="proof">
-    <div class="proof-main fade-up" id="counter">0</div>
-    <br>
-    <div class="proof-sub fade-up" style="--delay: 0.1s">people already woke up feeling like themselves again. 🌅</div>
-    <div class="reviews">
-      <div class="review fade-up" style="--delay: 0.1s">
-        <div class="r-quote-mark">"</div>
-        <div class="stars">★★★★★</div>
-        <div class="quote">"I stopped dreading my alarm. That's all I wanted."</div>
-        <div class="attr">— JAMIE, 31</div>
-      </div>
-      <div class="review fade-up" style="--delay: 0.2s">
-        <div class="r-quote-mark">"</div>
-        <div class="stars">★★★★★</div>
-        <div class="quote">"No grogginess. No weird dreams. Just actually woke up fine."</div>
-        <div class="attr">— MARCUS, 28</div>
-      </div>
-      <div class="review fade-up" style="--delay: 0.3s">
-        <div class="r-quote-mark">"</div>
-        <div class="stars">★★★★★</div>
-        <div class="quote">"I didn't believe gummies would work. Now I'm the person recommending them to everyone."</div>
-        <div class="attr">— RACHEL, 34</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 6 -->
-  <section class="cta">
-    <svg class="cta-watermark" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-  <g stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M120 160 C120 100, 180 80, 250 80 C320 80, 380 100, 380 160 C380 220, 340 300, 250 300 C160 300, 120 220, 120 160 Z" />
-    <circle cx="150" cy="120" r="30" />
-    <circle cx="350" cy="120" r="30" />
-    <path d="M210 200 Q250 220 290 200" />
-    <circle cx="210" cy="160" r="5" fill="#ffffff" />
-    <circle cx="290" cy="160" r="5" fill="#ffffff" />
-  </g>
-</svg>
-    <div class="cta-inner">
-      <div class="cta-h1 fade-up">Buy today. 🛒</div>
-      <div class="cta-h2 blur-in" style="--delay: 0.1s">Sleep better tomorrow.</div>
-      <a href="#" class="cta-btn fade-up" style="--delay: 0.2s">Buy Today — Sleep Better Tomorrow</a>
-      <div class="cta-trust fade-in" style="--delay: 0.3s">
-        No side effects. No empty promises. <br>
-        8,900+ sleepers can't be wrong. 🐻
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="f-logo">Sleep🐻Bear Pro</div>
-    <div class="f-tag">Finally. A good night's sleep.</div>
-    <div class="f-links">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">Contact</a>
-    </div>
-  </footer>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      /* Custom cursor logic */
-      const cursor = document.getElementById('custom-cursor');
-      document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-      });
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, { rootMargin: '0px', threshold: 0.12 });
-
-      document.querySelectorAll('.fade-up, .fade-in, .blur-in, .promise-strike').forEach(el => observer.observe(el));
-
-      const nav = document.getElementById('nav');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 80) nav.classList.add('visible');
-        else nav.classList.remove('visible');
-      });
-
-      // Counter animation
-      const counter = document.getElementById('counter');
-      let counted = false;
-      const cntObserver = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && !counted) {
-          counted = true;
-          let start = null;
-          const duration = 1500;
-          const final = 8900;
-          const step = (timestamp) => {
-            if (!start) start = timestamp;
-            const progress = Math.min((timestamp - start) / duration, 1);
-            const ease = 1 - Math.pow(2, -10 * progress); // easeOutExpo
-            counter.innerText = Math.floor(ease * final).toLocaleString() + '+';
-            if (progress < 1) window.requestAnimationFrame(step);
-            else {
-              counter.innerText = "8,900+";
-              counter.classList.add('pulsed');
-            }
-          };
-          window.requestAnimationFrame(step);
-          cntObserver.disconnect();
-        }
-      }, { threshold: 0.5 });
-      cntObserver.observe(counter);
-    });
-  </script>
-</body>
-
-</html>
+fs.writeFileSync(filepath, html, 'utf8');
+console.log('Refinement Complete.');
