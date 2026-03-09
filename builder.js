@@ -1,14 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
+const fs = require('fs');
+const path = require('path');
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SleepBear Pro</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap"
-    rel="stylesheet">
-  <style>
+const filepath = path.join(__dirname, 'sleepbear-pro', 'index.html');
+let html = fs.readFileSync(filepath, 'utf8');
+
+// 1. UPDATE CSS VARIABLES
+html = html.replace(`    :root {
+      --honey: #F5A623;
+      --honey-pale: #FFF8ED;
+      --honey-mid: #FEF0D0;
+      --navy: #1B2B4B;
+      --cream: #FFFBF4;
+      --warm-white: #FFFFFF;
+      --muted: #8C7B6E;
+      --text: #1A1208;
+      --bear: #C4714F;
+    }`, `    :root {
+      --honey: #F5A623;
+      --honey-pale: #FFF8ED;
+      --honey-mid: #FEF0D0;
+      --terracotta: #8B3A2A;
+      --terra-deep: #5C1F12;
+      --terra-warm: #C4714F;
+      --cream: #FFFBF4;
+      --warm-white: #FFFFFF;
+      --muted: #8C7B6E;
+      --text: #1A1208;
+      --bear: #C4714F;
+    }`);
+
+const styleStart = html.indexOf('<style>');
+const styleEnd = html.indexOf('</style>') + 8;
+
+const newStyle = `<style>
     :root {
       --honey: #F5A623;
       --honey-pale: #FFF8ED;
@@ -722,39 +746,12 @@
     .f-links a:hover {
       color: var(--honey);
     }
-  </style>
-</head>
+  </style>`;
 
-<body>
-  <div class="custom-cursor" id="custom-cursor"></div>
-  <div class="texture-overlay"></div>
-  <nav id="nav">
-    <div class="nav-logo">Sleep🐻Bear Pro</div>
-    <a href="#" class="nav-btn">Buy Now &rarr;</a>
-  </nav>
+html = html.substring(0, styleStart) + newStyle + html.substring(styleEnd);
 
-  <!-- SECTION 1 -->
-  <section class="hero">
-    <div class="hero-grid">
-      <div class="hero-left-content">
-        <div class="hero-eyebrow fade-in" style="text-align: left;">FINALLY. A GOOD NIGHT'S SLEEP. 🌙</div>
-        <div class="hero-headline">
-          <div class="fade-up" style="--delay: 0s">You're not lazy.</div>
-          <div class="fade-up" style="--delay: 0.12s">You're not dramatic.</div>
-          <div class="honey fade-up" style="--delay: 0.24s">You just haven't</div>
-          <div class="honey fade-up" style="--delay: 0.36s">been sleeping well.</div>
-        </div>
-        <div class="hero-body fade-in" style="--delay: 0.8s">
-          The assignment that needed to be finished three days ago still sits unopened on your desk. Your friends can't
-          understand why you won't come out on Friday night.
-        </div>
-        <div class="hero-body fade-in">
-          You can't exactly tell them you've been stockpiling sleep supplements trying to find one that actually works.
-          That's a conversation that ends with them joking about you getting old. So you just say you're tired.
-        </div>
-      </div>
-      <div class="hero-right-visual fade-in" style="--delay: 0.5s">
-        <svg class="hero-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+const SVGS = {
+    heroVisual: `<svg class="hero-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
   <!-- abstract blob -->
   <path fill="var(--honey)" fill-opacity="0.8" d="M373.5,-375C466.5,-269,512.5,-134.5,516,-3.5C519.5,127.5,480.5,255,387.5,334C294.5,413,147.5,443.5,6.5,437C-134.5,430.5,-269,387,-349.5,308C-430,229,-456.5,114.5,-445.5,11C-434.5,-92.5,-386,-185,-305.5,-291C-225,-397,-112.5,-516,11,-527C134.5,-538,280.5,-481,373.5,-375Z" transform="translate(250 250) scale(0.65)" />
   <path fill="var(--terra-warm)" fill-opacity="0.6" d="M304.5,-339.5C397,-250,476.5,-125,489.5,13C502.5,151,449,302,356.5,404C264,506,132,559,1.5,557.5C-129,556,-258,500,-354.5,398C-451,296,-515,148,-487,-28C-459,-204,-339,-408,-246.5,-497.5C-154,-587,-77,-562,24,-586C125,-610,212,-429,304.5,-339.5Z" transform="translate(250 250) scale(0.55)" />
@@ -782,7 +779,66 @@
     <text x="320" y="220" font-size="32" transform="rotate(-10 320 220)">z</text>
     <text x="350" y="190" font-size="24" transform="rotate(5 350 190)">z</text>
   </g>
-</svg>
+</svg>`,
+    haloReveal: `<svg class="reveal-halo" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="var(--honey)" stroke-opacity="0.15">
+    <circle cx="500" cy="500" r="200" stroke-width="60"/>
+    <circle cx="500" cy="500" r="320" stroke-width="40"/>
+    <circle cx="500" cy="500" r="420" stroke-width="20"/>
+    <circle cx="500" cy="500" r="500" stroke-width="10"/>
+    <circle cx="500" cy="500" r="560" stroke-width="4"/>
+    <circle cx="500" cy="500" r="700" stroke-width="2"/>
+    <circle cx="500" cy="500" r="850" stroke-width="1"/>
+  </g>
+</svg>`,
+    watermarkBear: `<svg class="cta-watermark" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M120 160 C120 100, 180 80, 250 80 C320 80, 380 100, 380 160 C380 220, 340 300, 250 300 C160 300, 120 220, 120 160 Z" />
+    <circle cx="150" cy="120" r="30" />
+    <circle cx="350" cy="120" r="30" />
+    <path d="M210 200 Q250 220 290 200" />
+    <circle cx="210" cy="160" r="5" fill="#ffffff" />
+    <circle cx="290" cy="160" r="5" fill="#ffffff" />
+  </g>
+</svg>`,
+    stripBear: `<svg class="strip-deco-bear" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <g fill="var(--terra-warm)">
+    <circle cx="100" cy="110" r="50"/>
+    <circle cx="65" cy="70" r="20"/>
+    <circle cx="135" cy="70" r="20"/>
+  </g>
+</svg>`
+};
+
+let newBody = `  <div class="custom-cursor" id="custom-cursor"></div>
+  <div class="texture-overlay"></div>
+  <nav id="nav">
+    <div class="nav-logo">Sleep🐻Bear Pro</div>
+    <a href="#" class="nav-btn">Buy Now &rarr;</a>
+  </nav>
+
+  <!-- SECTION 1 -->
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-left-content">
+        <div class="hero-eyebrow fade-in" style="text-align: left;">FINALLY. A GOOD NIGHT'S SLEEP. 🌙</div>
+        <div class="hero-headline">
+          <div class="fade-up" style="--delay: 0s">You're not lazy.</div>
+          <div class="fade-up" style="--delay: 0.12s">You're not dramatic.</div>
+          <div class="honey fade-up" style="--delay: 0.24s">You just haven't</div>
+          <div class="honey fade-up" style="--delay: 0.36s">been sleeping well.</div>
+        </div>
+        <div class="hero-body fade-in" style="--delay: 0.8s">
+          The assignment that needed to be finished three days ago still sits unopened on your desk. Your friends can't
+          understand why you won't come out on Friday night.
+        </div>
+        <div class="hero-body fade-in">
+          You can't exactly tell them you've been stockpiling sleep supplements trying to find one that actually works.
+          That's a conversation that ends with them joking about you getting old. So you just say you're tired.
+        </div>
+      </div>
+      <div class="hero-right-visual fade-in" style="--delay: 0.5s">
+        ${SVGS.heroVisual}
       </div>
     </div>
   </section>
@@ -815,28 +871,12 @@
         <div class="strip-clarify">Not the experience we want to give you.</div>
       </div>
     </div>
-    <svg class="strip-deco-bear" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-  <g fill="var(--terra-warm)">
-    <circle cx="100" cy="110" r="50"/>
-    <circle cx="65" cy="70" r="20"/>
-    <circle cx="135" cy="70" r="20"/>
-  </g>
-</svg>
+    ${SVGS.stripBear}
   </section>
 
   <!-- SECTION 3 -->
   <section class="reveal">
-    <svg class="reveal-halo" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-  <g fill="none" stroke="var(--honey)" stroke-opacity="0.15">
-    <circle cx="500" cy="500" r="200" stroke-width="60"/>
-    <circle cx="500" cy="500" r="320" stroke-width="40"/>
-    <circle cx="500" cy="500" r="420" stroke-width="20"/>
-    <circle cx="500" cy="500" r="500" stroke-width="10"/>
-    <circle cx="500" cy="500" r="560" stroke-width="4"/>
-    <circle cx="500" cy="500" r="700" stroke-width="2"/>
-    <circle cx="500" cy="500" r="850" stroke-width="1"/>
-  </g>
-</svg>
+    ${SVGS.haloReveal}
     <div class="reveal-inner">
       <div class="reveal-intro fade-up">The only thing we can offer you is this:</div>
       <div class="reveal-main fade-in slow">Gummy Bears. 🐻</div>
@@ -908,16 +948,7 @@
 
   <!-- SECTION 6 -->
   <section class="cta">
-    <svg class="cta-watermark" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-  <g stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M120 160 C120 100, 180 80, 250 80 C320 80, 380 100, 380 160 C380 220, 340 300, 250 300 C160 300, 120 220, 120 160 Z" />
-    <circle cx="150" cy="120" r="30" />
-    <circle cx="350" cy="120" r="30" />
-    <path d="M210 200 Q250 220 290 200" />
-    <circle cx="210" cy="160" r="5" fill="#ffffff" />
-    <circle cx="290" cy="160" r="5" fill="#ffffff" />
-  </g>
-</svg>
+    ${SVGS.watermarkBear}
     <div class="cta-inner">
       <div class="cta-h1 fade-up">Buy today. 🛒</div>
       <div class="cta-h2 blur-in" style="--delay: 0.1s">Sleep better tomorrow.</div>
@@ -992,7 +1023,12 @@
       }, { threshold: 0.5 });
       cntObserver.observe(counter);
     });
-  </script>
-</body>
+  </script>`;
 
-</html>
+const bodyStart = html.indexOf('<body>') + 6;
+const bodyEnd = html.indexOf('</body>');
+
+html = html.substring(0, bodyStart) + '\n' + newBody + '\n' + html.substring(bodyEnd);
+
+fs.writeFileSync(filepath, html, 'utf8');
+console.log('Update Complete.');
