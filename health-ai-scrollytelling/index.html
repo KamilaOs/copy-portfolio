@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health-AI | Your Health Advocate</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --forest: #1B2E22;
+            --forest-mid: #243D2C;
+            --cream: #F7F3EE;
+            --cream-dark: #EDE8E0;
+            --gold: #C9A465;
+            --gold-pale: rgba(201, 164, 101, 0.15);
+            --text-dark: #F0EBE1;
+            --text-cream: #1B2E22;
+            --muted-dark: rgba(240, 235, 225, 0.6);
+            --muted-cream: #5C6B60;
+
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-sans: 'Source Sans 3', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--forest);
+            color: var(--text-dark);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(27, 46, 34, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            pointer-events: none;
+        }
+
+        nav.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
+
+        .nav-logo {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 20px;
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        .nav-btn {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 11px;
+            color: var(--gold);
+            border: 1.5px solid var(--gold);
+            background: transparent;
+            height: 34px;
+            padding: 0 16px;
+            border-radius: 17px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-btn:hover {
+            background: var(--gold);
+            color: var(--forest);
+        }
+
+        .gold {
+            color: var(--gold);
+        }
+
+        .act {
+            position: relative;
+            width: 100%;
+        }
+
+        .bg-forest {
+            background-color: var(--forest);
+            color: var(--text-dark);
+        }
+
+        .bg-cream {
+            background-color: var(--cream);
+            color: var(--text-cream);
+        }
+
+        .bg-cream-dark {
+            background-color: var(--cream-dark);
+            color: var(--text-cream);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 100px 20px;
+            position: relative;
+        }
+
+        .hero-eyebrow {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold);
+            position: absolute;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .hero-headline {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 88px;
+            line-height: 1.0;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-headline {
+                font-size: 52px;
+            }
+
+            nav {
+                padding: 0 20px;
+            }
+        }
+
+        .hero-headline .line-1,
+        .hero-headline .line-2 {
+            display: block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        .hero-headline .line-2 {
+            animation-delay: 0.12s;
+        }
+
+        .hero-subline {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 19px;
+            color: var(--muted-dark);
+            text-align: center;
+            max-width: 520px;
+            line-height: 1.7;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            animation-delay: 0.9s;
+            /* 0.8s total + 0.1s buffer */
+            margin-bottom: 48px;
+        }
+
+        .btn-primary {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 16px;
+            color: var(--forest);
+            background: var(--gold);
+            height: 56px;
+            padding: 0 36px;
+            border-radius: 28px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.25s ease, transform 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            animation-delay: 0.9s;
+        }
+
+        .btn-primary:hover {
+            background: #B8934A;
+            transform: translateY(-2px);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--gold);
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards, bounce 2s infinite ease-in-out;
+            animation-delay: 1.5s;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .story-container {
+            padding: 72px 20px;
+        }
+
+        .treatment-a {
+            max-width: 680px;
+            margin: 0 auto 28px auto !important;
+            font-family: var(--font-serif);
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 1.9;
+            color: var(--muted-dark);
+            text-align: left !important;
+        }
+
+        /* 80px padding, 1.6s fade */
+        .treatment-b-1 {
+            padding: 80px 20px;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 64px;
+            color: var(--text-dark);
+            text-align: center;
+            line-height: 1.2;
+            box-sizing: border-box;
+            width: 100%;
+            position: relative;
+        }
+
+        .treatment-b-1::before {
+            content: '';
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 48px;
+            height: 1px;
+            background-color: rgba(240, 235, 225, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .treatment-b-1 {
+                font-size: 42px;
+                padding: 80px 20px;
+            }
+        }
+
+        /* 80px padding, isolated, 1.8s fade */
+        .treatment-b-2 {
+            padding: 80px 20px;
+            margin: 0;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 96px;
+            color: var(--gold);
+            text-align: center;
+            line-height: 1;
+            box-sizing: border-box;
+            width: 100%;
+            position: relative;
+        }
+
+        .treatment-b-2::before {
+            content: '';
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 48px;
+            height: 1px;
+            background-color: rgba(240, 235, 225, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .treatment-b-2 {
+                font-size: 64px;
+                padding: 80px 20px;
+                margin: 0;
+            }
+        }
+
+        /* 100px padding, 1.6s fade */
+        .treatment-b-3 {
+            padding-top: 100px;
+            padding-bottom: 100px;
+            padding-left: 20px;
+            padding-right: 20px;
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-style: normal;
+            font-size: 72px;
+            color: var(--text-dark);
+            text-align: center;
+            letter-spacing: -0.01em;
+            line-height: 1.0;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            position: relative;
+        }
+
+        .treatment-b-3::before {
+            content: '';
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 48px;
+            height: 1px;
+            background-color: rgba(240, 235, 225, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .treatment-b-3 {
+                font-size: 42px;
+                padding-top: 80px;
+                padding-bottom: 80px;
+            }
+        }
+
+        .treatment-c {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .treatment-c h2 {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 42px;
+            color: var(--gold);
+            max-width: 860px;
+            margin: 0 auto 16px auto;
+            line-height: 1.2;
+        }
+
+        .treatment-c p {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 28px;
+            color: var(--muted-dark);
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .treatment-c h2 {
+                font-size: 32px;
+            }
+
+            .treatment-c p {
+                font-size: 22px;
+            }
+        }
+
+        .spoken-quote {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 28px;
+            color: var(--gold);
+            text-align: left;
+            margin: 48px auto;
+            max-width: 680px;
+        }
+
+        .act-2-opening {
+            padding: 72px 20px;
+            text-align: center;
+        }
+
+        .act-2-opening .line-1 {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 72px;
+            color: var(--text-dark);
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .act-2-opening .line-2 {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 48px;
+            color: var(--gold);
+            line-height: 1.1;
+        }
+
+        @media (max-width: 768px) {
+            .act-2-opening .line-1 {
+                font-size: 48px;
+            }
+
+            .act-2-opening .line-2 {
+                font-size: 32px;
+            }
+        }
+
+        /* 80px padding, isolated, 1.8s fade */
+        .act-2-turn {
+            padding: 80px 20px;
+            margin: 0;
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 80px;
+            color: var(--gold);
+            text-align: center;
+            line-height: 1.1;
+            position: relative;
+        }
+
+        .act-2-turn::before {
+            content: '';
+            position: absolute;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 48px;
+            height: 1px;
+            background-color: rgba(240, 235, 225, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .act-2-turn {
+                font-size: 52px;
+                padding: 80px 20px;
+                margin: 0;
+            }
+        }
+
+        /* 72px padding, 1.4s fade */
+        .act-2-close {
+            padding: 72px 20px;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 52px;
+            color: var(--text-dark);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        @media (max-width: 768px) {
+            .act-2-close {
+                font-size: 36px;
+            }
+        }
+
+        .act-3-container {
+            padding: 72px 20px;
+        }
+
+        .act-3-eyebrow {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 9px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--muted-cream);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .act-3-intro {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 42px;
+            color: var(--text-cream);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px auto;
+            line-height: 1.25;
+        }
+
+        @media (max-width: 768px) {
+            .act-3-intro {
+                font-size: 32px;
+            }
+        }
+
+        .feature-rows {
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .feature-row {
+            display: flex;
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(27, 46, 34, 0.1);
+        }
+
+        .feature-row:first-child {
+            border-top: 1px solid rgba(27, 46, 34, 0.1);
+        }
+
+        .feature-label {
+            flex: 1;
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 28px;
+            color: var(--gold);
+            padding-right: 40px;
+        }
+
+        .feature-body {
+            flex: 2;
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 17px;
+            color: var(--muted-cream);
+            line-height: 1.7;
+            text-align: left !important;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .feature-row {
+                flex-direction: column;
+            }
+
+            .feature-label {
+                margin-bottom: 16px;
+                padding-right: 0;
+            }
+        }
+
+        /* 72px padding, 1.2s fade */
+        .act-4-close {
+            padding: 72px 20px;
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 38px;
+            color: var(--muted-dark);
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.3;
+        }
+
+        @media (max-width: 768px) {
+            .act-4-close {
+                font-size: 28px;
+                padding: 80px 20px;
+            }
+        }
+
+        .cta-section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .cta-headline {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 64px;
+            color: var(--text-cream);
+            margin: 24px 0 40px 0;
+            line-height: 1.1;
+        }
+
+        @media (max-width: 768px) {
+            .cta-headline {
+                font-size: 40px;
+            }
+        }
+
+        .cta-stack {
+            margin-bottom: 48px;
+        }
+
+        .cta-stack-line {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-weight: 400;
+            font-size: 24px;
+            color: var(--gold);
+            line-height: 1.4;
+        }
+
+        .cta-stack-final {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 17px;
+            color: var(--muted-cream);
+            margin-top: 8px;
+        }
+
+        .cta-link {
+            font-family: var(--font-sans);
+            font-weight: 400;
+            font-size: 14px;
+            color: var(--muted-cream);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 24px;
+            margin-bottom: 24px;
+        }
+
+        .cta-link:hover {
+            text-decoration: underline;
+        }
+
+        .cta-reassurance {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 12px;
+            color: var(--muted-cream);
+        }
+
+        .btn-forest {
+            color: var(--forest);
+            background: var(--gold);
+            padding: 0 40px;
+            height: 58px;
+            border-radius: 29px;
+            font-weight: 600;
+        }
+
+        .btn-forest:hover {
+            background: #B8934A;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        #scroll-progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(201, 164, 101, 0.2);
+            z-index: 1000;
+        }
+
+        #scroll-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--gold);
+            transition: width 0.1s ease-out;
+        }
+
+        footer {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .footer-tagline {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 13px;
+            color: var(--muted-dark);
+            margin-bottom: 32px;
+        }
+
+        .footer-links {
+            font-family: var(--font-sans);
+            font-size: 12px;
+            color: rgba(240, 235, 225, 0.2);
+        }
+
+        .footer-links a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: rgba(240, 235, 225, 0.6);
+        }
+
+        .footer-links span {
+            margin: 0 8px;
+        }
+
+        /* Animation Classes */
+        /* 0.8s slide up / fade up (standard format) */
+        .anim-fade {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .anim-fade.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1.2s fade */
+        .anim-fade-1-2 {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .anim-fade-1-2.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1.4s fade */
+        .anim-fade-1-4 {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.4s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .anim-fade-1-4.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1.6s slow fade */
+        .anim-fade-1-6 {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .anim-fade-1-6.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 1.8s peak emotion slow fade */
+        .anim-fade-peak {
+            opacity: 0;
+            transition: opacity 1.8s ease;
+        }
+
+        .anim-fade-peak.is-visible {
+            opacity: 1;
+        }
+
+        /* Staggered sets */
+        .stagger-group .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .stagger-group.is-visible .stagger-item {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-group.is-visible .stagger-item:nth-child(1) {
+            transition-delay: 0.0s;
+        }
+
+        .stagger-group.is-visible .stagger-item:nth-child(2) {
+            transition-delay: 0.1s;
+        }
+
+        .stagger-group.is-visible .stagger-item:nth-child(3) {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-group.is-visible .stagger-item:nth-child(4) {
+            transition-delay: 0.3s;
+        }
+
+        .delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-300 {
+            transition-delay: 0.3s;
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translate(-50%, 0);
+            }
+
+            40% {
+                transform: translate(-50%, -10px);
+            }
+
+            60% {
+                transform: translate(-50%, -5px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="scroll-progress-container">
+        <div id="scroll-progress-fill"></div>
+    </div>
+
+    <nav id="sticky-nav">
+        <a href="#" class="nav-logo">Health-AI</a>
+        <a href="#" class="nav-btn">Start Free Assessment</a>
+    </nav>
+
+    <!-- ACT 1 -->
+    <section class="act bg-forest">
+        <div class="hero">
+            <div class="hero-eyebrow">HEALTH-AI — YOUR HEALTH ADVOCATE</div>
+            <h1 class="hero-headline">
+                <span class="line-1">You Shouldn't Have to Be</span>
+                <span class="line-2"><span class="gold">Dying</span> to Be Heard.</span>
+            </h1>
+            <p class="hero-subline">Don't let fear run your health.<br>Let Health-AI become your guide.</p>
+            <a href="#" class="btn-primary">Talk to a Doctor Now — Available 24/7</a>
+
+            <div class="scroll-indicator">
+                <svg viewBox="0 0 24 24">
+                    <path d="M6 9l6 6 6-6" />
+                </svg>
+            </div>
+        </div>
+
+        <div class="story-container">
+            <p class="treatment-a anim-fade">It's that look. You know the one.</p>
+
+            <p class="treatment-a anim-fade">You've just finished explaining your symptoms — the exhaustion, the pain,
+                the 'something just isn't right' feeling you've been carrying for months. You chose your words
+                carefully. You tried to sound measured, credible, not like someone who spent three hours on WebMD at
+                midnight.</p>
+
+            <div class="treatment-b-1 anim-fade-1-6">Then the doctor smiles. That smile.</div>
+
+            <p class="spoken-quote anim-fade">"And what medical school did you graduate from?"</p>
+
+            <p class="treatment-a anim-fade">The heat rises in your chest. The lump forms in your throat. You weren't
+                trying to play doctor. You were desperate. You just wanted someone to listen. But instead of an answer,
+                you get a lecture. Instead of help, you get a door.</p>
+
+            <p class="treatment-a anim-fade">You leave feeling worse than when you walked in.</p>
+
+            <div class="treatment-b-2 anim-fade-peak">Humiliated.</div>
+
+            <p class="treatment-a anim-fade">And somewhere on the drive home, the thought creeps in — the dangerous one:
+                I'm just going to stop going. I'll only deal with this if it gets really bad.</p>
+
+            <p class="treatment-a anim-fade">That thought has consequences. You know it does. But right now it feels
+                less terrible than walking back into that room.</p>
+
+            <div class="treatment-c stagger-group">
+                <h2 class="stagger-item">Here's what's true: you are not crazy.</h2>
+                <p class="stagger-item delay-300">You are not dramatic. You are not imagining things.</p>
+            </div>
+
+            <p class="treatment-a anim-fade">You are a person in a system that has quietly forgotten how to listen — and
+                you have been doing the exhausting, thankless work of trying to be heard inside it.</p>
+
+            <div class="treatment-b-3 anim-fade-1-6">That changes now.</div>
+        </div>
+    </section>
+
+    <!-- ACT 2 -->
+    <section class="act bg-forest">
+        <div class="act-2-opening stagger-group">
+            <div class="line-1 stagger-item">The problem was never you.</div>
+            <div class="line-2 stagger-item delay-200">It was the story you had no way to tell.</div>
+        </div>
+
+        <p class="treatment-a anim-fade">Doctors respond to evidence. Charts, trends, data, patterns over time. Not
+            because they don't care — but because a ten-minute appointment and a verbal description of how you've been
+            feeling since March isn't enough for them to act on.</p>
+
+        <p class="treatment-a anim-fade">You had the symptoms. You just didn't have the record.</p>
+
+        <div class="act-2-turn anim-fade-peak">Health-AI builds it for you.</div>
+
+        <p class="treatment-a anim-fade">Your heart rate trends. Your sleep cycles. Your symptom history, logged and
+            organised and presented as the kind of professional, timestamped record that doesn't get dismissed,
+            questioned, or smiled away. You walk in with documentation. You walk in with proof. You walk in with
+            something they are required to take seriously.</p>
+
+        <p class="treatment-a anim-fade">You stop being a patient they can second-guess.</p>
+
+        <div class="act-2-close anim-fade-1-4">You become a case they have to address.</div>
+    </section>
+
+    <!-- ACT 3 -->
+    <section class="act bg-cream">
+        <div class="act-3-container">
+            <div class="act-3-eyebrow anim-fade">AND WHEN YOU NEED MORE THAN A RECORD</div>
+            <h2 class="act-3-intro anim-fade">No appointment in three weeks. No waiting room. No commute to a ten-minute
+                conversation that goes nowhere.</h2>
+
+            <div class="feature-rows stagger-group">
+                <div class="feature-row stagger-item">
+                    <div class="feature-label">Consult</div>
+                    <div class="feature-body">Message or video call a qualified professional in under two hours, any
+                        time, any day.</div>
+                </div>
+                <div class="feature-row stagger-item">
+                    <div class="feature-label">Prescribe</div>
+                    <div class="feature-body">Get a real consultation, a real assessment, and a prescription sent
+                        directly to your local pharmacy before you've finished your coffee.</div>
+                </div>
+                <div class="feature-row stagger-item">
+                    <div class="feature-label">Answer</div>
+                    <div class="feature-body">No Google spirals. No 2 AM death-sentence search results. Just clear,
+                        honest answers based on your actual biology, from someone whose entire job is to help you, not
+                        manage their next appointment.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ACT 4 -->
+    <section class="act bg-forest">
+        <div class="story-container">
+            <p class="treatment-a anim-fade">You've already spent enough time in rooms that were supposed to feel safe
+                and didn't.</p>
+            <p class="treatment-a anim-fade">You've rehearsed your symptoms out loud in the car park. You've chosen your
+                outfit carefully, hoping to be taken more seriously. You've left appointments holding it together until
+                you got back to your car.</p>
+
+            <div class="treatment-b-2 anim-fade-peak">That's over.</div>
+
+            <p class="treatment-a anim-fade">Your next appointment, you walk in differently. You have the data. You have
+                the history. You have a team behind you that already knows your story — because they helped you build
+                it.</p>
+
+            <div class="act-4-close anim-fade-1-2">The lump in your throat doesn't have to be there anymore.</div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="act bg-cream-dark cta-section">
+        <div class="hero-eyebrow" style="position:static; margin-bottom: 24px; transform: none;">GET STARTED</div>
+        <h2 class="cta-headline anim-fade">Reclaim Your Voice with Health-AI</h2>
+
+        <div class="cta-stack stagger-group">
+            <div class="cta-stack-line stagger-item">Your data.</div>
+            <div class="cta-stack-line stagger-item">Your dignity.</div>
+            <div class="cta-stack-line stagger-item">Your health.</div>
+            <div class="cta-stack-final stagger-item">Finally in one place.</div>
+        </div>
+
+        <div class="anim-fade delay-300" style="margin-top: 48px;">
+            <a href="#" class="btn-primary btn-forest">Reclaim Your Voice with Health-AI</a><br>
+            <a href="#" class="cta-link">Start Your Free Assessment — It Takes 5 Minutes &rarr;</a>
+            <div class="cta-reassurance">No credit card required. Qualified doctors. Available 24/7.</div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-forest">
+        <div class="footer-logo">Health-AI</div>
+        <div class="footer-tagline">Healthcare that hears you.</div>
+        <div class="footer-links">
+            <a href="#">Privacy</a><span>&middot;</span><a href="#">Terms</a><span>&middot;</span><a
+                href="#">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const nav = document.getElementById('sticky-nav');
+            const progressFill = document.getElementById('scroll-progress-fill');
+
+            window.addEventListener('scroll', () => {
+                // Nav visibility
+                if (window.scrollY > 80) {
+                    nav.classList.add('visible');
+                } else {
+                    nav.classList.remove('visible');
+                }
+
+                // Scroll progress bar
+                const scrollTop = window.scrollY || document.documentElement.scrollTop;
+                const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                progressFill.style.width = scrollPercent + '%';
+            });
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, observerOptions);
+
+            const animElements = document.querySelectorAll('.anim-fade, .anim-fade-1-2, .anim-fade-1-4, .anim-fade-1-6, .stagger-group');
+            animElements.forEach(el => observer.observe(el));
+
+            // For the peak elements, adjust threshold so they trigger when centered
+            const peakObserverOptions = {
+                root: null,
+                rootMargin: '-20% 0px -20% 0px',
+                threshold: 0.3
+            };
+            const peakObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, peakObserverOptions);
+
+            const peakElements = document.querySelectorAll('.anim-fade-peak');
+            peakElements.forEach(el => peakObserver.observe(el));
+        });
+    </script>
+</body>
+
+</html>

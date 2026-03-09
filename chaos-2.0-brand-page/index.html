@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Clean Girl Aesthetic Is Over.</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            playfair: ['"Playfair Display"', 'serif'],
+            bebas: ['"Bebas Neue"', 'sans-serif'],
+            inter: ['"Inter"', 'sans-serif'],
+          },
+          colors: {
+            paper: '#F7F4EF',
+            ink: '#1A1714',
+            'ink-muted': 'rgba(26, 23, 20, 0.55)',
+            'ink-ghost': 'rgba(26, 23, 20, 0.25)',
+            black: '#0A0A0A',
+            red: '#D42B2B',
+            'red-hot': '#FF2020',
+            white: '#FAFAFA',
+            zinc: 'rgba(250, 250, 250, 0.65)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React Dependencies -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Framer Motion -->
+  <script src="https://unpkg.com/framer-motion@10.16.16/dist/framer-motion.js"></script>
+
+  <!-- Babel -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" data-type="module">
+    const { useState, useEffect, useRef } = React;
+    const { motion, AnimatePresence } = window.Motion;
+
+    const FilmGrain = ({ isChaos }) => (
+      <div
+        className={`fixed inset-0 pointer-events-none z-[100] transition-opacity duration-1000 ease-in-out mix-blend-overlay ${isChaos ? 'opacity-25' : 'opacity-0'}`}
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
+        }}
+      />
+    );
+
+    const CleanSection = () => (
+      <section className="min-h-screen pt-[120px] pb-[120px] flex flex-col">
+        <h1 style={{
+          fontFamily: '"Playfair Display", serif',
+          fontWeight: 300,
+          fontStyle: 'normal',
+          fontSize: 'clamp(36px, 7vw, 96px)',
+          lineHeight: 0.92,
+          letterSpacing: '-0.02em',
+          color: '#1A1714',
+          paddingLeft: '8vw',
+          marginBottom: '80px',
+          marginTop: 0
+        }}>
+          The Clean Girl<br />Aesthetic Is Over.
+        </h1>
+
+        <div className="flex flex-col ml-[8vw] w-full px-6 md:px-0">
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2 }}
+            className="font-playfair font-light italic text-[19px] leading-[2.0] text-ink-muted text-left mb-[40px] max-w-[580px]"
+          >
+            This is not for the polished or the perfect. If you came here for a 5 AM Pilates routine and a green smoothie recipe, wrong tab.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2 }}
+            className="font-playfair font-light italic text-[19px] leading-[2.0] text-ink-muted text-left mb-[40px] max-w-[580px]"
+          >
+            Let's be honest about what the Clean Girl aesthetic actually was. Not hygiene. Not minimalism. Not self-care. It was a rebrand of an old idea: that women should be smaller, quieter, and easier to look at.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2 }}
+            className="font-playfair font-light italic text-[19px] leading-[2.0] text-ink-muted text-left mb-[40px] max-w-[580px]"
+          >
+            They just made it aesthetic this time. Gave it linen and a tinted moisturizer and called it elevated. They sold you 45 minutes in the mirror to look like you did nothing.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2 }}
+            className="font-playfair font-light italic text-[19px] leading-[2.0] text-ink-muted text-left mb-[40px] max-w-[580px]"
+          >
+            They drained your wardrobe into different shades of oatmeal and told you it was chic. They turned self-care into a second job: the oils, the rituals, the routines — and somewhere in all of it, the actual you quietly disappeared.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2 }}
+            className="font-playfair font-light italic text-[19px] leading-[2.0] text-ink-muted text-left mb-[40px] max-w-[580px]"
+          >
+            The grit. The glitter. The sharp eyeliner painted to a point for absolutely no reason except that it felt like art. Gone.
+          </motion.p>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2 }}
+            className="font-playfair font-light italic text-[19px] leading-[2.0] text-ink-muted text-left mb-[40px] max-w-[580px]"
+          >
+            And if you pushed back? If you showed up with real makeup, a real face, a look that said I spent time on this and I liked it? 'You would have looked better with no makeup.'
+          </motion.p>
+        </div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1.2 }}
+          className="font-playfair font-light text-[11px] tracking-[0.4em] uppercase text-ink-ghost ml-[8vw] mt-[48px]"
+        >
+          Right. Sure.
+        </motion.p>
+      </section>
+    );
+
+    const BridgeSection = React.forwardRef(({ isChaos }, ref) => (
+      <section className="w-full flex flex-col h-auto pt-[80px] pb-[80px]">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1.2 }}
+          className="font-playfair font-light italic text-[28px] text-ink-muted max-w-[640px] ml-[8vw] text-left pb-[48px] px-6 md:px-0"
+        >
+          Here's the thing about being told to shrink for long enough: eventually you stop shrinking and start looking for something sharp.
+        </motion.p>
+
+        <div className="w-full flex flex-col items-start space-y-[80px]">
+          <motion.p
+            ref={ref}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, delay: 0 }}
+            className={`font-bebas text-[9vw] uppercase pl-[6vw] leading-none transition-colors duration-800 ${isChaos ? 'text-white' : 'text-ink'}`}
+          >
+            LIFE IS NOT A MUSEUM.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, delay: 0.3 }}
+            className={`font-bebas text-[9vw] uppercase pl-[14vw] leading-none transition-colors duration-800 ${isChaos ? 'text-white' : 'text-ink'}`}
+          >
+            YOU ARE NOT A STATUE.
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.2, delay: 0.6 }}
+            className="font-bebas text-[7vw] uppercase pl-[3vw] leading-[0.9] text-red-hot"
+          >
+            AND YOU WERE NEVER<br />MEANT TO BE BEIGE.
+          </motion.p>
+        </div>
+      </section>
+    ));
+
+    const ChaosSection = () => (
+      <section className="pb-32 pt-24 flex flex-col items-start w-full">
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, type: "spring" }}
+          className="flex flex-col w-full"
+        >
+          <h2 className="font-bebas text-[18vw] leading-[0.85] tracking-[-0.01em] text-white pl-[4vw] uppercase m-0 p-0 text-left">
+            DONE BEING
+          </h2>
+          <h2 className="font-bebas text-[18vw] leading-[0.85] tracking-[-0.01em] text-red-hot uppercase m-0 pl-0 text-left">
+            DECORATIVE.
+          </h2>
+        </motion.div>
+
+        <div className="font-inter font-medium text-[12px] tracking-[0.2em] uppercase text-zinc ml-[6vw] mt-[80px] mb-[48px]">
+          THE CHAOS 3-SECOND SMUDGE LINER.
+        </div>
+
+        <div className="flex flex-col lg:flex-row gap-12 items-start justify-between w-full">
+          <div className="font-inter font-light text-[18px] text-zinc leading-[1.8] max-w-[540px] ml-[6vw] flex flex-col gap-6 pr-6 lg:pr-0">
+            <p>
+              A chunky, deep-black kohl that has never heard the word subtle and wouldn't care if it had. Draw it rough. Smudge it with your pinky. Walk out the door.
+            </p>
+            <p>
+              Made for the girls who have somewhere to be — through the pizza, the late nights, the 2 AM decisions that make the best stories.
+            </p>
+            <p className="font-normal text-[20px] text-white leading-[1.7] pt-[24px]">
+              No beige packaging. No glass skin promises. Just the one thing that lets you take up exactly as much space as you deserve. Which is all of it, by the way.
+            </p>
+          </div>
+
+          <div className="w-[90vw] lg:w-[45vw] lg:mr-[6vw] mt-12 lg:mt-0 mx-auto lg:mx-0 pr-6 lg:pr-0">
+            <motion.img
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 1 }}
+              src="./assets/chaos-weapon.jpg"
+              alt="Smudged Liner"
+              className="w-full aspect-[4/5] object-cover rounded-none"
+            />
+          </div>
+        </div>
+
+        <motion.button
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="mt-[120px] ml-[6vw] bg-red-hot text-white font-bebas text-[28px] tracking-[0.08em] uppercase px-[56px] py-[24px] cursor-pointer hover:bg-white hover:text-red-hot border-none rounded-none duration-150 transition-colors shadow-none outline-none hover:scale-[1.02] transform"
+        >
+          GRAB THE LINER — CHAOS STARTS HERE
+        </motion.button>
+
+      </section>
+    );
+
+    const App = () => {
+      const [isChaos, setIsChaos] = useState(false);
+      const triggerRef = useRef(null);
+
+      useEffect(() => {
+        const handleScroll = () => {
+          if (triggerRef.current) {
+            const rect = triggerRef.current.getBoundingClientRect();
+            if (rect.top < window.innerHeight / 1.5) {
+              setIsChaos(true);
+            } else {
+              setIsChaos(false);
+            }
+          }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+
+      return (
+        <div
+          className="w-full min-h-screen overflow-x-hidden transition-colors duration-[1200ms]"
+          style={{
+            backgroundColor: isChaos ? '#0A0A0A' : '#F7F4EF'
+          }}
+        >
+          <style>{`
+            ::selection {
+              background-color: ${isChaos ? '#FF2020' : '#1A1714'};
+              color: ${isChaos ? '#FAFAFA' : '#F7F4EF'};
+            }
+          `}</style>
+
+          <FilmGrain isChaos={isChaos} />
+
+          <div className="relative z-10 w-full overflow-hidden">
+            <CleanSection />
+            <BridgeSection ref={triggerRef} isChaos={isChaos} />
+
+            <div
+              className="transition-opacity duration-[1000ms] w-full"
+              style={{
+                opacity: isChaos ? 1 : 0,
+                pointerEvents: isChaos ? 'auto' : 'none'
+              }}
+            >
+              <ChaosSection />
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+
+</html>

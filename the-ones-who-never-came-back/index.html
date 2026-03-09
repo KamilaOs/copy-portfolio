@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ones Who Never Came Back</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400;1,700&family=Space+Grotesk:wght@300;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --w1-bg: #0D0F1A;
+            --w1-text: #E8EAF0;
+            --w1-accent: #4A6FA5;
+
+            --w2-bg: #1A1714;
+            --w2-text: rgba(232, 224, 210, 0.72);
+            --w2-accent: #8B6914;
+
+            --neutral-bg: #0A0A0A;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--neutral-bg);
+            color: var(--white);
+            font-family: 'Space Grotesk', sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .serif {
+            font-family: 'Libre Baskerville', serif;
+        }
+
+        .sans {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        .bold {
+            font-weight: 700;
+        }
+
+        .fw-400 {
+            font-weight: 400;
+        }
+
+        .fw-500 {
+            font-weight: 500;
+        }
+
+        .fw-300 {
+            font-weight: 300;
+        }
+
+        #scroll-track {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(74, 111, 165, 0.2);
+            z-index: 1000;
+        }
+
+        #scroll-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, #4A6FA5, #8B6914);
+        }
+
+        /* Title Section */
+        .title-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--neutral-bg);
+            position: relative;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .eyebrow {
+            font-size: 10px;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.3);
+            margin-bottom: 32px;
+        }
+
+        .main-title {
+            font-size: 88px;
+            line-height: 1.0;
+            margin-bottom: 40px;
+            color: var(--white);
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 52px;
+            }
+        }
+
+        .word-wrap {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+        }
+
+        .word {
+            display: inline-block;
+            transform: translateY(100%);
+            opacity: 0;
+            animation: fadeUpWord 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeUpWord {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.15s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.25s;
+        }
+
+        .delay-5 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-6 {
+            animation-delay: 0.35s;
+        }
+
+        .accent-blue {
+            color: var(--w1-accent);
+        }
+
+        .mt-md {
+            margin-top: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.45);
+            max-width: 500px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: fadeInSub 1s ease-out 1s forwards;
+        }
+
+        @keyframes fadeInSub {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .chevron {
+            position: absolute;
+            bottom: 50px;
+            opacity: 0;
+            animation: fadeInPulse 2s ease-out 1.5s infinite forwards;
+        }
+
+        @keyframes fadeInPulse {
+
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+
+            50% {
+                transform: translateY(10px);
+                opacity: 1;
+            }
+        }
+
+        /* Layout Grid Rules */
+        .reading-column {
+            max-width: 580px;
+            margin-left: 12vw;
+            margin-right: auto;
+            text-align: left;
+            position: relative;
+            z-index: 1;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .reading-column {
+                margin-left: 6vw;
+                margin-right: 6vw;
+            }
+        }
+
+        .centered-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-left: 20px;
+            padding-right: 20px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .body-p {
+            font-family: 'Libre Baskerville', serif;
+            font-weight: 400;
+            font-size: 19px;
+            line-height: 1.95;
+            margin-bottom: 2em;
+            text-align: left;
+        }
+
+        /* Animations */
+        .anim {
+            opacity: 0;
+        }
+
+        .fade-up {
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in {
+            transition: opacity var(--dur, 1.2s) ease-out var(--delay, 0s);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+        }
+
+        /* World 1 */
+        .world-1 {
+            background-color: var(--w1-bg);
+            color: var(--w1-text);
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .world-1::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(74, 111, 165, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .transition-w1-w2 {
+            margin: 0;
+            width: 100%;
+            display: block;
+        }
+
+        /* World 2 */
+        .world-2 {
+            background-color: var(--w2-bg);
+            color: var(--w2-text);
+            padding-bottom: 120px;
+            padding-top: 20px;
+        }
+
+        .world-2 .body-p {
+            font-size: 18px;
+            color: var(--w2-text);
+        }
+
+        .section-break {
+            margin: 60px 0 60px calc(12vw + 20px);
+            /* Aligns nicely inside reading column padding */
+            width: 48px;
+            height: 1px;
+            background: rgba(139, 105, 20, 0.2);
+        }
+
+        @media (max-width: 768px) {
+            .section-break {
+                margin-left: calc(6vw + 20px);
+            }
+        }
+
+        /* Return Section */
+        .return-section {
+            background: linear-gradient(to bottom, #1A1714, #0D0F1A);
+            padding: 120px 0;
+        }
+
+        .return-section .body-p {
+            color: rgba(232, 234, 240, 0.72);
+        }
+
+        /* Final Question */
+        .final-section {
+            background-color: var(--neutral-bg);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .final-text {
+            font-size: 80px;
+        }
+
+        @media (max-width: 768px) {
+            .final-text {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scroll-track">
+        <div id="scroll-fill"></div>
+    </div>
+
+    <section class="title-section">
+        <div class="eyebrow sans fw-300">AN ESSAY ON GAMING, ESCAPE, AND BELONGING</div>
+        <h1 class="main-title serif bold">
+            <div class="title-line">
+                <span class="word-wrap"><span class="word delay-1">The</span></span>
+                <span class="word-wrap"><span class="word delay-2">Ones</span></span>
+                <span class="word-wrap"><span class="word delay-3">Who</span></span>
+            </div>
+            <div class="title-line mt-md">
+                <span class="word-wrap"><span class="word delay-4 accent-blue">Never</span></span>
+                <span class="word-wrap"><span class="word delay-5 accent-blue">Came</span></span>
+                <span class="word-wrap"><span class="word delay-6 accent-blue">Back.</span></span>
+            </div>
+        </h1>
+        <div class="subtitle serif italic">On gaming, escape, and the worlds we build<br>when this one isn't enough.
+        </div>
+        <div class="chevron">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#4A6FA5" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+        </div>
+    </section>
+
+    <section class="world-1">
+        <p class="body-p anim fade-up reading-column">You close that door. And finally, it's time when you don't have to
+            pretend, adapt, or try to fit in. There are no glaring eyes watching your every movement. Maybe they weren't
+            even watching. But it felt like they were. Now you can finally breathe.</p>
+        <p class="body-p anim fade-up reading-column">You turn on the PC, plug in your earphones, and turn the music up
+            loud. But your brain is quiet.</p>
+
+        <div class="stagger-group">
+            <div class="centered-block" style="padding-top: 80px; padding-bottom: 80px;">
+                <div class="anim fade-in serif italic"
+                    style="--dur: 1.2s; --delay: 0s; font-size: 56px; color: var(--w1-accent);">Here you can feel safe.
+                </div>
+            </div>
+            <div class="centered-block" style="padding-bottom: 80px;">
+                <div class="anim fade-in serif italic"
+                    style="--dur: 1.2s; --delay: 0.3s; font-size: 56px; color: var(--w1-accent);">Here you have control.
+                </div>
+            </div>
+            <div class="centered-block" style="padding-bottom: 80px;">
+                <div class="anim fade-in serif italic"
+                    style="--dur: 1.2s; --delay: 0.6s; font-size: 56px; color: var(--white);">Here you can be anybody
+                    you want.</div>
+            </div>
+        </div>
+
+        <p class="body-p anim fade-up reading-column">The warrior who fights off ugly creatures. The witch who can stop
+            them with a single look.</p>
+
+        <div class="centered-block" style="padding-top: 120px; padding-bottom: 120px;">
+            <div class="anim fade-in serif italic bold" style="--dur: 1.4s; font-size: 72px; color: var(--white);">The
+                saviour.</div>
+        </div>
+
+        <div class="reading-column" style="padding-bottom: 120px;">
+            <div class="anim fade-in serif italic fw-400"
+                style="--dur: 1.4s; font-size: 32px; color: rgba(232,234,240,0.5);">Or the villain who finally took
+                everything<br>into his own hands.</div>
+        </div>
+
+        <div class="centered-block" style="padding-bottom: 100px;">
+            <div class="anim fade-in serif bold" style="--dur: 1.4s; font-size: 64px; color: var(--w1-accent);">You
+                control everything here.</div>
+        </div>
+    </section>
+
+    <div class="transition-w1-w2" style="height: 80px; background: linear-gradient(to bottom, #0D0F1A, #1A1714);"></div>
+
+    <section class="world-2">
+        <div class="centered-block" style="padding-top: 100px; padding-bottom: 120px;">
+            <div class="anim fade-in serif italic fw-400"
+                style="--dur: 1.6s; font-size: 36px; color: rgba(255,255,255,0.4);">But time goes by so fast.</div>
+        </div>
+
+        <p class="body-p anim fade-up reading-column">At first it's you coming home from work, instantly turning the PC
+            on.</p>
+        <p class="body-p anim fade-up reading-column">Then it's your friends texting you: 'Are you up for something this
+            weekend?'</p>
+
+        <div class="centered-block" style="padding-top: 40px; padding-bottom: 40px;">
+            <div class="anim fade-in serif italic"
+                style="--dur: 1.2s; font-size: 26px; color: rgba(232,224,210,0.6); margin-bottom: 8px;">"Are you up for
+                something this weekend?"</div>
+            <div class="anim fade-in serif italic bold"
+                style="--dur: 1.2s; font-size: 26px; color: rgba(232,224,210,0.9);">"Oh, I have plans tonight."</div>
+        </div>
+
+        <p class="body-p anim fade-up reading-column" style="margin-top: 2em;">The plan is actually just to spend the
+            night alone in your room. With your own world.</p>
+
+        <div class="section-break"></div>
+
+        <p class="body-p anim fade-up reading-column">They say that if you're enjoying your time, it flies by.</p>
+
+        <div class="reading-column" style="padding-top: 60px; padding-bottom: 60px;">
+            <div class="anim fade-in serif italic" style="--dur: 1.2s; font-size: 52px; color: rgba(232,224,210,0.5);">
+                It does.</div>
+        </div>
+
+        <div class="reading-column" style="padding-bottom: 48px;">
+            <div class="anim fade-in serif fw-400" style="--dur: 1.2s; font-size: 28px; color: rgba(232,224,210,0.4);">
+                Two months pass.</div>
+        </div>
+
+        <p class="body-p anim fade-up reading-column">Your friends stop trying to text you. And one day you realize that
+            even if you texted them now, they probably wouldn't answer. Because you ghosted them.</p>
+
+        <div class="reading-column" style="padding-top: 60px; padding-bottom: 60px;">
+            <div class="anim fade-in serif italic" style="--dur: 1.2s; font-size: 42px; color: rgba(232,224,210,0.35);">
+                But it's okay.</div>
+        </div>
+
+        <p class="body-p anim fade-up reading-column">You still have your own world.</p>
+
+        <div class="section-break"></div>
+
+        <p class="body-p anim fade-up reading-column">You even found new friends on Discord. You can spend time with
+            them so the loneliness doesn't hit that hard.</p>
+
+        <div class="reading-column" style="padding-top: 60px; padding-bottom: 60px;">
+            <div class="anim fade-in serif italic" style="--dur: 1.2s; font-size: 52px; color: rgba(232,224,210,0.55);">
+                But it does.</div>
+        </div>
+
+        <p class="body-p anim fade-up reading-column" style="margin-bottom: 1em;">Not right away.</p>
+        <p class="body-p anim fade-up reading-column" style="margin-bottom: 2em;">Two months is rookie time.</p>
+
+        <p class="body-p anim fade-up reading-column">After half a year, the game starts to bore you a little. The same
+            thing every day.</p>
+
+        <div class="reading-column" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="anim fade-in serif italic fw-400"
+                style="--dur: 1.2s; font-size: 34px; color: rgba(232,224,210,0.5);">But even the best escape gets old.
+            </div>
+        </div>
+
+        <p class="body-p anim fade-up reading-column">Maybe it's not the game that bores you. Maybe it's your Discord
+            friend who found a new girlfriend. Now he doesn't spend all his time with you.</p>
+
+        <p class="body-p anim fade-up reading-column" style="margin-bottom: 2em;">He has his own life.</p>
+
+        <p class="body-p anim fade-up reading-column">So you try changing the game. Or maybe finding a new friend.</p>
+
+        <p class="body-p anim fade-up reading-column" style="margin-bottom: 2em;">Nobody replies.</p>
+
+        <p class="body-p anim fade-up reading-column">You decide to go for a walk.</p>
+
+        <div class="reading-column" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="anim fade-in serif italic fw-400"
+                style="--dur: 1.4s; font-size: 22px; color: rgba(232,224,210,0.65); max-width: 500px; line-height: 1.6;">
+                "Fuck, it's been a while since I left the house.<br>Maybe it would be fun to do something new."</div>
+        </div>
+
+        <p class="body-p anim fade-up reading-column">So you open your socials and scroll through your friend list,
+            thinking about texting someone. But as you look through the names and your last messages with them... It's
+            been a while. And most of those conversations ended because you never replied.</p>
+
+        <div class="centered-block" style="padding-top: 100px; padding-bottom: 100px;">
+            <div class="anim fade-in serif italic bold" style="--dur: 1.4s; font-size: 52px; color: var(--w2-accent);">
+                The shame creeps in.</div>
+        </div>
+
+        <p class="body-p anim fade-up reading-column">You realize you don't have anyone to try new things with. Deep
+            inside, you know this is your own fault.</p>
+
+        <div class="reading-column" style="padding-top: 60px; padding-bottom: 60px;">
+            <div class="anim fade-in serif italic" style="--dur: 0.9s; font-size: 36px; color: rgba(232,224,210,0.6);">
+                That sinking feeling rises.</div>
+        </div>
+
+        <div class="centered-block" style="padding-bottom: 60px;">
+            <div class="anim fade-in serif italic bold"
+                style="--dur: 1.2s; font-size: 72px; color: rgba(232,224,210,0.5);">Slow.</div>
+        </div>
+
+        <div class="centered-block" style="padding-bottom: 60px;">
+            <div class="anim fade-in serif italic bold"
+                style="--dur: 1.4s; font-size: 72px; color: rgba(232,224,210,0.35);">Heavy.</div>
+        </div>
+
+        <div class="reading-column" style="padding-top: 80px; padding-bottom: 80px;">
+            <div class="anim fade-in serif italic fw-400"
+                style="--dur: 1.6s; font-size: 24px; color: rgba(232,224,210,0.45); max-width: 480px; line-height: 1.6;">
+                Like something shifting inside you that you can't put back.</div>
+        </div>
+
+        <div class="reading-column" style="padding-top: 120px;">
+            <div class="anim fade-in serif italic fw-400"
+                style="--dur: 1.6s; font-size: 26px; color: rgba(232,224,210,0.6); max-width: 540px; line-height: 1.6;">
+                "Do I really have nobody?<br>Where did it all go wrong?"</div>
+        </div>
+    </section>
+
+    <section class="return-section">
+        <p class="body-p anim fade-up reading-column">So you let the feeling sink in. Like the warrior you always were
+            in your games. Warriors also had to go through hardships in their adventures.</p>
+
+        <div class="reading-column" style="padding-top: 100px; padding-bottom: 100px;">
+            <div class="anim fade-in serif italic fw-400"
+                style="--dur: 1.4s; font-size: 36px; color: rgba(232,234,240,0.5);">So what do you do then?</div>
+        </div>
+
+        <div class="stagger-group reading-column" style="padding-bottom: 120px;">
+            <div class="anim fade-in serif"
+                style="--dur: 1.6s; --delay: 0s; font-size: 26px; color: rgba(232,234,240,0.45); margin-bottom: 24px;">
+                Some of us will go back to that room.</div>
+            <div class="anim fade-in serif"
+                style="--dur: 1.6s; --delay: 0.3s; font-size: 26px; color: rgba(232,234,240,0.35); margin-bottom: 24px;">
+                Close that door.</div>
+            <div class="anim fade-in serif"
+                style="--dur: 1.6s; --delay: 0.6s; font-size: 26px; color: rgba(232,234,240,0.25);">And never come back.
+            </div>
+        </div>
+    </section>
+
+    <section class="final-section">
+        <div class="anim fade-in sans fw-500 final-text" style="--dur: 2.0s; color: var(--white);">What will you do?
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const track = document.getElementById('scroll-track');
+            const fill = document.getElementById('scroll-fill');
+
+            window.addEventListener('scroll', () => {
+                const docHeight = document.documentElement.scrollHeight;
+                const winHeight = window.innerHeight;
+                const scrollY = window.scrollY;
+                const percent = Math.min((scrollY / Math.max(docHeight - winHeight, 1)) * 100, 100);
+                fill.style.width = percent + '%';
+            });
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -15% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.classList.contains('stagger-group')) {
+                            const children = entry.target.querySelectorAll('.anim');
+                            children.forEach((child) => {
+                                child.classList.add('visible');
+                            });
+                        } else {
+                            entry.target.classList.add('visible');
+                        }
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const animElements = document.querySelectorAll('.anim');
+            animElements.forEach(el => {
+                if (!el.closest('.stagger-group')) {
+                    observer.observe(el);
+                }
+            });
+
+            const staggerGroups = document.querySelectorAll('.stagger-group');
+            staggerGroups.forEach(group => observer.observe(group));
+        });
+    </script>
+</body>
+
+</html>

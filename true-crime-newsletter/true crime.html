@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Where Does Women's Love for True Crime Actually Come From?</title>
+    <meta name="description"
+        content="The psychology behind women's obsession with true crime. Weekly newsletter exploring the why behind the what.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --ink: #0f0e0c;
+            --parchment: #f2ede4;
+            --blood: #b83232;
+            --gold: #a08840;
+            --smoke: #7a7570;
+            --off-white: #f8f5f0;
+            --near-black: #1a1918;
+            --serif-display: 'Playfair Display', Georgia, serif;
+            --serif-body: 'Source Serif 4', Georgia, serif;
+            --mono: 'IBM Plex Mono', 'Courier New', monospace;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--ink);
+            color: var(--near-black);
+            font-family: var(--serif-body);
+            font-size: 1.15rem;
+            line-height: 2;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ── FIXED NAV ── */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(15, 14, 12, 0.88);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2.5rem;
+            border-bottom: 1px solid rgba(248, 245, 240, 0.06);
+        }
+
+        .nav-name {
+            font-family: var(--serif-display);
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--off-white);
+            letter-spacing: 0.02em;
+        }
+
+        .nav-tag {
+            font-family: var(--mono);
+            font-size: 0.7rem;
+            color: var(--smoke);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            background: var(--ink);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-label {
+            font-family: var(--mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--blood);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .hero-headline {
+            font-family: var(--serif-display);
+            font-weight: 900;
+            font-size: clamp(2.4rem, 6vw, 4.5rem);
+            color: var(--off-white);
+            line-height: 1.12;
+            max-width: 820px;
+            margin-bottom: 1.8rem;
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .hero-subline {
+            font-family: var(--serif-body);
+            font-style: italic;
+            font-size: 1.15rem;
+            color: var(--smoke);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .hero-rule {
+            width: 60px;
+            height: 2px;
+            background: var(--blood);
+            border: none;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .hero-meta {
+            font-family: var(--serif-display);
+            font-size: clamp(1rem, 1.8vw, 1.4rem);
+            color: var(--off-white);
+            letter-spacing: 0.04em;
+            line-height: 1.5;
+            opacity: 0;
+            transform: translateY(24px);
+        }
+
+        .hero-meta span {
+            display: block;
+        }
+
+        /* ── TRANSITION STRIP ── */
+        .transition-strip {
+            height: 120px;
+            background: linear-gradient(to bottom, var(--ink), var(--parchment));
+            width: 100%;
+        }
+
+        /* ── BODY READING SECTION ── */
+        .body-section {
+            background: var(--parchment);
+            padding: 4rem 2rem;
+        }
+
+        .body-inner {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .section-block {
+            margin-bottom: 4.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .section-block:first-child {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-label {
+            font-family: var(--serif-display);
+            font-weight: 900;
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            color: var(--blood);
+            text-transform: none;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 1.6rem;
+            padding-top: 2rem;
+            position: relative;
+        }
+
+        .section-label::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--blood);
+            margin-bottom: 1.4rem;
+        }
+
+        /* Centre the red rule when section-label has text-align:center (offer section) */
+        .section-label[style*="text-align:center"]::before,
+        .section-label[style*="text-align: center"]::before {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .body-section p {
+            margin-bottom: 1.4rem;
+            color: var(--near-black);
+        }
+
+        /* ── PULL QUOTE ── */
+        .pull-quote {
+            font-family: var(--serif-display);
+            font-weight: 700;
+            font-size: 1.55rem;
+            line-height: 1.6;
+            text-align: center;
+            color: var(--near-black);
+            border-left: 3px solid var(--blood);
+            padding: 1.5rem 2rem;
+            margin: 2.5rem -1.5rem 2.5rem -1.5rem;
+            position: relative;
+        }
+
+        /* ── DARK INTERLUDE ── */
+        .interlude {
+            background: var(--ink);
+            padding: 6rem 2rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .interlude-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .interlude-label {
+            font-family: var(--serif-display);
+            font-weight: 900;
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            color: var(--blood);
+            text-transform: none;
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+            margin-bottom: 2.8rem;
+            position: relative;
+            padding-top: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .interlude-label::before {
+            content: '';
+            display: block;
+            width: 40px;
+            height: 2px;
+            background: var(--blood);
+            margin: 0 auto 1.4rem;
+        }
+
+        .interlude-label.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .control-line {
+            font-family: var(--serif-display);
+            font-weight: 700;
+            font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+            color: var(--off-white);
+            line-height: 1.5;
+            margin-bottom: 0.6rem;
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .control-line.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .interlude-body {
+            font-family: var(--serif-body);
+            font-size: 1rem;
+            color: var(--smoke);
+            line-height: 1.9;
+            max-width: 580px;
+            margin: 2.5rem auto 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease 0.6s, transform 0.7s ease 0.6s;
+        }
+
+        .interlude-body.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── TRANSITION STRIP 2 ── */
+        .transition-strip-2 {
+            height: 120px;
+            background: linear-gradient(to bottom, var(--ink), var(--parchment));
+            width: 100%;
+        }
+
+        /* ── NEWSLETTER OFFER ── */
+        .offer-section {
+            background: var(--parchment);
+            padding: 5rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .offer-inner {
+            max-width: 640px;
+            margin: 0 auto;
+        }
+
+        .offer-label {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--blood);
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            margin-bottom: 1.8rem;
+        }
+
+        .offer-copy {
+            font-family: var(--serif-body);
+            font-size: 1.1rem;
+            color: var(--near-black);
+            line-height: 2;
+            margin-bottom: 2.5rem;
+        }
+
+        .offer-price {
+            font-family: var(--serif-display);
+            font-weight: 900;
+            font-size: clamp(2.2rem, 5vw, 3.4rem);
+            color: var(--blood);
+            margin-bottom: 0.6rem;
+        }
+
+        .offer-tagline {
+            font-family: var(--serif-body);
+            font-style: italic;
+            font-size: 1rem;
+            color: var(--smoke);
+            margin-bottom: 3rem;
+        }
+
+        .cta-button {
+            display: block;
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto 2rem;
+            padding: 1.3rem 2rem;
+            background: var(--ink);
+            color: var(--off-white);
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 0;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: none;
+        }
+
+        .cta-button:hover {
+            background: var(--blood);
+            color: var(--off-white);
+        }
+
+        .closing-line {
+            font-family: var(--mono);
+            font-size: 0.72rem;
+            color: var(--smoke);
+            letter-spacing: 0.06em;
+            text-align: center;
+            padding-bottom: 4rem;
+            background: var(--parchment);
+        }
+
+        /* ── FADE-IN UTILITY ── */
+        .fade-section {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 600px) {
+            .nav {
+                padding: 0.8rem 1.2rem;
+            }
+
+            .nav-name {
+                font-size: 0.95rem;
+            }
+
+            .nav-tag {
+                font-size: 0.6rem;
+            }
+
+            .hero {
+                padding: 5rem 1.2rem 3rem;
+            }
+
+            .body-section {
+                padding: 3rem 1.2rem;
+            }
+
+            .section-label {
+                padding-top: 1.5rem;
+                margin-bottom: 1.2rem;
+            }
+
+            .pull-quote {
+                font-size: 1.25rem;
+                margin-left: 0;
+                margin-right: 0;
+                padding: 1.2rem 1.2rem;
+            }
+
+            .interlude {
+                padding: 4rem 1.2rem;
+            }
+
+            .offer-section {
+                padding: 3.5rem 1.2rem 3rem;
+            }
+
+            .cta-button {
+                font-size: 0.72rem;
+                padding: 1.1rem 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── FIXED NAV ── -->
+    <nav class="nav">
+        <div class="nav-name">The Psychology of Crime</div>
+        <div class="nav-tag">Weekly. Psychology. True Crime.</div>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section class="hero" id="hero">
+        <h1 class="hero-headline" data-hero="1">Where Does Women's Love for True Crime Actually Come From?</h1>
+        <p class="hero-subline" data-hero="2">Turns out, psychology has a lot to say about it.</p>
+        <hr class="hero-rule" data-hero="3">
+        <div class="hero-meta" data-hero="4">
+            <span>1 AM. Three episodes deep.</span>
+            <span>Still can't turn it off.</span>
+        </div>
+    </section>
+
+    <!-- ── TRANSITION ── -->
+    <div class="transition-strip"></div>
+
+    <!-- ── BODY READING ── -->
+    <section class="body-section">
+        <div class="body-inner">
+
+            <!-- Intro -->
+            <div class="section-block">
+                <p>You know the type. Maybe you are the type.</p>
+                <p>It's 1 AM. You're three episodes deep into a documentary about a serial killer from the 1980s, and
+                    somehow it still feels impossible to turn off.</p>
+                <p>Your boyfriend is confused.</p>
+                <p>Honestly, maybe you are too.</p>
+                <p>So why do so many women find themselves completely hooked on true crime? Turns out, psychology has a
+                    lot to say about it.</p>
+            </div>
+
+            <!-- We're wired to ask "why?" -->
+            <div class="section-block">
+                <div class="section-label">We're wired to ask "why?"</div>
+                <p>Most of us have a hard time wrapping our heads around how someone could hurt another person. We feel
+                    guilty swatting a fly.</p>
+                <p>So when we hear about someone capable of real, sustained cruelty, something in our brain needs to
+                    make sense of it. Watching true crime is how a lot of us try to do that. We analyze, we empathize,
+                    we try to understand what the rest of us simply don't feel.</p>
+            </div>
+
+            <!-- It hits closer to home -->
+            <div class="section-block">
+                <div class="section-label">It hits closer to home than we'd like to admit</div>
+                <div class="pull-quote">Nearly one in three women worldwide has experienced physical or sexual violence
+                    in her lifetime.</div>
+                <p>And that's not even counting the near-misses. The moments that almost became something worse.</p>
+                <p>True crime can feel, oddly, like therapy. A reminder that you're not alone. That what happened, or
+                    almost happened, wasn't your fault, and wasn't unique to you.</p>
+            </div>
+
+            <!-- Justice feels good -->
+            <div class="section-block">
+                <div class="section-label">Justice feels good. Really good.</div>
+                <p>We grow up on stories where the villain loses, and for good reason. It teaches us that doing harm has
+                    consequences. True crime delivers that same satisfaction, but it's real. The bad guy actually gets
+                    caught. Watching justice play out on screen scratches an itch that feels deeply human.</p>
+            </div>
+
+            <!-- It's a little bit rebellious -->
+            <div class="section-block">
+                <div class="section-label">It's a little bit rebellious, too</div>
+                <p>A lot of us grew up being told to be small. Be gentle. Like the right things.</p>
+                <p>And even as we got older and pushed back, insisting we could carry the chairs, lift the boxes, handle
+                    ourselves, there was always that quiet pressure to stay in a certain lane.</p>
+                <p>True crime is a refusal to do that. It's dark, it's uncomfortable, it doesn't apologize for itself.
+                    Choosing to engage with something that makes people go "how can you watch that?" is its own small
+                    act of not shrinking.</p>
+            </div>
+
+            <!-- It's also genuinely useful -->
+            <div class="section-block">
+                <div class="section-label">It's also genuinely useful</div>
+                <p>Nobody sat us down and taught us to spot the warning signs. We got vague advice. Don't go out alone.
+                    Don't trust strangers. Nothing that prepared us for the complicated, subtle, broad-daylight ways
+                    danger actually shows up.</p>
+                <p>True crime fills that gap. For a lot of women, it already has.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ── DARK INTERLUDE ── -->
+    <div class="transition-strip" style="background: linear-gradient(to bottom, var(--parchment), var(--ink));"></div>
+    <section class="interlude" id="interlude">
+        <div class="interlude-inner">
+            <div class="interlude-label" data-interlude="label">And sometimes? It's about control.</div>
+            <div class="control-line" data-interlude="1">You can pause it.</div>
+            <div class="control-line" data-interlude="2">Rewind it.</div>
+            <div class="control-line" data-interlude="3">Google the ending before you even finish watching.</div>
+            <p class="interlude-body" data-interlude="body">In a genre full of chaos and suffering, you hold all the
+                power. For anyone who's spent their life feeling like they had none, that's not nothing.</p>
+        </div>
+    </section>
+
+    <!-- ── TRANSITION ── -->
+    <div class="transition-strip-2"></div>
+
+    <!-- ── NEWSLETTER OFFER ── -->
+    <section class="offer-section">
+        <div class="offer-inner">
+            <div class="section-block">
+                <div class="section-label" style="text-align:center; margin-bottom: 1.2rem;">Whatever your reason, you
+                    belong here.</div>
+                <p class="offer-copy">And if you want to go deeper, more psychology, more cases, more of the why behind
+                    the what, this newsletter was built for you.</p>
+                <p class="offer-copy">Every week, one story. Researched, written, and delivered straight to your inbox.
+                    The kind of read you save, share, and think about for days.</p>
+                <p class="offer-copy" style="margin-bottom:1rem;">Your first month is on us. After that, just</p>
+            </div>
+
+            <div class="fade-section">
+                <div class="offer-label">Join the Newsletter.</div>
+                <div class="offer-price">$0.99/month</div>
+                <div class="offer-tagline">Less than a coffee, more than a little obsession.</div>
+            </div>
+
+            <div class="fade-section">
+                <a href="#" class="cta-button" id="cta">YES, I'M IN — START READING FREE.</a>
+                <div class="closing-line">Join 8,500+ women who stopped feeling weird about it.</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ── HERO STAGGER ANIMATION ──
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroEls = document.querySelectorAll('[data-hero]');
+            heroEls.forEach((el, i) => {
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, 300 + i * 200);
+            });
+        });
+
+        // ── SCROLL REVEAL (BODY SECTIONS + OFFER) ──
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.section-block, .fade-section').forEach(el => {
+            observer.observe(el);
+        });
+
+        // ── INTERLUDE ANIMATIONS ──
+        const interludeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const key = el.getAttribute('data-interlude');
+
+                    if (key === 'label') {
+                        el.classList.add('visible');
+                    } else if (key === '1' || key === '2' || key === '3') {
+                        const delay = (parseInt(key) - 1) * 150;
+                        setTimeout(() => {
+                            el.classList.add('visible');
+                        }, delay);
+                    } else if (key === 'body') {
+                        el.classList.add('visible');
+                    }
+
+                    interludeObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('[data-interlude]').forEach(el => {
+            interludeObserver.observe(el);
+        });
+    </script>
+
+</body>
+
+</html>

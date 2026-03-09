@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SleepBear Pro</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --honey: #F5A623;
+      --honey-pale: #FFF8ED;
+      --honey-mid: #FEF0D0;
+      --navy: #1B2B4B;
+      --cream: #FFFBF4;
+      --warm-white: #FFFFFF;
+      --muted: #8C7B6E;
+      --text: #1A1208;
+      --bear: #C4714F;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: var(--cream);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Nav */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 60px;
+      background: rgba(255, 251, 244, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 5vw;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    nav.visible {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .nav-logo {
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--text);
+    }
+
+    .nav-btn {
+      background: var(--honey);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 13px;
+      height: 38px;
+      border-radius: 999px;
+      padding: 0 20px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      transition: background 0.2s ease;
+    }
+
+    .nav-btn:hover {
+      background: #e09418;
+    }
+
+    /* manually calculated darken slightly */
+
+    /* Resets & Utilities */
+    section {
+      position: relative;
+      width: 100%;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transition: opacity 0.7s ease;
+    }
+
+    .fade-in.slow {
+      transition: opacity 1.4s ease;
+    }
+
+    .fade-in.again {
+      transition: opacity 1.2s ease;
+    }
+
+    .fade-up.visible,
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    [style*="--delay"] {
+      transition-delay: var(--delay);
+    }
+
+    /* Section 1 - Hero */
+    .hero {
+      min-height: 100vh;
+      padding: 120px 0 80px 0;
+      background: var(--cream);
+    }
+
+    .hero-eyebrow {
+      text-align: center;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 60px;
+    }
+
+    .hero-headline {
+      padding-left: 10vw;
+      margin-bottom: 40px;
+    }
+
+    .hero-headline>div {
+      font-weight: 900;
+      font-size: 96px;
+      line-height: 0.92;
+      color: var(--text);
+    }
+
+    .hero-headline>div.honey {
+      color: var(--honey);
+    }
+
+    .hero-body {
+      padding-left: 10vw;
+      max-width: calc(10vw + 620px);
+      font-weight: 400;
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .hero-punchline {
+      padding-left: 10vw;
+      font-weight: 900;
+      font-size: 80px;
+      color: var(--text);
+      padding-top: 60px;
+      padding-bottom: 60px;
+    }
+
+    @media (max-width: 768px) {
+      .hero-headline>div {
+        font-size: 56px;
+      }
+
+      .hero-punchline {
+        font-size: 56px;
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+    }
+
+    /* Section 2 - Transition Strip */
+    .strip {
+      background: var(--honey-mid);
+      padding: 80px 10vw;
+    }
+
+    .strip-title {
+      font-weight: 900;
+      font-size: 72px;
+      color: var(--text);
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .strip-subtitle {
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .strip-aside {
+      margin-left: 4vw;
+      font-weight: 700;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--bear);
+      margin-top: 32px;
+      margin-bottom: 8px;
+    }
+
+    .strip-clarify {
+      margin-left: 4vw;
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      .strip-title {
+        font-size: 48px;
+      }
+    }
+
+    /* Section 3 - Product Reveal */
+    .reveal {
+      background: var(--navy);
+      padding: 120px 5vw;
+      text-align: center;
+    }
+
+    .reveal-inner {
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .reveal-intro {
+      font-weight: 400;
+      font-size: 20px;
+      color: rgba(255, 251, 244, 0.6);
+      margin-bottom: 48px;
+    }
+
+    .reveal-main {
+      font-weight: 900;
+      font-size: 108px;
+      color: var(--honey);
+      line-height: 0.9;
+      margin-bottom: 32px;
+    }
+
+    .reveal-sub {
+      font-weight: 800;
+      font-size: 52px;
+      color: var(--warm-white);
+      margin-bottom: 64px;
+    }
+
+    .trust-lines {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .trust-line {
+      font-weight: 600;
+      font-size: 18px;
+    }
+
+    .trust-line:nth-child(1) {
+      color: var(--honey);
+    }
+
+    .trust-line:nth-child(2) {
+      color: rgba(255, 251, 244, 0.9);
+    }
+
+    .trust-line:nth-child(3) {
+      color: rgba(255, 251, 244, 0.35);
+    }
+
+    @media (max-width: 768px) {
+      .reveal-main {
+        font-size: 64px;
+      }
+
+      .reveal-sub {
+        font-size: 36px;
+      }
+    }
+
+    /* Section 4 - Real Promise */
+    .promise {
+      background: var(--honey-pale);
+      padding: 120px 0;
+    }
+
+    .promise-eye {
+      text-align: center;
+      font-weight: 700;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--honey);
+      margin-bottom: 24px;
+    }
+
+    .promise-strike {
+      text-align: center;
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--muted);
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .promise-title {
+      text-align: center;
+      font-weight: 800;
+      font-size: 36px;
+      color: var(--text);
+      margin-top: 24px;
+      margin-bottom: 64px;
+    }
+
+    .promise-block {
+      padding-left: 10vw;
+      max-width: calc(10vw + 560px);
+      padding-top: 40px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid rgba(245, 166, 35, 0.2);
+    }
+
+    .promise-block:last-child {
+      border-bottom: none;
+    }
+
+    .p-label {
+      font-weight: 800;
+      font-size: 28px;
+      color: var(--honey);
+      margin-bottom: 8px;
+    }
+
+    .p-body {
+      font-weight: 400;
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+
+    @media (max-width: 768px) {
+      .promise-strike {
+        font-size: 20px;
+        padding: 0 5vw;
+      }
+
+      .promise-title {
+        font-size: 28px;
+      }
+    }
+
+    /* Section 5 - Social Proof */
+    .proof {
+      background: var(--honey-mid);
+      padding: 120px 5vw;
+      text-align: center;
+    }
+
+    .proof-main {
+      font-weight: 900;
+      font-size: 120px;
+      color: var(--honey);
+      line-height: 0.9;
+      margin-bottom: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .proof-sub {
+      font-weight: 400;
+      font-size: 20px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 80px auto;
+    }
+
+    .reviews {
+      display: flex;
+      gap: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .review {
+      flex: 1;
+      background: var(--warm-white);
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 4px 24px rgba(245, 166, 35, 0.1);
+      text-align: left;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .review:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 32px rgba(245, 166, 35, 0.2);
+    }
+
+    .stars {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--honey);
+    }
+
+    .quote {
+      font-weight: 400;
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.7;
+      margin-top: 12px;
+    }
+
+    .attr {
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .proof-main {
+        font-size: 80px;
+      }
+
+      .reviews {
+        flex-direction: column;
+      }
+    }
+
+    /* Section 6 - CTA */
+    .cta {
+      background: var(--honey);
+      padding: 120px 5vw;
+      text-align: center;
+    }
+
+    .cta-h1 {
+      font-weight: 900;
+      font-size: 96px;
+      color: var(--text);
+      line-height: 0.9;
+      margin-bottom: 16px;
+    }
+
+    .cta-h2 {
+      font-weight: 700;
+      font-size: 52px;
+      color: rgba(26, 18, 8, 0.55);
+      margin-bottom: 48px;
+      line-height: 1;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--warm-white);
+      color: var(--text);
+      font-weight: 800;
+      font-size: 18px;
+      border-radius: 999px;
+      height: 64px;
+      padding: 0 48px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      margin-bottom: 24px;
+    }
+
+    .cta-btn:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: scale(1.02);
+    }
+
+    .cta-trust {
+      font-weight: 400;
+      font-size: 14px;
+      color: rgba(26, 18, 8, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .cta-h1 {
+        font-size: 56px;
+      }
+
+      .cta-h2 {
+        font-size: 36px;
+      }
+
+      .cta-btn {
+        font-size: 16px;
+        padding: 0 32px;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--navy);
+      padding: 80px 5vw 40px 5vw;
+      text-align: center;
+    }
+
+    .f-logo {
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--honey);
+      margin-bottom: 8px;
+    }
+
+    .f-tag {
+      font-weight: 400;
+      font-size: 13px;
+      color: rgba(255, 251, 244, 0.4);
+      margin-bottom: 40px;
+    }
+
+    .f-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    .f-links a {
+      font-weight: 400;
+      font-size: 12px;
+      color: rgba(255, 251, 244, 0.2);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .f-links a:hover {
+      color: var(--cream);
+    }
+  </style>
+</head>
+
+<body>
+  <nav id="nav">
+    <div class="nav-logo">Sleep🐻Bear Pro</div>
+    <a href="#" class="nav-btn">Buy Now &rarr;</a>
+  </nav>
+
+  <!-- SECTION 1 -->
+  <section class="hero">
+    <div class="hero-eyebrow fade-in">FINALLY. A GOOD NIGHT'S SLEEP. 🌙</div>
+    <div class="hero-headline">
+      <div class="fade-up" style="--delay: 0s">You're not lazy.</div>
+      <div class="fade-up" style="--delay: 0.12s">You're not dramatic.</div>
+      <div class="honey fade-up" style="--delay: 0.24s">You just haven't</div>
+      <div class="honey fade-up" style="--delay: 0.36s">been sleeping well.</div>
+    </div>
+    <div class="hero-body fade-in" style="--delay: 0.8s">
+      The assignment that needed to be finished three days ago still sits unopened on your desk. Your friends can't
+      understand why you won't come out on Friday night.
+    </div>
+    <div class="hero-body fade-in">
+      You can't exactly tell them you've been stockpiling sleep supplements trying to find one that actually works.
+      That's a conversation that ends with them joking about you getting old. So you just say you're tired.
+    </div>
+    <div class="hero-punchline fade-in again">
+      Again. 😮‍💨
+    </div>
+    <div class="hero-body fade-in">
+      At 7am the coffee is already on. The day hasn't started and you're already behind it. Everything feels harder than
+      it should. Not impossible. Just heavier than it used to be.
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="strip">
+    <div class="strip-title fade-up">You deserve real sleep.</div>
+    <div class="strip-subtitle fade-up" style="--delay: 0.1s">Not an overpriced magic potion in a capsule that promises
+      you'll sleep like a newborn every night.</div>
+    <div class="strip-aside fade-up" style="--delay: 0.2s">Had anyone actually slept with a newborn in the room?</div>
+    <div class="strip-clarify fade-up" style="--delay: 0.3s">Not the experience we want to give you.</div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="reveal">
+    <div class="reveal-inner">
+      <div class="reveal-intro fade-up">The only thing we can offer you is this:</div>
+      <div class="reveal-main fade-in slow">Gummy Bears. 🐻</div>
+      <div class="reveal-sub fade-up" style="--delay: 0.5s">SleepBear Pro.</div>
+      <div class="trust-lines">
+        <div class="trust-line fade-up" style="--delay: 0.65s">✓ No side effects.</div>
+        <div class="trust-line fade-up" style="--delay: 0.8s">✓ No empty promises.</div>
+        <div class="trust-line fade-up" style="--delay: 0.95s">✓ No newborns.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section class="promise">
+    <div class="promise-eye fade-in">WHAT WE CAN PROMISE</div>
+    <div class="promise-strike fade-in" style="--delay: 0.1s">We can't promise you'll sleep like a newborn.</div>
+    <div class="promise-title fade-up" style="--delay: 0.2s">But we can promise this:</div>
+
+    <div class="promise-block fade-up" style="--delay: 0.1s">
+      <div class="p-label">The assignment. 📋</div>
+      <div class="p-body">After a restful sleep, that work that felt impossible will just feel like work again.</div>
+    </div>
+    <div class="promise-block fade-up" style="--delay: 0.2s">
+      <div class="p-label">The Friday night. 🍻</div>
+      <div class="p-body">You'll have enough energy to actually show up. And mean it.</div>
+    </div>
+    <div class="promise-block fade-up" style="--delay: 0.3s">
+      <div class="p-label">The life. 🎁</div>
+      <div class="p-body">The one everyone keeps telling you should feel like a gift. Will start to feel a little more
+        like one.</div>
+    </div>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section class="proof">
+    <div class="proof-main fade-up" id="counter">0</div>
+    <div class="proof-sub fade-up" style="--delay: 0.1s">people already woke up feeling like themselves again. 🌅</div>
+    <div class="reviews">
+      <div class="review fade-up" style="--delay: 0.1s">
+        <div class="stars">★★★★★</div>
+        <div class="quote">"I stopped dreading my alarm. That's all I wanted."</div>
+        <div class="attr">— JAMIE, 31</div>
+      </div>
+      <div class="review fade-up" style="--delay: 0.2s">
+        <div class="stars">★★★★★</div>
+        <div class="quote">"No grogginess. No weird dreams. Just actually woke up fine."</div>
+        <div class="attr">— MARCUS, 28</div>
+      </div>
+      <div class="review fade-up" style="--delay: 0.3s">
+        <div class="stars">★★★★★</div>
+        <div class="quote">"I didn't believe gummies would work. Now I'm the person recommending them to everyone."
+        </div>
+        <div class="attr">— RACHEL, 34</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6 -->
+  <section class="cta">
+    <div class="cta-h1 fade-up">Buy today. 🛒</div>
+    <div class="cta-h2 fade-up" style="--delay: 0.1s">Sleep better tomorrow.</div>
+    <a href="#" class="cta-btn fade-up" style="--delay: 0.2s">Buy Today — Sleep Better Tomorrow</a>
+    <div class="cta-trust fade-in" style="--delay: 0.3s">
+      No side effects. No empty promises. <br>
+      8,900+ sleepers can't be wrong. 🐻
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="f-logo">Sleep🐻Bear Pro</div>
+    <div class="f-tag">Finally. A good night's sleep.</div>
+    <div class="f-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { rootMargin: '0px', threshold: 0.15 });
+
+      document.querySelectorAll('.fade-up, .fade-in').forEach(el => observer.observe(el));
+
+      const nav = document.getElementById('nav');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 80) nav.classList.add('visible');
+        else nav.classList.remove('visible');
+      });
+
+      // Counter animation
+      const counter = document.getElementById('counter');
+      let counted = false;
+      const cntObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && !counted) {
+          counted = true;
+          let start = null;
+          const duration = 1500;
+          const final = 8900;
+          const step = (timestamp) => {
+            if (!start) start = timestamp;
+            const progress = Math.min((timestamp - start) / duration, 1);
+            const ease = 1 - Math.pow(2, -10 * progress); // easeOutExpo
+            counter.innerText = Math.floor(ease * final).toLocaleString() + '+';
+            if (progress < 1) window.requestAnimationFrame(step);
+            else counter.innerText = "8,900+";
+          };
+          window.requestAnimationFrame(step);
+          cntObserver.disconnect();
+        }
+      }, { threshold: 0.5 });
+      cntObserver.observe(counter);
+    });
+  </script>
+</body>
+
+</html>

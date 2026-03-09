@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flockly</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --cream: #F9F5EE;
+            --dark: #1C1108;
+            --terracotta: #C4714F;
+            --blush: #EAC4B3;
+            --muted: #8C7B6E;
+            --white: #FFFFFF;
+
+            --font-serif: 'Instrument Serif', serif;
+            --font-sans: 'Outfit', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--dark);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Nav */
+        nav {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 20px;
+            color: var(--terracotta);
+            text-decoration: none;
+        }
+
+        .join-btn {
+            font-family: var(--font-sans);
+            font-weight: 500;
+            font-size: 12px;
+            color: var(--terracotta);
+            border: 1.5px solid var(--terracotta);
+            background: transparent;
+            height: 36px;
+            border-radius: 999px;
+            padding: 0 16px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .join-btn:hover {
+            background: var(--terracotta);
+            color: var(--white);
+        }
+
+        /* SECTION 1 - HERO */
+        .hero {
+            background: var(--cream);
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding-left: 7vw;
+            width: 100%;
+        }
+
+        .hero-content {
+            width: 60%;
+            position: relative;
+        }
+
+        .typewriter-tag {
+            font-family: var(--font-sans);
+            font-weight: 400;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-bottom: 24px;
+            display: inline-block;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 1em;
+            background: var(--muted);
+            vertical-align: middle;
+            margin-left: 4px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .hero-headline {
+            font-family: var(--font-serif);
+            font-size: 92px;
+            color: var(--dark);
+            line-height: 0.95;
+            margin-bottom: 32px;
+            font-weight: normal;
+        }
+
+        @media (max-width: 768px) {
+            .hero-headline {
+                font-size: 52px;
+            }
+
+            .hero-content {
+                width: 90%;
+            }
+        }
+
+        .headline-line {
+            overflow: hidden;
+            display: block;
+        }
+
+        .headline-text {
+            display: block;
+            transform: translateY(100%);
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .indent {
+            margin-left: 3rem;
+        }
+
+        .color-terracotta {
+            color: var(--terracotta);
+        }
+
+        .line-1 .headline-text {
+            animation-delay: 0s;
+        }
+
+        .line-2 .headline-text {
+            animation-delay: 0.15s;
+        }
+
+        .line-3 .headline-text {
+            animation-delay: 0.3s;
+        }
+
+        .line-4 .headline-text {
+            animation-delay: 0.45s;
+        }
+
+        .line-5 .headline-text {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .hero-ruler {
+            width: 1px;
+            height: 48px;
+            background: var(--terracotta);
+            margin-top: 32px;
+            margin-bottom: 24px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        .hero-subtext {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 18px;
+            color: var(--muted);
+            max-width: 400px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            animation-delay: 0.8s;
+        }
+
+        .main-cta {
+            background: var(--terracotta);
+            color: var(--white);
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 15px;
+            border-radius: 999px;
+            height: 58px;
+            padding: 0 40px;
+            border: none;
+            cursor: pointer;
+            margin-top: 44px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+            animation-delay: 0.8s;
+            transition: background 0.25s, transform 0.25s, box-shadow 0.25s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(196, 113, 79, 0);
+        }
+
+        .main-cta:hover {
+            background: #A85A3A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(196, 113, 79, 0.2);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .scroll-down {
+            position: absolute;
+            bottom: 40px;
+            left: 7vw;
+            color: var(--terracotta);
+            animation: bounce 2s infinite ease-in-out;
+            opacity: 0;
+            animation-delay: 0.8s, 0s;
+            animation-name: fadeIn, bounce;
+            animation-duration: 0.8s, 2s;
+            animation-iteration-count: 1, infinite;
+            animation-fill-mode: forwards, none;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .hero-stats {
+            position: absolute;
+            right: 7vw;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+            align-items: flex-end;
+            text-align: right;
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
+            animation-delay: 1s;
+        }
+
+        .stat-block {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: 42px;
+            color: var(--dark);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 40px;
+            background: rgba(196, 113, 79, 0.25);
+        }
+
+        @media (max-width: 768px) {
+            .hero-stats {
+                display: none;
+            }
+        }
+
+        /* SECTION 2 - SCROLLYTELLING ESSAY */
+        .essay {
+            background: var(--dark);
+            padding: 120px 0;
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .treatment-a {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 18px;
+            line-height: 1.95;
+            color: rgba(249, 245, 238, 0.72);
+            max-width: 580px;
+            text-align: center;
+            margin: 0 auto 32px auto;
+        }
+
+        .treatment-b {
+            padding: 160px 0;
+            opacity: 0;
+            transition: opacity 1.5s ease;
+        }
+
+        .treatment-b.visible {
+            opacity: 1;
+        }
+
+        .b-line-1 {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 72px;
+            color: var(--blush);
+            text-align: left;
+            padding-left: 8vw;
+        }
+
+        .b-line-2 {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 96px;
+            color: var(--blush);
+            text-align: left;
+            padding-left: 18vw;
+        }
+
+        .b-line-3 {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 56px;
+            color: var(--terracotta);
+            text-align: center;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .b-line-4 {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 40px;
+            color: var(--white);
+            text-align: center;
+            letter-spacing: 0.03em;
+        }
+
+        @media (max-width: 768px) {
+            .b-line-1 {
+                font-size: 48px;
+            }
+
+            .b-line-2 {
+                font-size: 64px;
+            }
+
+            .b-line-3 {
+                font-size: 40px;
+                padding: 0 20px;
+            }
+
+            .b-line-4 {
+                font-size: 28px;
+                padding: 0 20px;
+            }
+
+            .treatment-a {
+                padding: 0 20px;
+            }
+        }
+
+        .treatment-c {
+            width: 100%;
+            height: 1px;
+            background: rgba(196, 113, 79, 0.25);
+            margin: 80px 0;
+            border: none;
+        }
+
+        /* SECTION 3 - VIBE-CHECK DEMO */
+        .vibe-check {
+            background: var(--cream);
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .eyebrow {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            color: var(--terracotta);
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .vibe-check-headline {
+            font-family: var(--font-serif);
+            font-size: 58px;
+            color: var(--dark);
+            margin-bottom: 16px;
+            font-weight: normal;
+        }
+
+        @media (max-width: 768px) {
+            .vibe-check-headline {
+                font-size: 44px;
+                padding: 0 20px;
+            }
+        }
+
+        .vibe-check-subline {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 17px;
+            color: var(--muted);
+            margin-bottom: 64px;
+        }
+
+        .tag-cloud {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .tag-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .vibe-tag {
+            font-family: var(--font-sans);
+            font-weight: 500;
+            font-size: 13px;
+            color: var(--terracotta);
+            background: var(--white);
+            border: 1.5px solid var(--terracotta);
+            border-radius: 999px;
+            padding: 10px 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .vibe-tag.is-selected {
+            background: var(--terracotta);
+            color: var(--white);
+        }
+
+        .check-icon {
+            display: none;
+            margin-right: 6px;
+        }
+
+        .vibe-tag.is-selected .check-icon {
+            display: inline;
+        }
+
+        .tag-teaser {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-style: italic;
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 48px;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 2s;
+        }
+
+        /* SECTION 4 - THE THREE MODES */
+        .modes {
+            background: var(--dark);
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .modes .eyebrow {
+            color: rgba(249, 245, 238, 0.4);
+        }
+
+        .modes-headline {
+            font-family: var(--font-serif);
+            font-size: 52px;
+            color: var(--white);
+            margin-bottom: 64px;
+            font-weight: normal;
+        }
+
+        @media (max-width: 768px) {
+            .modes-headline {
+                font-size: 40px;
+                padding: 0 20px;
+            }
+        }
+
+        .cards-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 24px;
+            padding: 0 5vw;
+        }
+
+        @media (max-width: 900px) {
+            .cards-container {
+                flex-direction: column;
+            }
+        }
+
+        .mode-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(249, 245, 238, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: left;
+            flex: 1;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .mode-card:hover {
+            border-color: rgba(196, 113, 79, 0.5);
+            transform: translateY(-4px);
+        }
+
+        .mode-card.special {
+            border-left: 3px solid var(--terracotta);
+        }
+
+        .mode-num {
+            font-family: var(--font-sans);
+            font-weight: 500;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            color: var(--terracotta);
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .mode-name {
+            font-family: var(--font-serif);
+            font-size: 32px;
+            color: var(--white);
+            margin-bottom: 24px;
+            font-weight: normal;
+        }
+
+        .mode-desc {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 1.8;
+            color: rgba(249, 245, 238, 0.65);
+        }
+
+        .modes-reassurance {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-style: italic;
+            font-size: 14px;
+            color: rgba(249, 245, 238, 0.45);
+            margin-top: 64px;
+            padding: 0 20px;
+        }
+
+        /* SECTION 5 - TESTIMONIALS */
+        .testimonials {
+            background: var(--cream);
+            padding: 120px 0;
+            text-align: center;
+        }
+
+        .testimonials-headline {
+            font-family: var(--font-serif);
+            font-size: 52px;
+            color: var(--dark);
+            margin-bottom: 80px;
+            font-weight: normal;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-headline {
+                font-size: 40px;
+                padding: 0 20px;
+            }
+        }
+
+        .testimonial-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .testimonial-quote {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 26px;
+            color: var(--dark);
+            line-height: 1.75;
+            max-width: 600px;
+            font-weight: normal;
+        }
+
+        .testimonial-author {
+            font-family: var(--font-sans);
+            font-weight: 500;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            color: var(--terracotta);
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        .testimonial-divider {
+            width: 64px;
+            height: 1px;
+            background: var(--blush);
+            border: none;
+            margin: 64px auto;
+        }
+
+        /* SECTION 6 - CLOSING CTA */
+        .closing {
+            background: var(--terracotta);
+            padding: 120px 20px;
+            text-align: center;
+        }
+
+        .closing-headline-1 {
+            font-family: var(--font-serif);
+            font-size: 72px;
+            color: var(--white);
+            line-height: 1.0;
+            font-weight: normal;
+        }
+
+        @media (max-width: 768px) {
+            .closing-headline-1 {
+                font-size: 44px;
+            }
+        }
+
+        .closing-headline-2 {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 36px;
+            color: rgba(255, 255, 255, 0.65);
+            margin-top: 24px;
+            margin-bottom: 48px;
+            font-weight: normal;
+        }
+
+        .closing-cta {
+            background: var(--white);
+            color: var(--terracotta);
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 999px;
+            height: 58px;
+            padding: 0 40px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            margin-bottom: 32px;
+        }
+
+        .closing-cta:hover {
+            background: rgba(255, 255, 255, 0.88);
+            transform: scale(1.03);
+        }
+
+        .promo-code {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            color: var(--white);
+            border: 1.5px solid var(--white);
+            border-radius: 999px;
+            padding: 10px 20px;
+            display: inline-block;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 28px;
+            color: var(--blush);
+            margin-bottom: 16px;
+            font-weight: normal;
+        }
+
+        .footer-tagline {
+            font-family: var(--font-sans);
+            font-weight: 300;
+            font-size: 13px;
+            color: rgba(249, 245, 238, 0.3);
+            margin-bottom: 32px;
+        }
+
+        .footer-links {
+            font-family: var(--font-sans);
+            font-weight: 400;
+            font-size: 12px;
+            color: rgba(249, 245, 238, 0.2);
+        }
+
+        .footer-links a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: rgba(249, 245, 238, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="#" class="logo">flockly</a>
+        <a href="#" class="join-btn">Join Free &rarr;</a>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="typewriter-tag"><span id="type-text"></span><span class="cursor" id="type-cursor">|</span></div>
+
+            <h1 class="hero-headline">
+                <span class="headline-line line-1"><span class="headline-text">You didn't become</span></span>
+                <span class="headline-line line-2 indent"><span class="headline-text color-terracotta">less
+                        interesting.</span></span>
+                <span class="headline-line line-3"><span class="headline-text">You just ran out</span></span>
+                <span class="headline-line line-4 indent"><span class="headline-text">of people to be</span></span>
+                <span class="headline-line line-5"><span class="headline-text color-terracotta">interesting
+                        with.</span></span>
+            </h1>
+
+            <div class="hero-ruler"></div>
+            <p class="hero-subtext">Real people. Real plans. Based on who you actually are.</p>
+
+            <a href="#" class="main-cta">Find Your Flock &mdash; First Match Free</a>
+        </div>
+
+        <svg class="scroll-down" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+
+        <div class="hero-stats">
+            <div class="stat-block">
+                <span class="stat-number">12,400</span>
+                <span class="stat-label">matches made</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-block">
+                <span class="stat-number">94%</span>
+                <span class="stat-label">found their person in 7 days</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-block">
+                <span class="stat-number" style="color: var(--terracotta);">★ 4.9</span>
+                <span class="stat-label">on App Store</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2 — SCROLLYTELLING ESSAY -->
+    <section class="essay">
+        <div class="treatment-b scroll-fade b-line-1">So you close the tab.</div>
+        <div class="treatment-b scroll-fade b-line-2">Again.</div>
+
+        <p class="treatment-a fade-up scroll-fade">It happens to everyone. You get a little older. Your friends move,
+            get married, or just get tired. You spend Friday night watching someone else's life on a screen, thinking,
+            "I just want to go for a drink. Why is that so hard?"</p>
+
+        <div class="treatment-b scroll-fade b-line-3">You're not alone in this. You're just alone right now.</div>
+
+        <div class="treatment-b scroll-fade b-line-4">Flockly exists for exactly this moment.</div>
+
+        <hr class="treatment-c fade-up scroll-fade">
+
+        <p class="treatment-a fade-up scroll-fade">Not a dating app. Not a networking event. And definitely not a giant
+            group chat where everyone acts like a LinkedIn influencer. Flockly is just humans meeting humans who want
+            the same kind of Tuesday night.</p>
+        <p class="treatment-a fade-up scroll-fade">We match you in groups of four based on your exact vibe. Because four
+            is the magic number. Large enough to carry the conversation, small enough that you can't get lost in the
+            noise.</p>
+        <p class="treatment-a fade-up scroll-fade">Even better? We pick the venue and make the reservation. No planning
+            ping-pong. No "where works for you?" Just show up, sit down, and see what happens.</p>
+        <p class="treatment-a fade-up scroll-fade">Oh, and if you have a partner but no couple friends? We built a
+            Couple Mode just for you. Because navigating "how do we find people who actually like both of us" shouldn't
+            be a part-time job.</p>
+    </section>
+
+    <!-- SECTION 3 — VIBE-CHECK DEMO -->
+    <section class="vibe-check">
+        <div class="eyebrow fade-up scroll-fade">THE VIBE-CHECK</div>
+        <h2 class="vibe-check-headline fade-up scroll-fade">Set your people before you meet them.</h2>
+        <p class="vibe-check-subline fade-up scroll-fade">Personality tags. Deal-breaker filters. Big Three
+            compatibility.</p>
+
+        <div class="tag-cloud fade-up scroll-fade">
+            <div class="tag-row">
+                <button class="vibe-tag"><span class="check-icon">&check;</span> Golden Retriever Energy
+                    &#128062;</button>
+                <button class="vibe-tag"><span class="check-icon">&check;</span> Low Battery Vibes &#128263;</button>
+                <button class="vibe-tag"><span class="check-icon">&check;</span> Home by 10 PM &#127769;</button>
+                <button class="vibe-tag"><span class="check-icon">&check;</span> No Small Talk &#128683;</button>
+                <button class="vibe-tag"><span class="check-icon">&check;</span> I Can Go All Night &#10024;</button>
+            </div>
+            <div class="tag-row">
+                <button class="vibe-tag"><span class="check-icon">&check;</span> Silent Book Club &#128218;</button>
+                <button class="vibe-tag"><span class="check-icon">&check;</span> Big Groups? Hard Pass
+                    &#128581;</button>
+                <button class="vibe-tag"><span class="check-icon">&check;</span> Let's Split an App
+                    &#127869;&#65039;</button>
+                <button class="vibe-tag"><span class="check-icon">&check;</span> Black Cat Bestie &#128045;</button>
+                <button class="vibe-tag"><span class="check-icon">&check;</span> Adventure Mode &#127757;</button>
+                <button class="vibe-tag"><span class="check-icon">&check;</span> 1-on-1 Only &#129309;</button>
+            </div>
+        </div>
+
+        <p class="tag-teaser">These are real filters. You'll use them when you sign up.</p>
+    </section>
+
+    <!-- SECTION 4 — THE THREE MODES -->
+    <section class="modes">
+        <div class="eyebrow fade-up scroll-fade">TWO MODES. ONE COUPLE MODE.</div>
+        <h2 class="modes-headline fade-up scroll-fade">Because your needs aren't always the same.</h2>
+
+        <div class="cards-container">
+            <div class="mode-card fade-up scroll-fade" style="transition-delay: 0s;">
+                <span class="mode-num">01</span>
+                <h3 class="mode-name">Deep Connection</h3>
+                <p class="mode-desc">For the friendship where you're calling each other at 2 AM. The one that takes time
+                    to build and is worth every bit of it.</p>
+            </div>
+            <div class="mode-card fade-up scroll-fade" style="transition-delay: 0.1s;">
+                <span class="mode-num">02</span>
+                <h3 class="mode-name">Activity Mode</h3>
+                <p class="mode-desc">Bored right now. New city. Just need a human to split an appetiser with tonight.
+                    Done.</p>
+            </div>
+            <div class="mode-card special fade-up scroll-fade" style="transition-delay: 0.2s;">
+                <span class="mode-num">03</span>
+                <h3 class="mode-name">Couple Mode</h3>
+                <p class="mode-desc">Link accounts. Find another pair. Go bowling. Get pizza after. No "wait, is this
+                    weird?" energy.</p>
+            </div>
+        </div>
+
+        <p class="modes-reassurance fade-up scroll-fade">(Every user is verified. The safety stuff is handled. You just
+            show up.)</p>
+    </section>
+
+    <!-- SECTION 5 — TESTIMONIALS -->
+    <section class="testimonials">
+        <div class="eyebrow fade-up scroll-fade">REAL PEOPLE</div>
+        <h2 class="testimonials-headline fade-up scroll-fade">What the Flock is saying.</h2>
+
+        <div class="testimonial-block fade-up scroll-fade">
+            <p class="testimonial-quote">"It's not about the food. It's about having someone to say 'wow, this is good'
+                to."</p>
+            <span class="testimonial-author">&mdash; DAVID, 25</span>
+        </div>
+        <hr class="testimonial-divider fade-up scroll-fade">
+        <div class="testimonial-block fade-up scroll-fade">
+            <p class="testimonial-quote">"Four people, zero awkwardness, and somehow we're already planning the next
+                one."</p>
+            <span class="testimonial-author">&mdash; MAYA, 31</span>
+        </div>
+        <hr class="testimonial-divider fade-up scroll-fade">
+        <div class="testimonial-block fade-up scroll-fade">
+            <p class="testimonial-quote">"I set my quiz to low battery vibes and found my people in a Silent Book Club.
+                I didn't know I needed that until I had it."</p>
+            <span class="testimonial-author">&mdash; CAROLINE, 22</span>
+        </div>
+    </section>
+
+    <!-- SECTION 6 — CLOSING CTA -->
+    <section class="closing">
+        <h2 class="closing-headline-1 fade-up scroll-fade">You just need to find the people who get it.</h2>
+        <h3 class="closing-headline-2 fade-up scroll-fade">They're already here. They're looking too.</h3>
+
+        <a href="#" class="closing-cta fade-up scroll-fade">Find Your Flock &mdash; First Match Free</a>
+        <br>
+        <span class="promo-code fade-up scroll-fade">USE CODE FLOCKFREE</span>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">flockly</div>
+        <p class="footer-tagline">Real people. Real plans. No awkwardness.</p>
+        <div class="footer-links">
+            <a href="#">Privacy</a> &middot; <a href="#">Terms</a> &middot; <a href="#">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Typewriter Effect
+        document.addEventListener("DOMContentLoaded", () => {
+            const textToType = "finding your people since 2025 ✦";
+            const targetEl = document.getElementById("type-text");
+            const cursorEl = document.getElementById("type-cursor");
+            let index = 0;
+            const duration = 1200; // 1.2s total
+            const interval = duration / textToType.length;
+
+            function typeChar() {
+                if (index < textToType.length) {
+                    targetEl.textContent += textToType.charAt(index);
+                    index++;
+                    setTimeout(typeChar, interval);
+                } else {
+                    // Blink cursor 3 times then fade
+                    let blinks = 0;
+                    const blinkInterval = setInterval(() => {
+                        blinks++;
+                        if (blinks > 6) { // 3 full blinks (on/off)
+                            cursorEl.style.display = 'none';
+                            clearInterval(blinkInterval);
+                        }
+                    }, 500);
+                }
+            }
+            // Start typing immediately on load
+            setTimeout(typeChar, 100);
+
+            // Vibe Check Tags Logic
+            const tags = document.querySelectorAll('.vibe-tag');
+            tags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    tag.classList.toggle('is-selected');
+                });
+            });
+
+            // Intersection Observer for scroll animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Unobserve if you only want it to animate once
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            const scrollElements = document.querySelectorAll('.scroll-fade');
+            scrollElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+
+</html>

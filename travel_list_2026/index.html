@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Only Travel List You Need for 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;
+            --bg-darker: #050506;
+            --bg-card: #141417;
+            --text-main: #f0f0f0;
+            --text-muted: #a0a0a5;
+            --accent-amber: #d4af37;
+            --accent-terracotta: #cca685;
+            --accent-magenta: #e0245e;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: var(--font-display);
+            font-weight: 600;
+            line-height: 1.1;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--bg-darker);
+            overflow: hidden;
+        }
+
+        .hero__bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 6rem);
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+            text-wrap: balance;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            color: #c8b89a;
+            letter-spacing: 0.12em;
+            max-width: 650px;
+            margin: 0 auto;
+            font-weight: 300;
+            text-wrap: balance;
+            text-transform: uppercase;
+        }
+
+        .hero__indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            animation: bounce 2s infinite;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-amber);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+
+        .hero__indicator svg {
+            width: 20px;
+            height: 20px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0) translateX(-50%);
+            }
+
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+
+        /* Destinations Container */
+        .destinations {
+            padding: 6rem 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10rem;
+        }
+
+        /* Destination Item */
+        .destination {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .destination:nth-child(even) {
+            direction: rtl;
+        }
+
+        .destination:nth-child(even)>* {
+            direction: ltr;
+        }
+
+        @media (max-width: 900px) {
+            .destination {
+                grid-template-columns: 1fr;
+                gap: 4rem;
+            }
+
+            .destination:nth-child(even) {
+                direction: ltr;
+            }
+        }
+
+        .destination__rank {
+            position: absolute;
+            top: -15%;
+            left: -2%;
+            font-size: 22vw;
+            font-weight: 700;
+            color: rgba(245, 239, 230, 0.08);
+            /* #F5EFE6 at 8% opacity */
+            font-family: var(--font-display);
+            line-height: 1;
+            z-index: -1;
+            pointer-events: none;
+            user-select: none;
+            letter-spacing: -0.05em;
+        }
+
+        .destination:nth-child(even) .destination__rank {
+            left: auto;
+            right: -2%;
+        }
+
+        .destination__image {
+            position: relative;
+            aspect-ratio: 4/5;
+            background-color: var(--bg-card);
+            border-radius: 4px;
+            z-index: 1;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .destination__content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .destination__title {
+            font-size: clamp(2.5rem, 4vw, 4.5rem);
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+            line-height: 1.05;
+        }
+
+        .destination__tags {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            padding: 0.4rem 1.2rem;
+            border-radius: 50px;
+            background-color: rgba(212, 175, 55, 0.05);
+            color: var(--accent-amber);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            font-weight: 500;
+        }
+
+        .destination__body {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-weight: 300;
+        }
+
+        /* Hidden Gem Cards */
+        .gem-card {
+            background-color: var(--bg-card);
+            padding: 1.8rem;
+            border-radius: 6px;
+            border-left: 3px solid var(--accent-terracotta);
+            margin-top: 1rem;
+            position: relative;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02), transparent);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .gem-card__title {
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent-terracotta);
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .gem-card__title svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .gem-card__desc {
+            font-size: 1rem;
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .gem-card__price {
+            display: inline-block;
+            font-size: 0.85rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Spicy Hidden Gem */
+        .gem-card--spicy {
+            border-left-color: var(--accent-magenta);
+            transform: rotate(-1.5deg);
+            background-image: linear-gradient(to right, rgba(224, 36, 94, 0.05), transparent);
+            margin-top: 0.5rem;
+            transform-origin: center;
+            transition: var(--transition-smooth);
+        }
+
+        .gem-card--spicy .gem-card__title {
+            color: var(--accent-magenta);
+        }
+
+        .gem-card--spicy:hover {
+            transform: rotate(0deg) scale(1.02);
+            box-shadow: 0 15px 40px rgba(224, 36, 94, 0.15);
+        }
+
+        /* Animations */
+        .fade-slide-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-slide-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Delay staggering */
+        .stagger-1 {
+            transition-delay: 0.1s;
+        }
+
+        .stagger-2 {
+            transition-delay: 0.2s;
+        }
+
+        .stagger-3 {
+            transition-delay: 0.3s;
+        }
+
+        .stagger-4 {
+            transition-delay: 0.4s;
+        }
+
+        .stagger-5 {
+            transition-delay: 0.5s;
+        }
+
+        .stagger-6 {
+            transition-delay: 0.6s;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 10rem 2rem;
+            background-color: var(--bg-darker);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .cta-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .cta-hr {
+            border: none;
+            border-top: 1px solid #d4af37;
+            width: 60px;
+            margin: 0 0 1.5rem 0;
+            display: block;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            max-width: 900px;
+            text-wrap: balance;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+            font-weight: 300;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--accent-amber);
+            color: var(--bg-dark);
+            font-family: var(--font-body);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 1.4rem 3rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            transition: var(--transition-smooth);
+            position: relative;
+        }
+
+        .cta-btn:hover {
+            background-color: #e5c040;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse-shadow {
+            0% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 20px rgba(212, 175, 55, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            }
+        }
+
+        .cta-btn {
+            animation: pulse-shadow 2.5s infinite;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem;
+            text-align: center;
+            background-color: var(--bg-darker);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="hero">
+        <div class="hero__bg"
+            style="background: linear-gradient(to bottom, rgba(10, 10, 12, 0.5), rgba(10, 10, 12, 0.9)), url('hero.jpg') center/cover no-repeat;">
+        </div>
+        <div class="hero__content">
+            <h1 class="fade-slide-up visible">The Only Travel List You Need for 2026.</h1>
+            <p class="fade-slide-up stagger-1 visible">Ten destinations &mdash; Zero filler &mdash; One rule: life is
+                too short for a holiday that doesn't change something in you.</p>
+        </div>
+        <div class="hero__indicator fade-slide-up stagger-2 visible">
+            <span>Scroll</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 5v14M19 12l-7 7-7-7" />
+            </svg>
+        </div>
+    </header>
+
+    <main class="destinations">
+
+        <!-- 10. Hurghada, Egypt -->
+        <section class="destination js-scroll">
+            <div class="destination__rank">10</div>
+            <div class="destination__image fade-slide-up stagger-1"><img src="hurghada.jpg" alt="Hurghada, Egypt"
+                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="destination__content">
+                <h2 class="destination__title fade-slide-up stagger-2">Hurghada, Egypt</h2>
+                <div class="destination__tags fade-slide-up stagger-3">
+                    <span class="tag">£35–£65/day</span>
+                    <span class="tag">Late Spring or Late Autumn</span>
+                </div>
+                <p class="destination__body fade-slide-up stagger-4">
+                    Beyond the sprawling all-inclusive resorts lies an older, salt-worn soul. The Red Sea here is a
+                    visceral, electric blue, harboring coral gardens that feel alien and untouched. Spend your days
+                    drifting over shipwrecks, and your evenings wandering the dusty, spice-scented lanes of El Dahar,
+                    where the true pulse of the desert meets the sea, far from the manicured tourist strips.
+                </p>
+                <div class="gem-card fade-slide-up stagger-5">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">A quiet, locally-owned seafood grid in El Dahar where the day's catch is
+                        grilled whole over charcoal with deep, peppery marinades.</p>
+                    <span class="gem-card__price">Avg meal: £8</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. Tbilisi, Georgia -->
+        <section class="destination js-scroll">
+            <div class="destination__rank">9</div>
+            <div class="destination__image fade-slide-up stagger-1"><img src="tbilisi.jpg" alt="Tbilisi, Georgia"
+                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="destination__content">
+                <h2 class="destination__title fade-slide-up stagger-2">Tbilisi, Georgia</h2>
+                <div class="destination__tags fade-slide-up stagger-3">
+                    <span class="tag">£30–£50/day</span>
+                    <span class="tag">May–June or Sept–Oct</span>
+                </div>
+                <p class="destination__body fade-slide-up stagger-4">
+                    A city that looks like it was built from the fever dreams of an eccentric poet. Carved balconies
+                    lean precariously over winding, cobblestone alleys, while brutalist Soviet architecture looms in the
+                    backdrop. Tbilisi is fueled by amber wine, profound hospitality, and a raucous underground
+                    electronic music scene. It’s romantic, gritty, and fiercely alive—a place where history doesn’t just
+                    sit in museums, but stains the walls and flows in the glasses.
+                </p>
+                <div class="gem-card fade-slide-up stagger-5">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">An unmarked subterranean Qvevri wine bar tucked beneath a residential
+                        courtyard in Sololaki.</p>
+                    <span class="gem-card__price">Glass of orange wine: £3</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. Barcelona, Spain -->
+        <section class="destination js-scroll">
+            <div class="destination__rank">8</div>
+            <div class="destination__image fade-slide-up stagger-1"><img src="barcelona.jpg" alt="Barcelona, Spain"
+                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="destination__content">
+                <h2 class="destination__title fade-slide-up stagger-2">Barcelona, Spain</h2>
+                <div class="destination__tags fade-slide-up stagger-3">
+                    <span class="tag">£50–£90/day</span>
+                    <span class="tag">June to August</span>
+                </div>
+                <p class="destination__body fade-slide-up stagger-4">
+                    The sultry, architectural darling of Catalonia. Despite its fame, Barcelona retains the ability to
+                    hide secrets in plain sight. Beyond the crowded Ramblas lies a labyrinth of shadowed Gothic
+                    corridors, vermouth bars roaring with local debates, and modernist facades melting under the
+                    Mediterranean sun. You don't just visit Barcelona; you surrender to its late-night rhythm and
+                    surrealist bones.
+                </p>
+                <div class="gem-card fade-slide-up stagger-5">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">A tiny, family-run bodegón in Gràcia serving house-made vermouth from
+                        dusty barrels and patatas bravas that defy the tourist-trap standard.</p>
+                    <span class="gem-card__price">Tapas for two: £18</span>
+                </div>
+                <div class="gem-card gem-card--spicy fade-slide-up stagger-6">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 2c0 0-4.5 4-5 9a5 5 0 0 0 10 0c-.5-5-5-9-5-9Z" />
+                            <path
+                                d="M12 12c-1.5-1.5-1.5-3.5-1.5-3.5s-2 1.5-2 3.5a3.5 3.5 0 0 0 7 0c0-2-2-3.5-2-3.5S13.5 10.5 12 12Z" />
+                        </svg>
+                        Spicy Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">An immersive, invite-only midnight performance art space in El Raval where
+                        absinthe flows and the dress code is strictly &mdash;cinematic.&mdash;</p>
+                    <span class="gem-card__price">Entry: £25</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. Hanoi, Vietnam -->
+        <section class="destination js-scroll">
+            <div class="destination__rank">7</div>
+            <div class="destination__image fade-slide-up stagger-1"><img src="hanoi.jpg" alt="Hanoi, Vietnam"
+                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="destination__content">
+                <h2 class="destination__title fade-slide-up stagger-2">Hanoi, Vietnam</h2>
+                <div class="destination__tags fade-slide-up stagger-3">
+                    <span class="tag">£15–£28/day</span>
+                    <span class="tag">November–December</span>
+                </div>
+                <p class="destination__body fade-slide-up stagger-4">
+                    Motorbike exhaust, roasting pork, and jasmine incense—Hanoi hits the senses like a heavy, beautiful
+                    fog. The Old Quarter is a cacophony of commerce and survival, a tight tangle of streets where
+                    ancient temples sit shoulder-to-shoulder with narrow tube houses. It is a city that moves
+                    relentlessly forward while dragging the ghosts of its thousand-year history behind it. Sit on a
+                    plastic stool, order a bold, sweet egg coffee, and watch the chaos orchestrate itself.
+                </p>
+                <div class="gem-card fade-slide-up stagger-5">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">A clandestine rooftop café hidden behind a silk shop, offering undisturbed
+                        views of Hoan Kiem Lake at twilight.</p>
+                    <span class="gem-card__price">Egg coffee: £1.50</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. London, England -->
+        <section class="destination js-scroll">
+            <div class="destination__rank">6</div>
+            <div class="destination__image fade-slide-up stagger-1"><img src="london.jpg" alt="London, England"
+                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="destination__content">
+                <h2 class="destination__title fade-slide-up stagger-2">London, England</h2>
+                <div class="destination__tags fade-slide-up stagger-3">
+                    <span class="tag">£150–£230/day</span>
+                    <span class="tag">December or April–May</span>
+                </div>
+                <p class="destination__body fade-slide-up stagger-4">
+                    An unforgiving, expensive, and staggeringly brilliant metropolis. London wraps you in an eternal,
+                    grey-skied mood that feels as sharp as a tailored coat. It is a collage of villages that just happen
+                    to touch—each with its own distinct vocabulary of pubs, parks, and brutalism. From the neon-soaked
+                    alleys of Soho to the bone-chilling mist hanging over Hampstead Heath, London insists that you show
+                    up, pay up, and earn your keep.
+                </p>
+                <div class="gem-card fade-slide-up stagger-5">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">A Dickensian, wood-paneled subterranean club in the City of London that
+                        transforms into an audiophile listening room on Tuesday nights.</p>
+                    <span class="gem-card__price">Cocktails: £14 each</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Dublin, Ireland -->
+        <section class="destination js-scroll">
+            <div class="destination__rank">5</div>
+            <div class="destination__image fade-slide-up stagger-1"><img src="dublin.jpg" alt="Dublin, Ireland"
+                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="destination__content">
+                <h2 class="destination__title fade-slide-up stagger-2">Dublin, Ireland</h2>
+                <div class="destination__tags fade-slide-up stagger-3">
+                    <span class="tag">£110–£165/day</span>
+                    <span class="tag">May–September</span>
+                </div>
+                <p class="destination__body fade-slide-up stagger-4">
+                    A city made of heavy stone and lyrical tongues. Dublin doesn't care if you're impressed; it just
+                    wants to know if you can hold your liquor and tell a decent story. Off the battered trail of Temple
+                    Bar lies a darker, more literary capital. The salt from the Irish Sea stings the air, and the pubs
+                    are not bars, but dim, brass-trimmed living rooms where the melancholic heart of Ireland beats
+                    warmly against the cold rain.
+                </p>
+                <div class="gem-card fade-slide-up stagger-5">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">A Victorian ‘snug’—a private, enclosed booth within an older pub—in
+                        Stoneybatter, where time essentially stopped in 1910.</p>
+                    <span class="gem-card__price">Pint of stout: £5.50</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Siem Reap, Cambodia -->
+        <section class="destination js-scroll">
+            <div class="destination__rank">4</div>
+            <div class="destination__image fade-slide-up stagger-1"><img src="siemreap.jpg" alt="Siem Reap, Cambodia"
+                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="destination__content">
+                <h2 class="destination__title fade-slide-up stagger-2">Siem Reap, Cambodia</h2>
+                <div class="destination__tags fade-slide-up stagger-3">
+                    <span class="tag">£25–£45/day</span>
+                    <span class="tag">December–January</span>
+                </div>
+                <p class="destination__body fade-slide-up stagger-4">
+                    You arrive for the temples, but you stay for the haunting resilience of the jungle. Angkor Wat is a
+                    monolithic triumph, but the real magic is felt when you leave the crowds behind, stepping over the
+                    strangled, vine-choked ruins of Ta Prohm as the dawn light carves through the canopy. Siem Reap is
+                    dusty, sweat-drenched, and intensely spiritual—a place where the impermanence of empires is etched
+                    into every stone.
+                </p>
+                <div class="gem-card fade-slide-up stagger-5">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">A remote, 12th-century temple far off the main circuit, accessible only by
+                        dirt road, where you are more likely to encounter monks than tourists.</p>
+                    <span class="gem-card__price">Tuk-Tuk hire: £12/day</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. Madeira, Portugal -->
+        <section class="destination js-scroll">
+            <div class="destination__rank">3</div>
+            <div class="destination__image fade-slide-up stagger-1"><img src="madeira.jpg" alt="Madeira, Portugal"
+                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="destination__content">
+                <h2 class="destination__title fade-slide-up stagger-2">Madeira, Portugal</h2>
+                <div class="destination__tags fade-slide-up stagger-3">
+                    <span class="tag">£55–£95/day</span>
+                    <span class="tag">April–May</span>
+                </div>
+                <p class="destination__body fade-slide-up stagger-4">
+                    A rogue, volcanic monolith thrusting violently out of the Atlantic. Madeira feels like Europe's
+                    rugged outpost, draped in ancient laurisilva mist and terrifying, vertical cliffs. It is an island
+                    of micro-climates and dramatic switchbacks, where the sea crashes violently against black basalt and
+                    the fortified wine flows sweet and heavy. It is not a place for idle beach days; it is a place for
+                    dizzying heights and profound isolation.
+                </p>
+                <div class="gem-card fade-slide-up stagger-5">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">A vertiginous levada trail that tunnels entirely through a mountain,
+                        emerging into a lush, dripping valley inaccessible by any other means.</p>
+                    <span class="gem-card__price">Access: Free</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Marrakech, Morocco -->
+        <section class="destination js-scroll">
+            <div class="destination__rank">2</div>
+            <div class="destination__image fade-slide-up stagger-1"><img src="marrakech.jpg" alt="Marrakech, Morocco"
+                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="destination__content">
+                <h2 class="destination__title fade-slide-up stagger-2">Marrakech, Morocco</h2>
+                <div class="destination__tags fade-slide-up stagger-3">
+                    <span class="tag">£30–£50/day</span>
+                    <span class="tag">March–May</span>
+                </div>
+                <p class="destination__body fade-slide-up stagger-4">
+                    An overwhelming collision of terracotta, shadows, and noise. The Medina is a labyrinth designed to
+                    disorient you, smelling of tanned leather, lamb fat, and crushed mint. You will get thoroughly lost,
+                    and that is precisely the point. The madness of the souks stands in stark contrast to the whispered
+                    stillness of the riads hidden behind heavy wooden doors. Marrakech does not gently introduce itself;
+                    it swallows you whole.
+                </p>
+                <div class="gem-card fade-slide-up stagger-5">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">A quiet, mosaic-tiled courtyard of an abandoned madrasa on the edge of the
+                        Medina, completely devoid of tour groups.</p>
+                    <span class="gem-card__price">Entry: £2</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. Bali, Indonesia -->
+        <section class="destination js-scroll">
+            <div class="destination__rank">1</div>
+            <div class="destination__image fade-slide-up stagger-1"><img src="bali.jpg" alt="Bali, Indonesia"
+                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+            <div class="destination__content">
+                <h2 class="destination__title fade-slide-up stagger-2">Bali, Indonesia</h2>
+                <div class="destination__tags fade-slide-up stagger-3">
+                    <span class="tag">£25–£45/day</span>
+                    <span class="tag">April–October</span>
+                </div>
+                <p class="destination__body fade-slide-up stagger-4">
+                    Past the digital nomads and the traffic-choked south lies the island the world originally fell in
+                    love with. The air here vibrates with the rhythm of gamelan and the scent of clove cigarettes. The
+                    true Bali is found in the emerald ridges of the northern highlands, where ceremonies dictate the
+                    rhythm of the day and volcanic peaks pierce the low-hanging clouds. It is a place of profound
+                    spirituality, wrapped in oppressive, dazzling tropical beauty.
+                </p>
+                <div class="gem-card fade-slide-up stagger-5">
+                    <div class="gem-card__title">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                            </polygon>
+                        </svg>
+                        Hidden Gem:
+                    </div>
+                    <p class="gem-card__desc">A secluded black sand cove in the far north, reachable only by a steep
+                        trek, where the waves crash against jagged lava formations.</p>
+                    <span class="gem-card__price">Access: Free</span>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <section class="cta-section js-scroll">
+        <div class="cta-content">
+            <h2 class="fade-slide-up stagger-1">Ten destinations. One instruction: pick one and actually go.</h2>
+            <hr class="fade-slide-up stagger-2 cta-hr">
+            <p class="fade-slide-up stagger-3">The only holiday you'll regret is the one you kept putting off.</p>
+            <a href="#" class="cta-btn fade-slide-up stagger-4">Start Planning Your 2026 Trip</a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        &copy; 2026 The Travel List. All Rights Reserved.
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.15
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Find all animatable children and add 'visible'
+                        const elements = entry.target.querySelectorAll('.fade-slide-up');
+                        elements.forEach(el => el.classList.add('visible'));
+                        // Unobserve after animating
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Observe the main container blocks rather than individual elements
+            // so they stagger nicely when the block hits the viewport.
+            document.querySelectorAll('.js-scroll').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+
+</html>
