@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -18,16 +18,29 @@
             --warm-ivory: #FAF7F2;
             --soft-gold: #C9A84C;
             --gold-pale: #FBF3DC;
+            --gold-glow: rgba(201, 168, 76, 0.15);
             --text-dark: #0F1F1A;
             --muted-warm: #6B7C78;
             --white-warm: #FFFFFF;
             --sage-border: rgba(74, 140, 117, 0.15);
+            --sage-glow: rgba(74, 140, 117, 0.12);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            cursor: none !important;
+        }
+
+        @media (pointer: coarse) {
+            * {
+                cursor: auto !important;
+            }
+
+            .cursor-system {
+                display: none;
+            }
         }
 
         html {
@@ -40,57 +53,90 @@
             color: var(--text-dark);
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
-            cursor: none;
         }
 
-        h1,
-        h2,
-        h3,
-        h4,
-        .serif {
-            font-family: 'Instrument Serif', serif;
-            font-weight: 400;
+        /* Progress Bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--soft-gold);
+            z-index: 9999;
         }
 
         /* Custom Cursor */
-        .custom-cursor {
-            width: 10px;
-            height: 10px;
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
             background: var(--soft-gold);
             border-radius: 50%;
             position: fixed;
             pointer-events: none;
-            z-index: 10000;
-            transition: transform 0.12s ease;
+            z-index: 9999;
+            transition: transform 0.1s ease;
             transform: translate(-50%, -50%);
         }
 
-        @media (pointer: coarse) {
-            .custom-cursor {
-                display: none;
-            }
+        .cursor-ring {
+            width: 32px;
+            height: 32px;
+            border: 1.5px solid rgba(201, 168, 76, 0.5);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.18s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+            transform: translate(-50%, -50%);
+        }
 
-            body {
-                cursor: auto;
-            }
+        .cursor-active .cursor-ring {
+            width: 48px;
+            height: 48px;
+            background: rgba(201, 168, 76, 0.08);
+        }
+
+        /* Layout */
+        section {
+            padding: 120px 6vw;
+            position: relative;
         }
 
         /* Animations */
         .fade-up {
             opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transform: translateY(32px);
+            transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+            transition-delay: var(--delay, 0s);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .fade-in {
             opacity: 0;
-            transition: opacity 0.7s ease;
+            transition: opacity 0.8s ease;
+            transition-delay: var(--delay, 0s);
         }
 
-        .fade-up.visible,
         .fade-in.visible {
             opacity: 1;
-            transform: translateY(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition-delay: var(--delay, 0s);
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
         }
 
         /* Nav */
@@ -98,52 +144,90 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 72px;
-            padding: 0 8vw;
+            right: 0;
+            height: 64px;
+            background: rgba(250, 247, 242, 0);
+            backdrop-filter: blur(0px);
+            transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+            border-bottom: 1px solid transparent;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(250, 247, 242, 0.94);
-            backdrop-filter: blur(16px);
-            border-bottom: 1px solid var(--sage-border);
-            z-index: 1000;
-            transform: translateY(-100%);
-            transition: transform 0.4s ease;
+            padding: 0 6vw;
+            z-index: 200;
         }
 
         nav.scrolled {
-            transform: translateY(0);
+            background: rgba(250, 247, 242, 0.94);
+            backdrop-filter: blur(18px);
+            border-bottom-color: var(--sage-border);
         }
 
         .nav-logo {
+            font-family: 'DM Sans', sans-serif;
             font-weight: 700;
-            font-size: 20px;
-            color: var(--deep-sage);
+            font-size: 18px;
+            color: var(--text-dark);
+            text-decoration: none;
         }
 
-        .nav-cta {
+        .btn-nav {
             background: var(--soft-gold);
             color: var(--text-dark);
-            font-weight: 600;
-            font-size: 14px;
             height: 38px;
-            padding: 0 20px;
+            padding: 0 22px;
             border-radius: 999px;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
             display: flex;
             align-items: center;
-            text-decoration: none;
-            transition: transform 0.2s ease;
+            transition: background 0.2s, transform 0.2s;
+            border: none;
         }
 
-        .nav-cta:hover {
-            transform: scale(1.05);
+        .btn-nav:hover {
+            background: #b8962e;
+            transform: scale(1.02);
         }
 
-        /* Sections */
-        section {
-            padding: 120px 8vw;
-            position: relative;
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            padding: 130px 6vw 100px;
+            display: grid;
+            grid-template-columns: 55% 45%;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .eyebrow-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--soft-gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.4);
+                opacity: 0.4;
+            }
         }
 
         .eyebrow {
@@ -152,35 +236,44 @@
             letter-spacing: 0.2em;
             text-transform: uppercase;
             color: var(--sage-light);
-            margin-bottom: 24px;
             display: block;
         }
 
-        /* Hero */
-        .hero {
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 52% 48%;
-            align-items: center;
-            gap: 4vw;
-            background: var(--warm-ivory);
-            padding-top: 120px;
+        .ecg-line {
+            width: 200px;
+            height: 20px;
+            margin-top: 8px;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: drawLine 2s forwards;
+            opacity: 0.3;
+        }
+
+        @keyframes drawLine {
+            to {
+                stroke-dashoffset: 0;
+            }
         }
 
         .hero-headline {
-            font-size: 76px;
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-size: clamp(48px, 6vw, 80px);
             line-height: 1.05;
             color: var(--text-dark);
-            font-style: italic;
-            margin-bottom: 32px;
+        }
+
+        .hero-headline .gold-text {
+            color: var(--soft-gold);
+            display: block;
         }
 
         .hero-body {
             font-size: 18px;
             color: var(--muted-warm);
-            line-height: 1.8;
-            max-width: 480px;
-            margin-bottom: 40px;
+            line-height: 1.85;
+            max-width: 460px;
+            margin: 32px 0 40px;
         }
 
         .hero-ctas {
@@ -189,33 +282,26 @@
             margin-bottom: 60px;
         }
 
-        .btn {
+        .btn-main {
             height: 58px;
             padding: 0 36px;
             border-radius: 999px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
             font-weight: 700;
             font-size: 16px;
+            display: inline-flex;
+            align-items: center;
             text-decoration: none;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+            position: relative;
         }
 
         .btn-primary {
             background: var(--soft-gold);
             color: var(--text-dark);
-        }
-
-        .btn-primary:hover {
-            transform: scale(1.03);
-            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
+            box-shadow: 0 8px 28px rgba(201, 168, 76, 0.35);
         }
 
         .btn-secondary {
-            background: transparent;
             border: 1.5px solid var(--sage-light);
             color: var(--deep-sage);
         }
@@ -224,11 +310,10 @@
             background: var(--gold-pale);
         }
 
-        .hero-stats {
+        .stats-row {
             display: flex;
+            align-items: center;
             gap: 40px;
-            border-top: 1px solid var(--sage-border);
-            padding-top: 32px;
         }
 
         .stat-item {
@@ -236,15 +321,21 @@
             flex-direction: column;
         }
 
-        .stat-num {
+        .stat-divider {
+            width: 1px;
+            height: 48px;
+            background: var(--sage-border);
+        }
+
+        .stat-val {
             font-family: 'Instrument Serif', serif;
-            font-size: 48px;
+            font-size: 52px;
             color: var(--deep-sage);
             line-height: 1;
         }
 
-        .stat-label {
-            font-size: 12px;
+        .stat-lbl {
+            font-size: 11px;
             letter-spacing: 0.08em;
             text-transform: uppercase;
             color: var(--muted-warm);
@@ -253,24 +344,42 @@
 
         .hero-visual {
             position: relative;
+        }
+
+        .hero-illustration {
+            position: relative;
             display: flex;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            animation: floatUpDown 5s ease-in-out infinite;
         }
 
-        .float-anim {
-            animation: float 5s ease-in-out infinite;
-        }
-
-        @keyframes float {
+        @keyframes floatUpDown {
 
             0%,
             100% {
-                transform: translateY(0);
+                transform: translateY(0px);
             }
 
             50% {
-                transform: translateY(-10px);
+                transform: translateY(-14px);
+            }
+        }
+
+        .halo-breathing {
+            position: absolute;
+            animation: breathing 6s ease-in-out infinite;
+        }
+
+        @keyframes breathing {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.06);
             }
         }
 
@@ -278,80 +387,129 @@
         .how {
             background: var(--deep-sage);
             color: var(--warm-ivory);
+            overflow: hidden;
         }
 
         .how-headline {
-            font-size: 64px;
+            font-family: 'Instrument Serif', serif;
             font-style: italic;
-            margin-bottom: 12px;
+            font-size: clamp(42px, 5.5vw, 68px);
+            color: var(--warm-ivory);
+            margin-bottom: 16px;
         }
 
-        .how-subheadline {
-            font-size: 20px;
-            color: rgba(250, 247, 242, 0.6);
-            margin-bottom: 80px;
+        .how-headline .accent {
+            color: var(--soft-gold);
+        }
+
+        .how-subtitle {
+            font-size: 19px;
+            color: rgba(250, 247, 242, 0.55);
+            margin-bottom: 72px;
         }
 
         .how-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
+            gap: 2px;
             position: relative;
         }
 
         .step-card {
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px 32px;
+            padding: 48px 36px;
             position: relative;
-            transition: all 0.3s ease;
+            overflow: hidden;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .step-card:first-child {
+            border-radius: 20px 0 0 20px;
+        }
+
+        .step-card:last-child {
+            border-radius: 0 20px 20px 0;
+        }
+
+        .step-card::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background: linear-gradient(to top, rgba(201, 168, 76, 0.08), transparent);
+            transition: height 0.4s ease;
+        }
+
+        .step-card:hover::before {
+            height: 100%;
         }
 
         .step-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-4px);
+            background: rgba(255, 255, 255, 0.10);
+            transform: translateY(-6px);
         }
 
-        .step-num-deco {
+        .step-num {
             font-family: 'Instrument Serif', serif;
-            font-size: 72px;
+            font-size: 80px;
             color: var(--soft-gold);
-            opacity: 0.4;
+            opacity: 0.25;
             line-height: 1;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
-        .step-label {
+        .step-lbl {
             font-size: 10px;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: var(--sage-light);
-            margin-bottom: 12px;
-            display: block;
         }
 
         .step-title {
-            font-size: 36px;
+            font-family: 'Instrument Serif', serif;
             font-style: italic;
-            margin-bottom: 16px;
+            font-size: 38px;
+            color: var(--warm-ivory);
+            margin: 12px 0 16px;
         }
 
         .step-body {
-            font-size: 16px;
-            line-height: 1.75;
-            color: rgba(250, 247, 242, 0.65);
+            font-size: 15px;
+            color: rgba(250, 247, 242, 0.6);
+            line-height: 1.8;
         }
 
-        .step-arrow {
+        .step-icon {
             position: absolute;
-            top: 50%;
-            right: -16px;
-            transform: translateY(-50%);
-            font-size: 24px;
-            color: var(--soft-gold);
+            bottom: 28px;
+            right: 28px;
             opacity: 0.4;
+            color: var(--soft-gold);
+        }
+
+        .connecting-line {
+            position: absolute;
+            top: 100px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            pointer-events: none;
             z-index: 2;
+        }
+
+        .dashed-path {
+            stroke: var(--soft-gold);
+            stroke-dasharray: 10, 10;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 1.2s ease-in-out;
+            opacity: 0.4;
+        }
+
+        .dashed-path.visible {
+            stroke-dashoffset: 0;
         }
 
         /* Testimonials */
@@ -360,9 +518,11 @@
         }
 
         .testi-headline {
-            font-size: 64px;
+            font-family: 'Instrument Serif', serif;
             font-style: italic;
-            margin-bottom: 80px;
+            font-size: clamp(44px, 5vw, 68px);
+            color: var(--text-dark);
+            margin: 16px 0 56px;
         }
 
         .testi-grid {
@@ -371,59 +531,83 @@
             gap: 24px;
         }
 
-        .testi-card {
+        .t-card {
             background: var(--white-warm);
-            border-radius: 20px;
-            padding: 36px 32px;
-            box-shadow: 0 4px 32px rgba(26, 60, 52, 0.08);
+            border-radius: 24px;
+            padding: 40px 32px;
+            box-shadow: 0 2px 20px rgba(26, 60, 52, 0.06);
             position: relative;
-            transition: all 0.3s ease;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
         }
 
-        .testi-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(26, 60, 52, 0.14);
+        .t-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--sage-light), var(--soft-gold));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
         }
 
-        .testi-header {
+        .t-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .t-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 48px rgba(26, 60, 52, 0.12);
+        }
+
+        .t-header {
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 14px;
             margin-bottom: 24px;
         }
 
-        .testi-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .testi-info {
+        .t-info {
             display: flex;
             flex-direction: column;
         }
 
-        .testi-name {
-            font-weight: 700;
-            font-size: 16px;
+        .t-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-dark);
         }
 
-        .testi-stars {
+        .t-stars {
             color: var(--soft-gold);
-            font-size: 14px;
-            margin: 4px 0;
+            font-size: 13px;
         }
 
-        .testi-quote {
+        .t-quote-deco {
+            font-family: 'Instrument Serif', serif;
+            font-size: 100px;
+            color: var(--sage-light);
+            opacity: 0.07;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            pointer-events: none;
+        }
+
+        .t-quote {
             font-size: 16px;
-            line-height: 1.75;
+            color: var(--text-dark);
+            line-height: 1.8;
             font-style: italic;
+            margin-top: 24px;
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
 
-        .testi-attr {
+        .t-attr {
             font-size: 11px;
             letter-spacing: 0.12em;
             text-transform: uppercase;
@@ -432,81 +616,92 @@
             display: block;
         }
 
-        .testi-quote-deco {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-family: 'Instrument Serif', serif;
-            font-size: 120px;
-            color: var(--sage-light);
-            opacity: 0.07;
-            line-height: 1;
-        }
-
         /* Terms */
         .terms {
             background: var(--gold-pale);
             display: grid;
             grid-template-columns: 1fr 1fr;
+            gap: 80px;
             align-items: center;
         }
 
-        .statement-item {
-            padding: 40px 0;
-            border-bottom: 1px solid var(--sage-border);
+        .term-item {
+            position: relative;
+            transition: transform 0.3s ease;
         }
 
-        .statement-item:last-child {
-            border-bottom: none;
+        .term-item:hover .term-lbl {
+            transform: translateX(8px);
         }
 
-        .statement-label {
-            font-size: 42px;
+        .term-lbl {
+            font-family: 'Instrument Serif', serif;
             font-style: italic;
+            font-size: 46px;
             color: var(--deep-sage);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+            display: inline-block;
         }
 
-        .statement-text {
+        .term-body {
             font-size: 17px;
             color: var(--muted-warm);
-            line-height: 1.75;
+            line-height: 1.8;
         }
 
-        /* CTA */
-        .final-cta {
+        .term-sep {
+            height: 1px;
+            background: var(--sage-border);
+            width: 100%;
+            margin: 28px 0;
+        }
+
+        .ring-draw {
+            transition: stroke-dashoffset 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+            transition-delay: var(--ring-delay, 0s);
+        }
+
+        .ring-draw.visible {
+            stroke-dashoffset: 0;
+        }
+
+        /* Final CTA */
+        .cta-final {
             background: var(--deep-sage);
             color: var(--warm-ivory);
             text-align: center;
-            padding: 140px 8vw;
-            overflow: hidden;
             position: relative;
+            overflow: hidden;
+            padding: 140px 6vw;
         }
 
-        .final-cta::before {
+        .cta-final::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(ellipse at 50% 60%, rgba(201, 168, 76, 0.12), transparent 65%);
+            background: radial-gradient(ellipse at 50% 70%, rgba(201, 168, 76, 0.14), transparent 60%);
             pointer-events: none;
         }
 
         .cta-headline {
-            font-size: 72px;
+            font-family: 'Instrument Serif', serif;
             font-style: italic;
-            line-height: 1.05;
-            max-width: 760px;
+            font-size: clamp(44px, 5.5vw, 72px);
+            color: var(--warm-ivory);
+            line-height: 1.08;
+            max-width: 720px;
             margin: 0 auto 24px;
             position: relative;
             z-index: 2;
         }
 
-        .cta-subheadline {
-            font-size: 20px;
-            color: rgba(250, 247, 242, 0.6);
+        .cta-body {
+            font-size: 19px;
+            color: rgba(250, 247, 242, 0.55);
             margin-bottom: 52px;
             position: relative;
             z-index: 2;
@@ -516,25 +711,26 @@
             height: 72px;
             padding: 0 64px;
             font-size: 18px;
-            box-shadow: 0 8px 32px rgba(201, 168, 76, 0.3);
-            position: relative;
-            z-index: 2;
+            box-shadow: 0 8px 40px rgba(201, 168, 76, 0.4);
         }
 
-        .trust-line {
+        .trust-items {
             font-size: 14px;
-            color: rgba(250, 247, 242, 0.4);
-            margin-top: 24px;
+            color: rgba(250, 247, 242, 0.38);
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 28px;
             position: relative;
             z-index: 2;
         }
 
         /* Footer */
         footer {
-            background: #0F1F1A;
-            padding: 64px 8vw 40px;
+            background: #0A1810;
+            padding: 72px 6vw 44px;
             text-align: center;
-            border-top: 1px solid rgba(74, 140, 117, 0.2);
+            border-top: 1px solid rgba(74, 140, 117, 0.18);
         }
 
         .footer-logo {
@@ -546,8 +742,8 @@
 
         .footer-tagline {
             font-size: 13px;
-            color: rgba(250, 247, 242, 0.35);
-            margin-bottom: 40px;
+            color: rgba(250, 247, 242, 0.3);
+            margin: 8px 0 40px;
         }
 
         .footer-links {
@@ -555,7 +751,7 @@
             justify-content: center;
             gap: 24px;
             font-size: 12px;
-            color: rgba(250, 247, 242, 0.2);
+            color: rgba(250, 247, 242, 0.18);
         }
 
         .footer-links a {
@@ -568,14 +764,13 @@
             color: var(--warm-ivory);
         }
 
-        /* Abstract Blobs */
+        /* Helpers */
         .bg-blob {
             position: absolute;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.25;
             pointer-events: none;
             z-index: 0;
+            transition: transform 0.1s ease-out;
         }
 
         @media (max-width: 900px) {
@@ -587,193 +782,364 @@
                 grid-template-columns: 1fr;
             }
 
-            .step-arrow {
+            .hero {
+                padding-top: 100px;
+                text-align: center;
+            }
+
+            .hero-body {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-ctas,
+            .stats-row,
+            .eyebrow-container {
+                justify-content: center;
+            }
+
+            .step-card:first-child,
+            .step-card:last-child {
+                border-radius: 20px;
+            }
+
+            .step-card {
+                border-radius: 20px;
+                margin-bottom: 16px;
+            }
+
+            .how-grid {
+                gap: 16px;
+            }
+
+            .terms-visual {
                 display: none;
             }
 
-            .hero-headline,
-            .how-headline,
-            .testi-headline,
-            .cta-headline {
-                font-size: 48px;
+            .connecting-line {
+                display: none;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="custom-cursor"></div>
+    <!-- Global Systems -->
+    <div class="scroll-progress"></div>
+    <div class="cursor-system">
+        <div class="cursor-dot"></div>
+        <div class="cursor-ring"></div>
+    </div>
 
     <nav id="navbar">
-        <div class="nav-logo">Health-AI</div>
-        <a href="#assessment" class="nav-cta">Talk to a Doctor Now</a>
+        <a href="#" class="nav-logo">Health-AI</a>
+        <a href="#assessment" class="btn-nav">Talk to a Doctor Now</a>
     </nav>
 
     <section class="hero">
+        <!-- Parallax Blobs -->
         <div class="bg-blob"
-            style="width: 400px; height: 400px; background: var(--sage-light); top: 10%; left: -100px;"></div>
+            style="width: 400px; height: 400px; background: var(--sage-glow); top: 10%; left: -200px; filter: blur(100px); --speed: 0.15">
+        </div>
         <div class="bg-blob"
-            style="width: 300px; height: 300px; background: var(--soft-gold); bottom: 10%; right: -50px;"></div>
+            style="width: 300px; height: 300px; background: var(--gold-glow); bottom: 10%; right: -100px; filter: blur(80px); --speed: -0.2">
+        </div>
 
-        <div class="hero-text fade-up">
-            <span class="eyebrow">TELEHEALTH — AVAILABLE 24/7 — CONSULTATION IN UNDER 2 HOURS</span>
-            <h1 class="hero-headline">The system is content<br>to let you wait. <span style="display:block">We
-                    aren't.</span></h1>
-            <p class="hero-body">You've rehearsed your symptoms for weeks. Chosen your words carefully. Shown up hoping
-                this time would be different. And you were told it's nothing. In minutes.</p>
-            <div class="hero-ctas">
-                <a href="#assessment" class="btn btn-primary">Talk to a Doctor Now — Available 24/7</a>
-                <a href="#assessment" class="btn btn-secondary">Start Free Assessment</a>
+        <div class="hero-left">
+            <div class="eyebrow-container fade-up">
+                <div class="pulse-dot"></div>
+                <span class="eyebrow">TELEHEALTH — AVAILABLE 24/7 — CONSULTATION IN UNDER 2 HOURS</span>
             </div>
-            <div class="hero-stats">
+
+            <svg class="ecg-line fade-up" style="--delay: 0.1s" viewBox="0 0 200 20" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M0 10 H40 L44 2 L52 18 L56 10 H80 L84 2 L92 18 L96 10 H200" stroke="#4A8C75" stroke-width="1.5"
+                    stroke-linecap="round" />
+            </svg>
+
+            <h1 class="hero-headline fade-up" style="--delay: 0.2s">
+                The system is content<br>
+                to let you wait. <br>
+                <span class="gold-text">We aren't.</span>
+            </h1>
+
+            <p class="hero-body fade-in" style="--delay: 0.5s">
+                You've rehearsed your symptoms for weeks. Chosen your words carefully. Shown up hoping this time would
+                be different. And you were told it's nothing. In minutes.
+            </p>
+
+            <div class="hero-ctas fade-up" style="--delay: 0.6s">
+                <a href="#assessment" class="btn-main btn-primary magnetic" data-strength="8">Talk to a Doctor Now —
+                    Available 24/7</a>
+                <a href="#assessment" class="btn-main btn-secondary magnetic" data-strength="8">Start Free
+                    Assessment</a>
+            </div>
+
+            <div class="stats-row fade-up" style="--delay: 0.8s">
                 <div class="stat-item">
-                    <div class="stat-num">2h</div>
+                    <div class="stat-val counter" data-target="2" data-suffix="h">0h</div>
                     <div class="stat-lbl">Under 2 Hours</div>
                 </div>
+                <div class="stat-divider"></div>
                 <div class="stat-item">
-                    <div class="stat-num">500+</div>
+                    <div class="stat-val counter" data-target="500" data-suffix="+">0+</div>
                     <div class="stat-lbl">Qualified Doctors</div>
                 </div>
+                <div class="stat-divider"></div>
                 <div class="stat-item">
-                    <div class="stat-num">24/7</div>
+                    <div class="stat-val typewriter" data-text="24/7"></div>
                     <div class="stat-lbl">Support Always</div>
                 </div>
             </div>
         </div>
 
         <div class="hero-visual fade-in" style="--delay: 0.3s">
-            <svg width="480" height="520" viewBox="0 0 480 520" xmlns="http://www.w3.org/2000/svg"
-                style="overflow: visible;" class="float-anim">
-                <circle cx="240" cy="220" r="180" fill="var(--gold-pale)" />
-                <path
-                    d="M 240 120 Q 240 120 240 120 Q 340 120 340 220 Q 340 420 240 420 Q 140 420 140 220 Q 140 120 240 120"
-                    fill="#2D5C4E" />
-                <circle cx="100" cy="150" r="30" fill="var(--sage-light)" opacity="0.3" />
-                <rect x="350" y="300" width="60" height="30" rx="15" fill="var(--sage-light)" opacity="0.4" />
-                <path d="M 380 100 Q 410 120 380 140" stroke="var(--sage-light)" stroke-width="4" fill="none"
-                    opacity="0.3" />
-                <circle cx="150" cy="450" r="6" fill="var(--soft-gold)" />
-                <circle cx="400" cy="200" r="4" fill="var(--soft-gold)" />
-                <circle cx="320" cy="480" r="8" fill="var(--soft-gold)" />
-            </svg>
+            <div class="hero-illustration">
+                <!-- Halo Breathing -->
+                <svg width="400" height="400" viewBox="0 0 400 400" class="halo-breathing">
+                    <circle cx="200" cy="200" r="160" fill="var(--gold-pale)" />
+                </svg>
+
+                <!-- Main Figure (SVG Illustration) -->
+                <svg width="340" height="420" viewBox="0 0 340 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M170 340C240 340 290 280 290 210C290 140 240 80 170 80C100 80 50 140 50 210C50 280 100 340 170 340Z"
+                        fill="#1A3C34" /> <!-- Figure Head/Body -->
+                    <path d="M170 80 Q240 80 240 150 Q240 220 170 220 Q100 220 100 150 Q100 80 170 80" fill="#1A3C34" />
+                    <circle cx="170" cy="150" r="50" fill="#1A3C34" />
+                    <path d="M80 340 Q170 300 260 340 L260 420 L80 420 Z" fill="#1A3C34" />
+                </svg>
+
+                <!-- Floating Accents -->
+                <svg width="100" height="40" style="position:absolute; top: 10%; right: -20px; opacity: 0.25;">
+                    <path d="M10 30 Q50 0 90 30" stroke="var(--sage-light)" stroke-width="3" fill="none"
+                        stroke-linecap="round" />
+                </svg>
+                <div
+                    style="position:absolute; bottom: 20%; left: -40px; width: 120px; height: 120px; background: var(--gold-pale); filter: blur(40px); border-radius: 50%;">
+                </div>
+
+                <!-- Scattered Dots -->
+                <div
+                    style="position:absolute; top: 15%; left: 10%; width: 8px; height: 8px; background: var(--soft-gold); border-radius: 50%;">
+                </div>
+                <div
+                    style="position:absolute; top: 40%; right: 5%; width: 6px; height: 6px; background: var(--soft-gold); border-radius: 50%;">
+                </div>
+                <div
+                    style="position:absolute; bottom: 10%; right: 20%; width: 10px; height: 10px; background: var(--soft-gold); border-radius: 50%;">
+                </div>
+            </div>
         </div>
     </section>
 
     <section class="how">
-        <span class="eyebrow">HOW IT WORKS</span>
-        <h2 class="how-headline">A consultation in under 2 hours.</h2>
-        <p class="how-subheadline">A prescription at your pharmacy by the time you finish your coffee.</p>
+        <div class="bg-blob"
+            style="width: 400px; height: 400px; background: rgba(74,140,117,0.15); top: -200px; right: -100px; filter: blur(80px); --speed: 0.1">
+        </div>
+        <div class="bg-blob"
+            style="width: 300px; height: 300px; background: rgba(201,168,76,0.08); bottom: -100px; left: -50px; filter: blur(60px); --speed: -0.15">
+        </div>
 
-        <div class="how-grid">
-            <div class="step-card fade-up">
-                <div class="step-num-deco">01</div>
-                <span class="step-label">STEP 01</span>
+        <div class="how-text fade-up">
+            <span class="eyebrow">HOW IT WORKS</span>
+            <h2 class="how-headline">A consultation in under <span class="accent">2</span> hours.</h2>
+            <p class="how-subtitle">A prescription at your pharmacy by the time you finish your coffee.</p>
+        </div>
+
+        <div class="how-grid fade-up" style="--delay: 0.2s">
+            <!-- Connecting Line -->
+            <div class="connecting-line">
+                <svg width="100%" height="8" viewBox="0 0 1000 8" fill="none" preserveAspectRatio="none">
+                    <path class="dashed-path" d="M0 4 H1000" stroke-width="1.5" />
+                </svg>
+            </div>
+
+            <div class="step-card">
+                <div class="step-num">01</div>
+                <span class="step-lbl">STEP 01</span>
                 <h3 class="step-title">Check</h3>
                 <p class="step-body">Complete our AI-driven health assessment in 5 minutes. Your symptoms, your history,
                     your patterns, captured clearly and organised into a record a doctor can actually act on.</p>
-                <div class="step-arrow">→</div>
+                <!-- Icon CLIPBOARD -->
+                <svg class="step-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5">
+                    <path
+                        d="M16 4H18C19.1046 4 20 4.89543 20 6V20C20 21.1046 19.1046 22 18 22H6C4.89543 22 4 21.1046 4 20V6C4 4.89543 4.89543 4 6 4H8"
+                        stroke-linecap="round" />
+                    <rect x="8" y="2" width="8" height="4" rx="1" stroke-linecap="round" />
+                    <path d="M9 12H15M9 16H15" stroke-linecap="round" />
+                </svg>
             </div>
-            <div class="step-card fade-up" style="--delay: 0.1s">
-                <div class="step-num-deco">02</div>
-                <span class="step-label">STEP 02</span>
+
+            <div class="step-card">
+                <div class="step-num">02</div>
+                <span class="step-lbl">STEP 02</span>
                 <h3 class="step-title">Connect</h3>
                 <p class="step-body">Speak to a qualified doctor by video call in under two hours. Any time. Any day. A
                     real consultation with someone whose entire job is to help you, not manage their next appointment.
                 </p>
-                <div class="step-arrow">→</div>
+                <!-- Icon VIDEO -->
+                <svg class="step-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5">
+                    <path
+                        d="M15 10L19.5528 7.72361C20.2177 7.39116 21 7.87465 21 8.61803V15.382C21 16.1253 20.2177 16.6088 19.5528 16.2764L15 14M15 10V14M15 10H5C3.89543 10 3 10.8954 3 12V14C3 15.1046 3.89543 16 5 16H15"
+                        stroke-linecap="round" />
+                </svg>
             </div>
-            <div class="step-card fade-up" style="--delay: 0.2s">
-                <div class="step-num-deco">03</div>
-                <span class="step-label">STEP 03</span>
+
+            <div class="step-card">
+                <div class="step-num">03</div>
+                <span class="step-lbl">STEP 03</span>
                 <h3 class="step-title">Recover</h3>
                 <p class="step-body">Receive your treatment plan and digital prescription instantly, sent directly to
                     your local pharmacy. No follow-up appointments just to get what you already needed.</p>
+                <!-- Icon LEAF -->
+                <svg class="step-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5">
+                    <path
+                        d="M12 22C12 22 12 18 12 12M12 12C12 12 16 8 20 8C20 8 21 11 18 14C15 17 12 17 12 17M12 12C12 12 8 8 4 8C4 8 3 11 6 14C9 17 12 17 12 17"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
             </div>
         </div>
     </section>
 
     <section class="testimonials">
-        <span class="eyebrow">REAL PATIENTS</span>
-        <h2 class="testi-headline">Finally heard.</h2>
+        <div class="bg-blob"
+            style="width: 350px; height: 350px; background: var(--gold-pale); top: 10%; right: -50px; filter: blur(80px); opacity: 0.7; --speed: 0.1">
+        </div>
 
-        <div class="testi-grid">
-            <div class="testi-card fade-up">
-                <div class="testi-quote-deco">"</div>
-                <div class="testi-header">
-                    <img src="assets/sarah.png" class="testi-avatar" alt="Sarah J.">
-                    <div class="testi-info">
-                        <span class="testi-name">Sarah J.</span>
-                        <div class="testi-stars">★★★★★</div>
+        <div class="testi-text fade-up">
+            <span class="eyebrow">REAL PATIENTS</span>
+            <h2 class="testi-headline">Finally heard.</h2>
+        </div>
+
+        <div class="testi-grid fade-up" style="--delay: 0.2s">
+            <!-- Sarah J Card -->
+            <div class="t-card">
+                <div class="t-quote-deco">"</div>
+                <div class="t-header">
+                    <!-- Sarah Avatar -->
+                    <svg width="64" height="64" viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="32" fill="var(--warm-ivory)" />
+                        <path d="M32 50C42 50 48 45 48 35C48 25 42 15 32 15C22 15 16 25 16 35C16 45 22 50 32 50Z"
+                            fill="#2D5C4E" /> <!-- Sage hair -->
+                        <path d="M32 45C38 45 42 40 42 32C42 24 38 20 32 20C26 20 22 24 22 32C22 40 26 45 32 45Z"
+                            fill="#FBF3DC" /> <!-- Face -->
+                    </svg>
+                    <div class="t-info">
+                        <span class="t-name">Sarah J.</span>
+                        <span class="t-stars">★★★★★</span>
                     </div>
                 </div>
-                <p class="testi-quote">"I was tired of being dismissed. Health-AI gave me a clear report that finally
-                    got me the right specialist referral in under two hours."</p>
-                <span class="testi-attr">— SARAH J.</span>
+                <p class="t-quote">"I was tired of being dismissed. Health-AI gave me a clear report that finally got me
+                    the right specialist referral in under two hours."</p>
+                <span class="t-attr">— SARAH J.</span>
             </div>
-            <div class="testi-card fade-up" style="--delay: 0.1s">
-                <div class="testi-quote-deco">"</div>
-                <div class="testi-header">
-                    <img src="assets/mark.png" class="testi-avatar" alt="Mark T.">
-                    <div class="testi-info">
-                        <span class="testi-name">Mark T.</span>
-                        <div class="testi-stars">★★★★★</div>
+
+            <!-- Mark T Card -->
+            <div class="t-card">
+                <div class="t-quote-deco">"</div>
+                <div class="t-header">
+                    <!-- Mark Avatar -->
+                    <svg width="64" height="64" viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="32" fill="var(--gold-pale)" />
+                        <path d="M16 35 C16 15 48 15 48 35 L48 50 L16 50 Z" fill="#5C1F12" /> <!-- Hair -->
+                        <path d="M32 45 C38 45 42 40 42 32 C42 24 38 20 32 20 C26 20 22 24 22 32 C22 40 26 45 32 45 Z"
+                            fill="#8B3A2A" /> <!-- Skin -->
+                    </svg>
+                    <div class="t-info">
+                        <span class="t-name">Mark T.</span>
+                        <span class="t-stars">★★★★★</span>
                     </div>
                 </div>
-                <p class="testi-quote">"I did the assessment, spoke to a doctor, and had my meds at the pharmacy by
-                    lunch. Three days of waiting, gone."</p>
-                <span class="testi-attr">— MARK T.</span>
+                <p class="t-quote">"I did the assessment, spoke to a doctor, and had my meds at the pharmacy by lunch.
+                    Three days of waiting, gone."</p>
+                <span class="t-attr">— MARK T.</span>
             </div>
-            <div class="testi-card fade-up" style="--delay: 0.2s">
-                <div class="testi-quote-deco">"</div>
-                <div class="testi-header">
-                    <img src="assets/elena.png" class="testi-avatar" alt="Elena R.">
-                    <div class="testi-info">
-                        <span class="testi-name">Elena R.</span>
-                        <div class="testi-stars">★★★★★</div>
+
+            <!-- Elena R Card -->
+            <div class="t-card">
+                <div class="t-quote-deco">"</div>
+                <div class="t-header">
+                    <!-- Elena Avatar -->
+                    <svg width="64" height="64" viewBox="0 0 64 64">
+                        <circle cx="32" cy="32" r="32" fill="var(--sage-glow)" />
+                        <path d="M32 15 C15 15 15 50 32 50 C49 50 49 15 32 15 Z" fill="#1A3C34" /> <!-- Hair -->
+                        <path d="M32 42C37 42 40 38 40 30C40 22 37 18 32 18C27 18 24 22 24 30C24 38 27 42 32 42Z"
+                            fill="#FAF7F2" /> <!-- Face -->
+                    </svg>
+                    <div class="t-info">
+                        <span class="t-name">Elena R.</span>
+                        <span class="t-stars">★★★★★</span>
                     </div>
                 </div>
-                <p class="testi-quote">"Getting a professional consultation and a treatment plan before the sun came up
+                <p class="t-quote">"Getting a professional consultation and a treatment plan before the sun came up
                     changed everything."</p>
-                <span class="testi-attr">— ELENA R.</span>
+                <span class="t-attr">— ELENA R.</span>
             </div>
         </div>
     </section>
 
     <section class="terms">
-        <div class="terms-text fade-up">
+        <div class="terms-left fade-up">
             <span class="eyebrow">YOUR HEALTH ON YOUR TERMS</span>
-            <div class="statement-item fade-up">
-                <h3 class="statement-label">Your history.</h3>
-                <p class="statement-text">Organised and on record so you never have to repeat yourself to someone who
-                    isn't listening.</p>
+
+            <div class="term-item">
+                <h3 class="term-lbl">Your history.</h3>
+                <p class="term-body">Organised and on record so you never have to repeat yourself to someone who isn't
+                    listening.</p>
+                <div class="term-sep"></div>
             </div>
-            <div class="statement-item fade-up" style="--delay: 0.15s">
-                <h3 class="statement-label">Your symptoms.</h3>
-                <p class="statement-text">Documented and timestamped so the next appointment, you walk in with evidence
-                    they cannot dismiss.</p>
+
+            <div class="term-item">
+                <h3 class="term-lbl">Your symptoms.</h3>
+                <p class="term-body">Documented and timestamped so the next appointment, you walk in with evidence they
+                    cannot dismiss.</p>
+                <div class="term-sep"></div>
             </div>
-            <div class="statement-item fade-up" style="--delay: 0.3s">
-                <h3 class="statement-label">Your health.</h3>
-                <p class="statement-text">Finally moving at your pace. Not the system's.</p>
+
+            <div class="term-item">
+                <h3 class="term-lbl">Your health.</h3>
+                <p class="term-body">Finally moving at your pace. Not the system's.</p>
             </div>
         </div>
+
         <div class="terms-visual fade-in">
-            <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="200" cy="200" r="120" stroke="var(--sage-light)" stroke-width="2" fill="none"
-                    opacity="0.2" />
-                <circle cx="200" cy="200" r="80" stroke="var(--sage-light)" stroke-width="2" fill="none"
-                    opacity="0.4" />
-                <circle cx="200" cy="200" r="40" stroke="var(--sage-light)" stroke-width="2" fill="none"
-                    opacity="0.6" />
+            <svg width="340" height="340" viewBox="0 0 340 340" fill="none">
+                <circle cx="170" cy="170" r="155" stroke="#4A8C75" stroke-width="1" opacity="0.18"
+                    stroke-dasharray="974" stroke-dashoffset="974" class="ring-draw" style="--ring-delay:0s" />
+                <circle cx="170" cy="170" r="110" stroke="#4A8C75" stroke-width="1.5" opacity="0.35"
+                    stroke-dasharray="691" stroke-dashoffset="691" class="ring-draw" style="--ring-delay:0.2s" />
+                <circle cx="170" cy="170" r="65" stroke="#4A8C75" stroke-width="2" opacity="0.6" stroke-dasharray="408"
+                    stroke-dashoffset="408" class="ring-draw" style="--ring-delay:0.4s" />
+                <circle cx="170" cy="170" r="12" fill="#C9A84C" opacity="0.9" class="scale-in" style="--delay:0.7s" />
+                <line x1="170" y1="164" x2="170" y2="176" stroke="#FAF7F2" stroke-width="2" stroke-linecap="round" />
+                <line x1="164" y1="170" x2="176" y2="170" stroke="#FAF7F2" stroke-width="2" stroke-linecap="round" />
             </svg>
         </div>
     </section>
 
-    <section class="final-cta" id="assessment">
-        <h2 class="cta-headline">You've spent long enough fighting just to be heard.</h2>
-        <p class="cta-subheadline">Healthcare that hears you. Solutions that find you.</p>
-        <a href="#" class="btn btn-primary btn-large">Start Your Free Assessment — It Takes 5 Minutes</a>
-        <p class="trust-line">No credit card required. No waiting room. No dismissal.</p>
+    <section class="cta-final" id="assessment">
+        <div class="bg-blob"
+            style="width: 500px; height: 500px; background: rgba(74,140,117,0.12); top: 50%; left: 50%; transform: translate(-50%, -50%); filter: blur(100px); --speed: 0">
+        </div>
+        <div class="bg-blob"
+            style="width: 200px; height: 200px; background: rgba(201,168,76,0.1); bottom: 10%; left: 50%; transform: translateX(-50%); filter: blur(60px); --speed: 0.1">
+        </div>
+
+        <h2 class="cta-headline fade-up">You've spent long enough fighting just to be heard.</h2>
+        <p class="cta-body fade-in" style="--delay: 0.2s">Healthcare that hears you. Solutions that find you.</p>
+
+        <a href="#" class="hero-cta-primary magnetic fade-up" style="--delay: 0.4s" data-strength="12">Start Your Free
+            Assessment — It Takes 5 Minutes</a>
+
+        <div class="trust-items fade-up" style="--delay: 0.6s">
+            <span class="ti" style="--delay:0.1s">No credit card required</span> <span>&middot;</span>
+            <span class="ti" style="--delay:0.2s">No waiting room</span> <span>&middot;</span>
+            <span class="ti" style="--delay:0.3s">No dismissal</span>
+        </div>
     </section>
 
     <footer>
@@ -784,40 +1150,150 @@
             <a href="#">Terms</a> &middot;
             <a href="#">Contact</a>
         </div>
+
+        <!-- Health Deco crosses -->
+        <svg style="position:absolute; bottom: 20px; left: 10%; opacity: 0.15;" width="14" height="14"
+            viewBox="0 0 24 24" fill="var(--soft-gold)">
+            <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="4" />
+        </svg>
+        <svg style="position:absolute; top: 40px; right: 15%; opacity: 0.2; transform: rotate(15deg);" width="24"
+            height="24" viewBox="0 0 24 24" fill="var(--soft-gold)">
+            <path d="M12 2v20M2 12h20" stroke="currentColor" stroke-width="5" />
+        </svg>
     </footer>
 
     <script>
-        // Custom Cursor
-        const cursor = document.querySelector('.custom-cursor');
+        // --- 1. Custom Cursor ---
+        const dot = document.querySelector('.cursor-dot');
+        const ring = document.querySelector('.cursor-ring');
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
         document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-30%, -30%)`;
         });
 
-        // Sticky Nav
-        const nav = document.getElementById('navbar');
+        function animateCursor() {
+            ringX += (mouseX - ringX) * 0.15;
+            ringY += (mouseY - ringY) * 0.15;
+            ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, button, .step-card, .t-card, .magnetic').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-active'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-active'));
+        });
+
+        // --- 2. Scroll Progress ---
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 80) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
+            const progress = document.querySelector('.scroll-progress');
+            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = window.scrollY;
+            progress.style.width = `${(scrolled / scrollable) * 100}%`;
         });
 
-        // Intersection Observer
-        const observerOptions = {
-            threshold: 0.12
-        };
-
+        // --- 3. Intersection Observer ---
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                    // Special case for dashed line
+                    const line = entry.target.querySelector('.dashed-path');
+                    if (line) line.classList.add('visible');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.12 });
 
-        document.querySelectorAll('.fade-up, .fade-in, .statement-item, .step-card, .testi-card').forEach(el => observer.observe(el));
+        document.querySelectorAll('.fade-up, .fade-in, .scale-in, .ring-draw, .how-grid').forEach(el => observer.observe(el));
+
+        // --- 4. Parallax System ---
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+
+            // Hero
+            const illustration = document.querySelector('.hero-illustration');
+            const headline = document.querySelector('.hero-headline');
+            if (illustration) illustration.style.transform = `translateY(${scrolled * 0.25}px)`;
+            if (headline) headline.style.transform = `translateY(${scrolled * 0.1}px)`;
+
+            // Blobs
+            document.querySelectorAll('.bg-blob').forEach(blob => {
+                const speed = parseFloat(blob.style.getPropertyValue('--speed')) || 0;
+                blob.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // --- 5. Magnetic Buttons ---
+        document.querySelectorAll('.magnetic').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                const strength = btn.dataset.strength || 10;
+                btn.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = `translate(0px, 0px)`;
+            });
+        });
+
+        // --- 6. Stats Counters ---
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const counter = entry.target;
+                    const target = parseInt(counter.dataset.target);
+                    const suffix = counter.dataset.suffix || '';
+                    animateValue(counter, 0, target, 1800, suffix);
+                    statsObserver.unobserve(counter);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.counter').forEach(c => statsObserver.observe(c));
+
+        function animateValue(obj, start, end, duration, suffix) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 4); // easeOutQuart
+                obj.innerHTML = Math.floor(eased * (end - start) + start) + suffix;
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Typewriter for 24/7
+        const twObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const text = el.dataset.text;
+                    let i = 0;
+                    const timer = setInterval(() => {
+                        el.innerHTML += text[i];
+                        i++;
+                        if (i >= text.length) clearInterval(timer);
+                    }, 100);
+                    twObserver.unobserve(el);
+                }
+            });
+        });
+        document.querySelectorAll('.typewriter').forEach(tw => twObserver.observe(tw));
+
+        // --- 7. Nav Scrolled State ---
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 60) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
     </script>
 </body>
 
