@@ -194,18 +194,21 @@
       justify-content: center;
       align-items: center;
       height: 100%;
-      min-height: 420px; /* Enforced tall SVG constraint */
+      min-height: 420px;
       position: relative;
+    }
+    .hero-svg {
+      width: 100%;
+      max-width: 380px; /* Locked to 380px */
+      height: auto;
+      overflow: visible;
+    }
+    .float-group {
       animation: float-hero 4s ease-in-out infinite alternate;
     }
     @keyframes float-hero {
       0% { transform: translateY(0px); }
-      100% { transform: translateY(-15px); }
-    }
-    .hero-svg {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
+      100% { transform: translateY(-12px); }
     }
 
     /* "Again." Section */
@@ -746,33 +749,50 @@
         </div>
       </div>
       <div class="hero-right-visual fade-in" style="--delay: 0.5s">
-        <svg class="hero-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
-  <!-- abstract blob -->
-  <path fill="var(--honey)" fill-opacity="0.8" d="M373.5,-375C466.5,-269,512.5,-134.5,516,-3.5C519.5,127.5,480.5,255,387.5,334C294.5,413,147.5,443.5,6.5,437C-134.5,430.5,-269,387,-349.5,308C-430,229,-456.5,114.5,-445.5,11C-434.5,-92.5,-386,-185,-305.5,-291C-225,-397,-112.5,-516,11,-527C134.5,-538,280.5,-481,373.5,-375Z" transform="translate(250 250) scale(0.65)" />
-  <path fill="var(--terra-warm)" fill-opacity="0.6" d="M304.5,-339.5C397,-250,476.5,-125,489.5,13C502.5,151,449,302,356.5,404C264,506,132,559,1.5,557.5C-129,556,-258,500,-354.5,398C-451,296,-515,148,-487,-28C-459,-204,-339,-408,-246.5,-497.5C-154,-587,-77,-562,24,-586C125,-610,212,-429,304.5,-339.5Z" transform="translate(250 250) scale(0.55)" />
-  <g fill="var(--terracotta)">
-    <circle cx="150" cy="180" r="15"/>
-    <circle cx="138" cy="168" r="6"/>
-    <circle cx="162" cy="168" r="6"/>
-    <circle cx="380" cy="300" r="22"/>
-    <circle cx="362" cy="285" r="9"/>
-    <circle cx="398" cy="285" r="9"/>
-    <circle cx="100" cy="350" r="10"/>
-    <circle cx="92" cy="342" r="4"/>
-    <circle cx="108" cy="342" r="4"/>
-  </g>
-  <g fill="var(--text)" opacity="0.3">
-    <circle cx="450" cy="120" r="3"/>
-    <circle cx="250" cy="80" r="2"/>
-    <circle cx="80" cy="220" r="1.5"/>
-    <circle cx="280" cy="420" r="2.5"/>
-  </g>
-  <g fill="rgba(196,113,79,0.7)" font-family="Nunito, sans-serif" font-weight="900">
-    <text x="200" y="140" font-size="24" transform="rotate(-15 200 140)">z</text>
-    <text x="220" y="110" font-size="18" transform="rotate(-5 220 110)">z</text>
-    <text x="240" y="90" font-size="14" transform="rotate(10 240 90)">z</text>
-    <text x="320" y="220" font-size="32" transform="rotate(-10 320 220)">z</text>
-    <text x="350" y="190" font-size="24" transform="rotate(5 350 190)">z</text>
+        <svg class="hero-svg" viewBox="0 0 380 380" xmlns="http://www.w3.org/2000/svg" style="overflow: visible;">
+  <!-- Inner floating container -->
+  <g class="float-group">
+    <!-- Base Head (perfect circle) -->
+    <circle cx="190" cy="190" r="140" fill="var(--terra-warm)" />
+    
+    <!-- Left Ear -->
+    <circle cx="80" cy="80" r="45" fill="var(--terra-warm)" />
+    <circle cx="80" cy="80" r="25" fill="var(--honey)" />
+    
+    <!-- Right Ear -->
+    <circle cx="300" cy="80" r="45" fill="var(--terra-warm)" />
+    <circle cx="300" cy="80" r="25" fill="var(--honey)" />
+    
+    <!-- Snout area -->
+    <circle cx="190" cy="230" r="50" fill="var(--honey-mid)" opacity="0.9" />
+    
+    <!-- Nose (oval) -->
+    <ellipse cx="190" cy="210" rx="18" ry="12" fill="var(--terra-deep)" />
+    
+    <!-- Eyes -->
+    
+
+    <!-- Sleeping closed eyes (alternative) -->
+    <!-- (Removing the open eyes circles and using the paths instead) -->
+    <path d="M 125 175 Q 140 185 155 175" stroke="var(--terra-deep)" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <path d="M 225 175 Q 240 185 255 175" stroke="var(--terra-deep)" stroke-width="6" fill="none" stroke-linecap="round"/>
+    
+    
+    <!-- Floating ZZZs -->
+    <g fill="var(--terra-warm)" opacity="0.4" font-family="Nunito, sans-serif" font-weight="900">
+      <text x="290" y="50" font-size="22" transform="rotate(5 290 50)">Z</text>
+      <text x="320" y="20" font-size="18" transform="rotate(-5 320 20)">z</text>
+      <text x="345" y="-5" font-size="14" transform="rotate(-10 345 -5)">z</text>
+    </g>
+    
+    <!-- Scattered Stars -->
+    <g fill="var(--honey)">
+      <circle cx="40" cy="180" r="4" />
+      <circle cx="60" cy="250" r="6" />
+      <circle cx="330" cy="160" r="8" />
+      <circle cx="310" cy="280" r="5" />
+      <circle cx="280" cy="320" r="7" />
+    </g>
   </g>
 </svg>
       </div>
