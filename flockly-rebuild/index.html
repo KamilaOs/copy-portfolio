@@ -85,15 +85,52 @@
         .hero {
             background: var(--cream);
             min-height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            padding-left: 7vw;
+            display: grid;
+            grid-template-columns: 55% 45%;
             width: 100%;
+            overflow-x: hidden;
         }
 
+        .hero-left {
+            padding: 0 0 0 8vw;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--cream);
+        }
+
+        .hero-right {
+            background: var(--terracotta);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .hero-image-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, var(--cream) 0%, transparent 30%);
+        }
+
+
         .hero-content {
-            width: 60%;
+            width: 100%;
             position: relative;
         }
 
@@ -127,23 +164,36 @@
             font-family: var(--font-serif);
             font-size: 92px;
             color: var(--dark);
-            line-height: 0.95;
+            line-height: 1.15;
             margin-bottom: 32px;
             font-weight: normal;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .hero-headline {
-                font-size: 52px;
+                font-size: 72px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 100%;
             }
 
-            .hero-content {
-                width: 90%;
+            .hero-right {
+                display: none;
+            }
+
+            .hero-left {
+                padding: 120px 40px 80px 40px;
+            }
+
+            .hero-headline {
+                font-size: 52px;
             }
         }
 
         .headline-line {
-            overflow: hidden;
             display: block;
         }
 
@@ -189,10 +239,9 @@
 
         .hero-ruler {
             width: 1px;
-            height: 48px;
+            height: 32px;
             background: var(--terracotta);
-            margin-top: 32px;
-            margin-bottom: 24px;
+            margin: 16px 0;
             opacity: 0;
             animation: fadeIn 0.8s ease forwards;
             animation-delay: 0.8s;
@@ -244,42 +293,15 @@
             }
         }
 
-        .scroll-down {
-            position: absolute;
-            bottom: 40px;
-            left: 7vw;
-            color: var(--terracotta);
-            animation: bounce 2s infinite ease-in-out;
-            opacity: 0;
-            animation-delay: 0.8s, 0s;
-            animation-name: fadeIn, bounce;
-            animation-duration: 0.8s, 2s;
-            animation-iteration-count: 1, infinite;
-            animation-fill-mode: forwards, none;
-        }
-
-        @keyframes bounce {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
         .hero-stats {
-            position: absolute;
-            right: 7vw;
-            top: 50%;
-            transform: translateY(-50%);
+            margin-top: 48px;
+            padding-top: 32px;
+            padding-bottom: 32px;
+            border-top: 1px solid rgba(28, 17, 8, 0.1);
             display: flex;
-            flex-direction: column;
             gap: 36px;
-            align-items: flex-end;
-            text-align: right;
+            align-items: flex-start;
+            text-align: left;
             opacity: 0;
             animation: fadeIn 0.6s ease forwards;
             animation-delay: 1s;
@@ -288,12 +310,12 @@
         .stat-block {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
+            align-items: flex-start;
         }
 
         .stat-number {
             font-family: var(--font-serif);
-            font-size: 42px;
+            font-size: 36px;
             color: var(--dark);
             line-height: 1;
             margin-bottom: 4px;
@@ -302,7 +324,7 @@
         .stat-label {
             font-family: var(--font-sans);
             font-weight: 300;
-            font-size: 12px;
+            font-size: 13px;
             letter-spacing: 0.12em;
             text-transform: uppercase;
             color: var(--muted);
@@ -320,10 +342,51 @@
             }
         }
 
-        /* SECTION 2 - SCROLLYTELLING ESSAY */
         .essay {
             background: var(--dark);
             padding: 120px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .abstract-figure {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: 0;
+            mix-blend-mode: screen;
+            filter: contrast(1.5) brightness(1.2);
+            /* Fixes the 'square' edges globally */
+            -webkit-mask-image: radial-gradient(circle, black 40%, transparent 80%);
+            mask-image: radial-gradient(circle, black 40%, transparent 80%);
+        }
+
+        .figure-1 {
+            top: 5%;
+            left: -180px;
+            transform: rotate(-15deg);
+        }
+
+        .figure-2 {
+            bottom: 5%;
+            right: -180px;
+            transform: rotate(15deg);
+        }
+
+        .figure-3 {
+            top: 35%;
+            right: -150px;
+            transform: rotate(5deg);
+            opacity: 0.12;
+        }
+
+        .figure-4 {
+            top: 65%;
+            left: -150px;
+            transform: rotate(-10deg);
+            opacity: 0.12;
         }
 
         .fade-up {
@@ -340,16 +403,19 @@
         .treatment-a {
             font-family: var(--font-sans);
             font-weight: 300;
-            font-size: 18px;
-            line-height: 1.95;
+            font-size: 24px;
+            /* Even bigger */
+            line-height: 1.7;
+            /* Slightly tighter for larger size */
             color: rgba(249, 245, 238, 0.72);
-            max-width: 580px;
+            max-width: 900px;
+            /* Much wider */
             text-align: center;
             margin: 0 auto 32px auto;
         }
 
         .treatment-b {
-            padding: 160px 0;
+            padding: 60px 0;
             opacity: 0;
             transition: opacity 1.5s ease;
         }
@@ -365,15 +431,22 @@
             color: var(--blush);
             text-align: left;
             padding-left: 8vw;
+            padding-bottom: 10px;
+            /* Tighten gap */
         }
 
         .b-line-2 {
             font-family: var(--font-serif);
             font-style: italic;
-            font-size: 96px;
+            font-size: 180px;
+            /* Massive scale shift */
+            line-height: 0.85;
             color: var(--blush);
             text-align: left;
-            padding-left: 18vw;
+            padding-left: 20vw;
+            /* Staggered left-indent */
+            padding-top: 10px;
+            /* Tighten gap */
         }
 
         .b-line-3 {
@@ -401,7 +474,9 @@
             }
 
             .b-line-2 {
-                font-size: 64px;
+                font-size: 80px;
+                /* Scaled for mobile but still dominant */
+                padding-left: 12vw;
             }
 
             .b-line-3 {
@@ -567,22 +642,60 @@
         }
 
         .mode-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(249, 245, 238, 0.1);
+            background: var(--cream);
+            border: 1.5px solid rgba(196, 113, 79, 0.2);
             border-radius: 20px;
-            padding: 40px;
+            padding: 56px 40px 48px;
             text-align: left;
             flex: 1;
-            transition: border-color 0.3s ease, transform 0.3s ease;
+            transition:
+                transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 380px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            cursor: pointer;
         }
 
         .mode-card:hover {
-            border-color: rgba(196, 113, 79, 0.5);
-            transform: translateY(-4px);
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--terracotta);
+            background: #FFFFFF;
+            box-shadow: 0 24px 64px rgba(196, 113, 79, 0.18);
+        }
+
+        .mode-card::after {
+            content: attr(data-emoji);
+            position: absolute;
+            bottom: -20px;
+            right: 12px;
+            font-size: 120px;
+            opacity: 0.1;
+            pointer-events: none;
+            user-select: none;
+            line-height: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .mode-card:hover::after {
+            opacity: 0.2;
         }
 
         .mode-card.special {
             border-left: 3px solid var(--terracotta);
+        }
+
+        .mode-accent {
+            height: 4px;
+            width: 48px;
+            background: var(--terracotta);
+            border-radius: 999px;
+            margin-bottom: 24px;
         }
 
         .mode-num {
@@ -596,19 +709,43 @@
         }
 
         .mode-name {
-            font-family: var(--font-serif);
-            font-size: 32px;
-            color: var(--white);
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 28px;
+            letter-spacing: -0.01em;
+            color: var(--dark);
             margin-bottom: 24px;
-            font-weight: normal;
+            transition: color 0.3s ease;
+        }
+
+        .mode-card:hover .mode-name {
+            color: var(--terracotta);
         }
 
         .mode-desc {
             font-family: var(--font-sans);
             font-weight: 300;
-            font-size: 16px;
-            line-height: 1.8;
-            color: rgba(249, 245, 238, 0.65);
+            font-size: 18px;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        .mode-cta {
+            font-family: var(--font-sans);
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            color: var(--terracotta);
+            display: block;
+            margin-top: 32px;
+            opacity: 0;
+            transform: translateY(8px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .mode-card:hover .mode-cta {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .modes-reassurance {
@@ -745,6 +882,152 @@
             display: inline-block;
         }
 
+        /* NEW SECTIONS CSS */
+        .terracotta-band {
+            background: var(--terracotta);
+            padding: 48px 8vw;
+            margin: 48px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .band-text {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 36px;
+            color: white;
+            line-height: 1.3;
+            max-width: 600px;
+            text-align: center;
+        }
+
+        /* ESSAY PARALLAX PHOTO */
+        .essay-parallax-container {
+            width: 90vw;
+            max-width: 1200px;
+            height: 600px;
+            margin: 120px auto;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.1);
+        }
+
+        .essay-parallax-img {
+            position: absolute;
+            top: -15%;
+            /* Overflow for parallax */
+            left: 0;
+            width: 100%;
+            height: 130%;
+            object-fit: cover;
+            object-position: center center;
+            will-change: transform;
+        }
+
+        .testimonial-content-wrapper {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            text-align: left;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .testimonial-avatar {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            object-fit: cover;
+            object-position: center top;
+            flex-shrink: 0;
+            margin-top: 4px;
+            border: 2px solid var(--terracotta);
+        }
+
+        .testimonial-text {
+            flex: 1;
+        }
+
+        /* Update Closing CSS */
+        .closing {
+            background: var(--terracotta);
+            padding: 120px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .closing-bg-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+            display: block;
+        }
+
+        .closing-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(28, 17, 8, 0.62);
+            z-index: 1;
+        }
+
+        .closing-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .closing-headline-1 {
+            font-family: var(--font-serif);
+            font-size: 72px;
+            color: white;
+            line-height: 1.0;
+            font-weight: normal;
+        }
+
+        .closing-headline-2 {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 36px;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 24px;
+            margin-bottom: 24px;
+            /* Adjusted to fit CTA */
+            font-weight: normal;
+        }
+
+        .closing-cta {
+            background: white;
+            color: var(--dark);
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 15px;
+            border-radius: 999px;
+            height: 58px;
+            padding: 0 40px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            margin-top: 40px;
+        }
+
+        .closing-cta:hover {
+            background: var(--terracotta);
+            color: white;
+        }
+
         /* FOOTER */
         footer {
             background: var(--dark);
@@ -795,50 +1078,60 @@
     </nav>
 
     <section class="hero">
-        <div class="hero-content">
-            <div class="typewriter-tag"><span id="type-text"></span><span class="cursor" id="type-cursor">|</span></div>
+        <div class="hero-left">
 
-            <h1 class="hero-headline">
-                <span class="headline-line line-1"><span class="headline-text">You didn't become</span></span>
-                <span class="headline-line line-2 indent"><span class="headline-text color-terracotta">less
-                        interesting.</span></span>
-                <span class="headline-line line-3"><span class="headline-text">You just ran out</span></span>
-                <span class="headline-line line-4 indent"><span class="headline-text">of people to be</span></span>
-                <span class="headline-line line-5"><span class="headline-text color-terracotta">interesting
-                        with.</span></span>
-            </h1>
+            <div class="hero-content">
+                <div class="typewriter-tag"><span id="type-text"></span><span class="cursor" id="type-cursor">|</span>
+                </div>
 
-            <div class="hero-ruler"></div>
-            <p class="hero-subtext">Real people. Real plans. Based on who you actually are.</p>
+                <h1 class="hero-headline">
+                    <span class="headline-line line-1"><span class="headline-text">You didn't become</span></span>
+                    <span class="headline-line line-2 indent"><span class="headline-text color-terracotta">less
+                            interesting.</span></span>
+                    <span class="headline-line line-3"><span class="headline-text">You just ran out</span></span>
+                    <span class="headline-line line-4 indent"><span class="headline-text">of people to be</span></span>
+                    <span class="headline-line line-5"><span class="headline-text color-terracotta">interesting
+                            with.</span></span>
+                </h1>
 
-            <a href="#" class="main-cta">Find Your Flock &mdash; First Match Free</a>
+                <div class="hero-ruler"></div>
+                <p class="hero-subtext">Real people. Real plans. Based on who you actually are.</p>
+
+                <a href="#" class="main-cta">Find Your Flock &mdash; First Match Free</a>
+
+
+                <div class="hero-stats">
+                    <div class="stat-block">
+                        <span class="stat-number">12,400</span>
+                        <span class="stat-label">matches made</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-block">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-label">found their person in 7 days</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-block">
+                        <span class="stat-number" style="color: var(--terracotta);">★ 4.9</span>
+                        <span class="stat-label">on App Store</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <svg class="scroll-down" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-        </svg>
-
-        <div class="hero-stats">
-            <div class="stat-block">
-                <span class="stat-number">12,400</span>
-                <span class="stat-label">matches made</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-block">
-                <span class="stat-number">94%</span>
-                <span class="stat-label">found their person in 7 days</span>
-            </div>
-            <div class="stat-divider"></div>
-            <div class="stat-block">
-                <span class="stat-number" style="color: var(--terracotta);">★ 4.9</span>
-                <span class="stat-label">on App Store</span>
-            </div>
+        <div class="hero-right">
+            <img src="./assets/hero-group.jpg" alt="Friends at dinner" class="hero-image-bg">
+            <div class="hero-image-overlay"></div>
         </div>
     </section>
 
     <!-- SECTION 2 — SCROLLYTELLING ESSAY -->
     <section class="essay">
+        <img src="./assets/abstract-1.png" alt="" class="abstract-figure figure-1 scroll-fade" aria-hidden="true">
+        <img src="./assets/abstract-2.png" alt="" class="abstract-figure figure-2 scroll-fade" aria-hidden="true">
+        <img src="./assets/abstract-3.png" alt="" class="abstract-figure figure-3 scroll-fade" aria-hidden="true">
+        <img src="./assets/abstract-4.png" alt="" class="abstract-figure figure-4 scroll-fade" aria-hidden="true">
+
         <div class="treatment-b scroll-fade b-line-1">So you close the tab.</div>
         <div class="treatment-b scroll-fade b-line-2">Again.</div>
 
@@ -849,6 +1142,14 @@
         <div class="treatment-b scroll-fade b-line-3">You're not alone in this. You're just alone right now.</div>
 
         <div class="treatment-b scroll-fade b-line-4">Flockly exists for exactly this moment.</div>
+
+        <div class="terracotta-band">
+            <div class="band-text">12,400 people found their flock.<br>You're next.</div>
+        </div>
+
+        <div class="essay-parallax-container scroll-fade">
+            <img src="./assets/mid-scroll.png" alt="Group of friends" class="essay-parallax-img">
+        </div>
 
         <hr class="treatment-c fade-up scroll-fade">
 
@@ -902,23 +1203,38 @@
         <h2 class="modes-headline fade-up scroll-fade">Because your needs aren't always the same.</h2>
 
         <div class="cards-container">
-            <div class="mode-card fade-up scroll-fade" style="transition-delay: 0s;">
-                <span class="mode-num">01</span>
-                <h3 class="mode-name">Deep Connection</h3>
-                <p class="mode-desc">For the friendship where you're calling each other at 2 AM. The one that takes time
-                    to build and is worth every bit of it.</p>
+            <div class="mode-card fade-up scroll-fade" style="transition-delay: 0s;" data-emoji="🫂">
+                <div class="card-top">
+                    <div class="mode-accent"></div>
+                    <span class="mode-num">01</span>
+                    <h3 class="mode-name">Deep Connection</h3>
+                    <p class="mode-desc">For the friendship where you're calling each other at 2 AM. The one that takes
+                        time
+                        to build and is worth every bit of it.</p>
+                </div>
+                <span class="mode-cta">Choose this mode →</span>
             </div>
-            <div class="mode-card fade-up scroll-fade" style="transition-delay: 0.1s;">
-                <span class="mode-num">02</span>
-                <h3 class="mode-name">Activity Mode</h3>
-                <p class="mode-desc">Bored right now. New city. Just need a human to split an appetiser with tonight.
-                    Done.</p>
+            <div class="mode-card fade-up scroll-fade" style="transition-delay: 0.1s;" data-emoji="🗺️">
+                <div class="card-top">
+                    <div class="mode-accent"></div>
+                    <span class="mode-num">02</span>
+                    <h3 class="mode-name">Activity Mode</h3>
+                    <p class="mode-desc">Bored right now. New city. Just need a human to split an appetiser with
+                        tonight.
+                        Done.</p>
+                </div>
+                <span class="mode-cta">Choose this mode →</span>
             </div>
-            <div class="mode-card special fade-up scroll-fade" style="transition-delay: 0.2s;">
-                <span class="mode-num">03</span>
-                <h3 class="mode-name">Couple Mode</h3>
-                <p class="mode-desc">Link accounts. Find another pair. Go bowling. Get pizza after. No "wait, is this
-                    weird?" energy.</p>
+            <div class="mode-card special fade-up scroll-fade" style="transition-delay: 0.2s;" data-emoji="🍷">
+                <div class="card-top">
+                    <div class="mode-accent"></div>
+                    <span class="mode-num">03</span>
+                    <h3 class="mode-name">Couple Mode</h3>
+                    <p class="mode-desc">Link accounts. Find another pair. Go bowling. Get pizza after. No "wait, is
+                        this
+                        weird?" energy.</p>
+                </div>
+                <span class="mode-cta">Choose this mode →</span>
             </div>
         </div>
 
@@ -932,32 +1248,55 @@
         <h2 class="testimonials-headline fade-up scroll-fade">What the Flock is saying.</h2>
 
         <div class="testimonial-block fade-up scroll-fade">
-            <p class="testimonial-quote">"It's not about the food. It's about having someone to say 'wow, this is good'
-                to."</p>
-            <span class="testimonial-author">&mdash; DAVID, 25</span>
+            <div class="testimonial-content-wrapper">
+                <img src="./assets/avatar-david.jpg" alt="David" class="testimonial-avatar">
+                <div class="testimonial-text">
+                    <p class="testimonial-quote">"It's not about the food. It's about having someone to say 'wow, this
+                        is good'
+                        to."</p>
+                    <span class="testimonial-author">&mdash; DAVID, 25</span>
+                </div>
+            </div>
         </div>
         <hr class="testimonial-divider fade-up scroll-fade">
         <div class="testimonial-block fade-up scroll-fade">
-            <p class="testimonial-quote">"Four people, zero awkwardness, and somehow we're already planning the next
-                one."</p>
-            <span class="testimonial-author">&mdash; MAYA, 31</span>
+            <div class="testimonial-content-wrapper">
+                <img src="./assets/avatar-maya.jpg" alt="Maya" class="testimonial-avatar">
+                <div class="testimonial-text">
+                    <p class="testimonial-quote">"Four people, zero awkwardness, and somehow we're already planning the
+                        next
+                        one."</p>
+                    <span class="testimonial-author">&mdash; MAYA, 31</span>
+                </div>
+            </div>
         </div>
         <hr class="testimonial-divider fade-up scroll-fade">
         <div class="testimonial-block fade-up scroll-fade">
-            <p class="testimonial-quote">"I set my quiz to low battery vibes and found my people in a Silent Book Club.
-                I didn't know I needed that until I had it."</p>
-            <span class="testimonial-author">&mdash; CAROLINE, 22</span>
+            <div class="testimonial-content-wrapper">
+                <img src="./assets/avatar-caroline.jpg" alt="Caroline" class="testimonial-avatar">
+                <div class="testimonial-text">
+                    <p class="testimonial-quote">"I set my quiz to low battery vibes and found my people in a Silent
+                        Book Club.
+                        I didn't know I needed that until I had it."</p>
+                    <span class="testimonial-author">&mdash; CAROLINE, 22</span>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- SECTION 6 — CLOSING CTA -->
     <section class="closing">
-        <h2 class="closing-headline-1 fade-up scroll-fade">You just need to find the people who get it.</h2>
-        <h3 class="closing-headline-2 fade-up scroll-fade">They're already here. They're looking too.</h3>
+        <img src="./assets/closing-bg.jpg" alt="" aria-hidden="true" class="closing-bg-img">
+        <div class="closing-overlay"></div>
 
-        <a href="#" class="closing-cta fade-up scroll-fade">Find Your Flock &mdash; First Match Free</a>
-        <br>
-        <span class="promo-code fade-up scroll-fade">USE CODE FLOCKFREE</span>
+        <div class="closing-content">
+            <h2 class="closing-headline-1 fade-up scroll-fade">You just need to find the people who get it.</h2>
+            <h3 class="closing-headline-2 fade-up scroll-fade">They're already here. They're looking too.</h3>
+
+            <a href="#" class="closing-cta fade-up scroll-fade">Find Your Flock &mdash; First Match Free</a>
+            <br>
+            <span class="promo-code fade-up scroll-fade">USE CODE FLOCKFREE</span>
+        </div>
     </section>
 
     <!-- FOOTER -->
@@ -1026,6 +1365,24 @@
 
             const scrollElements = document.querySelectorAll('.scroll-fade');
             scrollElements.forEach(el => observer.observe(el));
+
+            // Parallax JS - Centered Logic
+            const parallaxImg = document.querySelector('.essay-parallax-img');
+            function handleParallax() {
+                if (!parallaxImg) return;
+                const container = parallaxImg.closest('.essay-parallax-container');
+                const rect = container.getBoundingClientRect();
+
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    const screenCenter = window.innerHeight / 2;
+                    const containerCenter = rect.top + rect.height / 2;
+                    const offset = (containerCenter - screenCenter) * 0.12;
+                    parallaxImg.style.transform = `translateY(${offset}px)`;
+                }
+            }
+            window.addEventListener('scroll', () => {
+                requestAnimationFrame(handleParallax);
+            }, { passive: true });
         });
     </script>
 </body>

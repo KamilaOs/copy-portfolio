@@ -4,861 +4,718 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health-AI | Your Health Advocate</title>
+    <title>Health-AI | Health Intelligence & Advocacy</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap"
         rel="stylesheet">
     <style>
         :root {
-            --forest: #1B2E22;
-            --forest-mid: #243D2C;
-            --cream: #F7F3EE;
-            --cream-dark: #EDE8E0;
-            --gold: #C9A465;
-            --gold-pale: rgba(201, 164, 101, 0.15);
-            --text-dark: #F0EBE1;
-            --text-cream: #1B2E22;
-            --muted-dark: rgba(240, 235, 225, 0.6);
-            --muted-cream: #5C6B60;
+            --bg: #080E14;
+            --accent: #00A3FF;
+            --accent-glow: rgba(0, 163, 255, 0.4);
+            --secondary: #E8F4FD;
+            --muted: #4A6278;
+            --success: #00C48C;
+            --card-bg: #0D1821;
+            --card-border: rgba(0, 163, 255, 0.12);
+            --glass: rgba(8, 14, 20, 0.95);
 
-            --font-serif: 'Cormorant Garamond', serif;
-            --font-sans: 'Source Sans 3', sans-serif;
+            --font: 'Plus Jakarta Sans', sans-serif;
+            --section-padding: 160px 5%;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-variant-numeric: tabular-nums;
         }
 
         body {
-            background-color: var(--forest);
-            color: var(--text-dark);
-            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--secondary);
+            font-family: var(--font);
+            font-weight: 300;
+            line-height: 1.6;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
+        /* DOT GRID BACKGROUND */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(rgba(0, 163, 255, 0.04) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            color: var(--secondary);
+            text-wrap: balance;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        /* NAVIGATION & TICKER */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 60px;
-            background: rgba(27, 46, 34, 0.92);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            z-index: 1000;
+            background: transparent;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        nav.scrolled {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 163, 255, 0.2);
+        }
+
+        .nav-inner {
+            height: 80px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 40px;
-            z-index: 100;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            pointer-events: none;
+            padding: 0 5%;
         }
 
-        nav.visible {
-            opacity: 1;
-            transform: translateY(0);
-            pointer-events: auto;
-        }
-
-        .nav-logo {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-size: 20px;
-            color: var(--gold);
+        .logo {
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: -0.02em;
             text-decoration: none;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            transform: rotate(45deg);
+            box-shadow: 0 0 10px var(--accent);
         }
 
         .nav-btn {
-            font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 11px;
-            color: var(--gold);
-            border: 1.5px solid var(--gold);
-            background: transparent;
-            height: 34px;
-            padding: 0 16px;
-            border-radius: 17px;
-            cursor: pointer;
-            transition: all 0.25s ease;
+            background: var(--accent);
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 2px;
+            font-weight: 700;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
+            font-size: 11px;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
         }
 
         .nav-btn:hover {
-            background: var(--gold);
-            color: var(--forest);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: translateY(-1px);
         }
 
-        .gold {
-            color: var(--gold);
-        }
-
-        .act {
-            position: relative;
+        .compliance-ticker {
+            background: rgba(0, 163, 255, 0.03);
+            border-bottom: 1px solid rgba(0, 163, 255, 0.08);
+            padding: 8px 0;
+            overflow: hidden;
+            white-space: nowrap;
             width: 100%;
         }
 
-        .bg-forest {
-            background-color: var(--forest);
-            color: var(--text-dark);
+        .ticker-content {
+            display: inline-flex;
+            animation: ticker-move 60s linear infinite;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--muted);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
         }
 
-        .bg-cream {
-            background-color: var(--cream);
-            color: var(--text-cream);
+        @keyframes ticker-move {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-50%);
+            }
         }
 
-        .bg-cream-dark {
-            background-color: var(--cream-dark);
-            color: var(--text-cream);
-        }
 
+
+        /* HERO SECTION */
         .hero {
             min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 100px 20px;
+            justify-content: space-between;
+            gap: 100px;
             position: relative;
+            padding-top: 120px;
         }
 
-        .hero-eyebrow {
-            font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 9px;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--gold);
+        .hero-bg-glow {
             position: absolute;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 50%;
+            right: 0%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(ellipse at center, rgba(0, 163, 255, 0.08) 0%, transparent 70%);
+            transform: translate(20%, -50%);
+            z-index: -1;
+            pointer-events: none;
         }
 
-        .hero-headline {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-size: 88px;
-            line-height: 1.0;
-            color: var(--text-dark);
-            text-align: center;
-            margin-bottom: 24px;
-        }
-
-        @media (max-width: 768px) {
-            .hero-headline {
-                font-size: 52px;
-            }
-
-            nav {
-                padding: 0 20px;
-            }
-        }
-
-        .hero-headline .line-1,
-        .hero-headline .line-2 {
-            display: block;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: slideUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        .hero-headline .line-2 {
-            animation-delay: 0.12s;
-        }
-
-        .hero-subline {
-            font-family: var(--font-sans);
-            font-weight: 300;
-            font-size: 19px;
-            color: var(--muted-dark);
-            text-align: center;
-            max-width: 520px;
-            line-height: 1.7;
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
-            animation-delay: 0.9s;
-            /* 0.8s total + 0.1s buffer */
-            margin-bottom: 48px;
-        }
-
-        .btn-primary {
-            font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 16px;
-            color: var(--forest);
-            background: var(--gold);
-            height: 56px;
-            padding: 0 36px;
-            border-radius: 28px;
-            border: none;
-            cursor: pointer;
-            transition: background 0.25s ease, transform 0.25s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards;
-            animation-delay: 0.9s;
-        }
-
-        .btn-primary:hover {
-            background: #B8934A;
-            transform: translateY(-2px);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: var(--gold);
-            opacity: 0;
-            animation: fadeIn 0.8s ease forwards, bounce 2s infinite ease-in-out;
-            animation-delay: 1.5s;
-        }
-
-        .scroll-indicator svg {
-            width: 24px;
-            height: 24px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 2;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .story-container {
-            padding: 72px 20px;
-        }
-
-        .treatment-a {
-            max-width: 680px;
-            margin: 0 auto 28px auto !important;
-            font-family: var(--font-serif);
-            font-weight: 400;
-            font-size: 20px;
-            line-height: 1.9;
-            color: var(--muted-dark);
-            text-align: left !important;
-        }
-
-        /* 80px padding, 1.6s fade */
-        .treatment-b-1 {
-            padding: 80px 20px;
-            font-family: var(--font-serif);
-            font-style: italic;
-            font-size: 64px;
-            color: var(--text-dark);
-            text-align: center;
-            line-height: 1.2;
-            box-sizing: border-box;
-            width: 100%;
-            position: relative;
-        }
-
-        .treatment-b-1::before {
-            content: '';
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 48px;
-            height: 1px;
-            background-color: rgba(240, 235, 225, 0.15);
-        }
-
-        @media (max-width: 768px) {
-            .treatment-b-1 {
-                font-size: 42px;
-                padding: 80px 20px;
-            }
-        }
-
-        /* 80px padding, isolated, 1.8s fade */
-        .treatment-b-2 {
-            padding: 80px 20px;
-            margin: 0;
-            font-family: var(--font-serif);
-            font-style: italic;
-            font-size: 96px;
-            color: var(--gold);
-            text-align: center;
-            line-height: 1;
-            box-sizing: border-box;
-            width: 100%;
-            position: relative;
-        }
-
-        .treatment-b-2::before {
-            content: '';
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 48px;
-            height: 1px;
-            background-color: rgba(240, 235, 225, 0.15);
-        }
-
-        @media (max-width: 768px) {
-            .treatment-b-2 {
-                font-size: 64px;
-                padding: 80px 20px;
-                margin: 0;
-            }
-        }
-
-        /* 100px padding, 1.6s fade */
-        .treatment-b-3 {
-            padding-top: 100px;
-            padding-bottom: 100px;
-            padding-left: 20px;
-            padding-right: 20px;
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-style: normal;
-            font-size: 72px;
-            color: var(--text-dark);
-            text-align: center;
-            letter-spacing: -0.01em;
-            line-height: 1.0;
-            display: block;
-            box-sizing: border-box;
-            width: 100%;
-            position: relative;
-        }
-
-        .treatment-b-3::before {
-            content: '';
-            position: absolute;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 48px;
-            height: 1px;
-            background-color: rgba(240, 235, 225, 0.15);
-        }
-
-        @media (max-width: 768px) {
-            .treatment-b-3 {
-                font-size: 42px;
-                padding-top: 80px;
-                padding-bottom: 80px;
-            }
-        }
-
-        .treatment-c {
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .treatment-c h2 {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-size: 42px;
-            color: var(--gold);
-            max-width: 860px;
-            margin: 0 auto 16px auto;
-            line-height: 1.2;
-        }
-
-        .treatment-c p {
-            font-family: var(--font-serif);
-            font-style: italic;
-            font-weight: 400;
-            font-size: 28px;
-            color: var(--muted-dark);
-            margin: 0;
-        }
-
-        @media (max-width: 768px) {
-            .treatment-c h2 {
-                font-size: 32px;
-            }
-
-            .treatment-c p {
-                font-size: 22px;
-            }
-        }
-
-        .spoken-quote {
-            font-family: var(--font-serif);
-            font-style: italic;
-            font-size: 28px;
-            color: var(--gold);
-            text-align: left;
-            margin: 48px auto;
-            max-width: 680px;
-        }
-
-        .act-2-opening {
-            padding: 72px 20px;
-            text-align: center;
-        }
-
-        .act-2-opening .line-1 {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-size: 72px;
-            color: var(--text-dark);
-            margin-bottom: 24px;
-            line-height: 1.1;
-        }
-
-        .act-2-opening .line-2 {
-            font-family: var(--font-serif);
-            font-style: italic;
-            font-weight: 400;
-            font-size: 48px;
-            color: var(--gold);
-            line-height: 1.1;
-        }
-
-        @media (max-width: 768px) {
-            .act-2-opening .line-1 {
-                font-size: 48px;
-            }
-
-            .act-2-opening .line-2 {
-                font-size: 32px;
-            }
-        }
-
-        /* 80px padding, isolated, 1.8s fade */
-        .act-2-turn {
-            padding: 80px 20px;
-            margin: 0;
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-size: 80px;
-            color: var(--gold);
-            text-align: center;
-            line-height: 1.1;
-            position: relative;
-        }
-
-        .act-2-turn::before {
-            content: '';
-            position: absolute;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 48px;
-            height: 1px;
-            background-color: rgba(240, 235, 225, 0.15);
-        }
-
-        @media (max-width: 768px) {
-            .act-2-turn {
-                font-size: 52px;
-                padding: 80px 20px;
-                margin: 0;
-            }
-        }
-
-        /* 72px padding, 1.4s fade */
-        .act-2-close {
-            padding: 72px 20px;
-            font-family: var(--font-serif);
-            font-style: italic;
-            font-size: 52px;
-            color: var(--text-dark);
-            text-align: center;
-            line-height: 1.2;
-        }
-
-        @media (max-width: 768px) {
-            .act-2-close {
-                font-size: 36px;
-            }
-        }
-
-        .act-3-container {
-            padding: 72px 20px;
-        }
-
-        .act-3-eyebrow {
-            font-family: var(--font-sans);
-            font-weight: 600;
-            font-size: 9px;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: var(--muted-cream);
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .act-3-intro {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-size: 42px;
-            color: var(--text-cream);
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 80px auto;
-            line-height: 1.25;
-        }
-
-        @media (max-width: 768px) {
-            .act-3-intro {
-                font-size: 32px;
-            }
-        }
-
-        .feature-rows {
-            max-width: 860px;
-            margin: 0 auto;
-        }
-
-        .feature-row {
-            display: flex;
-            padding: 32px 0;
-            border-bottom: 1px solid rgba(27, 46, 34, 0.1);
-        }
-
-        .feature-row:first-child {
-            border-top: 1px solid rgba(27, 46, 34, 0.1);
-        }
-
-        .feature-label {
+        .hero-content {
             flex: 1;
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-size: 28px;
-            color: var(--gold);
-            padding-right: 40px;
         }
 
-        .feature-body {
-            flex: 2;
-            font-family: var(--font-sans);
-            font-weight: 300;
-            font-size: 17px;
-            color: var(--muted-cream);
-            line-height: 1.7;
-            text-align: left !important;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .feature-row {
-                flex-direction: column;
-            }
-
-            .feature-label {
-                margin-bottom: 16px;
-                padding-right: 0;
-            }
-        }
-
-        /* 72px padding, 1.2s fade */
-        .act-4-close {
-            padding: 72px 20px;
-            font-family: var(--font-serif);
-            font-style: italic;
-            font-weight: 400;
-            font-size: 38px;
-            color: var(--muted-dark);
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-            line-height: 1.3;
-        }
-
-        @media (max-width: 768px) {
-            .act-4-close {
-                font-size: 28px;
-                padding: 80px 20px;
-            }
-        }
-
-        .cta-section {
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .cta-headline {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-size: 64px;
-            color: var(--text-cream);
-            margin: 24px 0 40px 0;
-            line-height: 1.1;
-        }
-
-        @media (max-width: 768px) {
-            .cta-headline {
-                font-size: 40px;
-            }
-        }
-
-        .cta-stack {
-            margin-bottom: 48px;
-        }
-
-        .cta-stack-line {
-            font-family: var(--font-serif);
-            font-style: italic;
-            font-weight: 400;
-            font-size: 24px;
-            color: var(--gold);
-            line-height: 1.4;
-        }
-
-        .cta-stack-final {
-            font-family: var(--font-sans);
-            font-weight: 300;
-            font-size: 17px;
-            color: var(--muted-cream);
-            margin-top: 8px;
-        }
-
-        .cta-link {
-            font-family: var(--font-sans);
-            font-weight: 400;
-            font-size: 14px;
-            color: var(--muted-cream);
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 24px;
-            margin-bottom: 24px;
-        }
-
-        .cta-link:hover {
-            text-decoration: underline;
-        }
-
-        .cta-reassurance {
-            font-family: var(--font-sans);
-            font-weight: 300;
-            font-size: 12px;
-            color: var(--muted-cream);
-        }
-
-        .btn-forest {
-            color: var(--forest);
-            background: var(--gold);
-            padding: 0 40px;
-            height: 58px;
-            border-radius: 29px;
-            font-weight: 600;
-        }
-
-        .btn-forest:hover {
-            background: #B8934A;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        #scroll-progress-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: rgba(201, 164, 101, 0.2);
-            z-index: 1000;
-        }
-
-        #scroll-progress-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--gold);
-            transition: width 0.1s ease-out;
-        }
-
-        footer {
-            padding: 60px 20px;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-family: var(--font-serif);
-            font-weight: 600;
-            font-size: 24px;
-            color: var(--gold);
-            margin-bottom: 8px;
-        }
-
-        .footer-tagline {
-            font-family: var(--font-sans);
-            font-weight: 300;
-            font-size: 13px;
-            color: var(--muted-dark);
+        .hero h1 {
+            font-weight: 800;
+            font-size: 82px;
+            line-height: 0.95;
+            letter-spacing: -0.05em;
             margin-bottom: 32px;
         }
 
-        .footer-links {
-            font-family: var(--font-sans);
-            font-size: 12px;
-            color: rgba(240, 235, 225, 0.2);
+        .hero p {
+            font-size: 19px;
+            font-weight: 300;
+            color: var(--muted);
+            margin-bottom: 48px;
+            max-width: 520px;
         }
 
-        .footer-links a {
-            color: inherit;
+        .hero-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 20px 48px;
+            border-radius: 2px;
             text-decoration: none;
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
         }
 
-        .footer-links a:hover {
-            color: rgba(240, 235, 225, 0.6);
+        .hero-btn:hover {
+            box-shadow: 0 0 30px var(--accent-glow);
+            transform: scale(1.02);
         }
 
-        .footer-links span {
-            margin: 0 8px;
+        /* HERO VISUAL & PARALLAX */
+        .hero-visual {
+            flex: 1;
+            position: relative;
         }
 
-        /* Animation Classes */
-        /* 0.8s slide up / fade up (standard format) */
-        .anim-fade {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        .parallax-wrap {
+            will-change: transform;
+            transition: transform 0.1s linear;
         }
 
-        .anim-fade.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        .floating-label {
+            position: absolute;
+            background: rgba(13, 24, 33, 0.9);
+            border: 1px solid var(--accent);
+            padding: 8px 12px;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--accent);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            animation: float 5s ease-in-out infinite;
         }
 
-        /* 1.2s fade */
-        .anim-fade-1-2 {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1.2s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        .floating-label span {
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent);
         }
 
-        .anim-fade-1-2.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        .label-1 {
+            top: 10%;
+            left: -20px;
+            animation-delay: 0s;
         }
 
-        /* 1.4s fade */
-        .anim-fade-1-4 {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1.4s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+        .label-2 {
+            top: 60%;
+            right: -30px;
+            animation-delay: 0.5s;
         }
 
-        .anim-fade-1-4.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        .label-3 {
+            bottom: 5%;
+            left: 20%;
+            animation-delay: 1.2s;
         }
 
-        /* 1.6s slow fade */
-        .anim-fade-1-6 {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1.6s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .anim-fade-1-6.is-visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* 1.8s peak emotion slow fade */
-        .anim-fade-peak {
-            opacity: 0;
-            transition: opacity 1.8s ease;
-        }
-
-        .anim-fade-peak.is-visible {
-            opacity: 1;
-        }
-
-        /* Staggered sets */
-        .stagger-group .stagger-item {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .stagger-group.is-visible .stagger-item {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .stagger-group.is-visible .stagger-item:nth-child(1) {
-            transition-delay: 0.0s;
-        }
-
-        .stagger-group.is-visible .stagger-item:nth-child(2) {
-            transition-delay: 0.1s;
-        }
-
-        .stagger-group.is-visible .stagger-item:nth-child(3) {
-            transition-delay: 0.2s;
-        }
-
-        .stagger-group.is-visible .stagger-item:nth-child(4) {
-            transition-delay: 0.3s;
-        }
-
-        .delay-100 {
-            transition-delay: 0.1s;
-        }
-
-        .delay-200 {
-            transition-delay: 0.2s;
-        }
-
-        .delay-300 {
-            transition-delay: 0.3s;
-        }
-
-        @keyframes slideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes bounce {
+        @keyframes float {
 
             0%,
-            20%,
-            50%,
-            80%,
             100% {
-                transform: translate(-50%, 0);
+                transform: translateY(0);
             }
 
-            40% {
-                transform: translate(-50%, -10px);
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* PHONE MOCKUP UI */
+        .mockup-frame {
+            width: 330px;
+            height: 670px;
+            background: #000;
+            border: 12px solid #141D26;
+            border-radius: 44px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.7);
+        }
+
+        .mockup-frame::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 30px;
+            background: #141D26;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 18px;
+        }
+
+        .mockup-content {
+            width: 100%;
+            height: 100%;
+            background: var(--bg);
+            border-radius: 24px;
+            overflow-y: auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .mockup-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* LIVE EKG ANIMATION */
+        .ecg-box {
+            height: 80px;
+            background: rgba(0, 163, 255, 0.05);
+            border-radius: 4px;
+            margin: 20px 0;
+            padding: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .ecg-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .ecg-line {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 2;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: ecgDraw 2.5s cubic-bezier(0.1, 0, 0.9, 1) infinite;
+        }
+
+        @keyframes ecgDraw {
+            0% {
+                stroke-dashoffset: 1000;
             }
 
-            60% {
-                transform: translate(-50%, -5px);
+            80% {
+                stroke-dashoffset: 0;
+            }
+
+            100% {
+                stroke-dashoffset: 0;
+                opacity: 0;
+            }
+        }
+
+        /* HEALTH UI ELEMENTS */
+        .health-entry {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 2px;
+            font-size: 10px;
+        }
+
+        .health-date {
+            color: var(--muted);
+            font-weight: 700;
+            font-size: 8px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .doctor-msg {
+            background: var(--accent);
+            color: #000;
+            padding: 10px;
+            border-radius: 2px;
+            font-size: 10px;
+            font-weight: 700;
+            margin-top: 15px;
+        }
+
+        .ring-wrap {
+            width: 80px;
+            height: 80px;
+            margin: 20px auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ring-val {
+            font-weight: 800;
+            font-size: 16px;
+            color: var(--accent);
+        }
+
+        .ring-svg {
+            position: absolute;
+            transform: rotate(-90deg);
+            width: 100%;
+            height: 100%;
+        }
+
+        .ring-circle {
+            fill: none;
+            stroke: var(--accent);
+            stroke-width: 6;
+            stroke-dasharray: 251.3;
+            stroke-dashoffset: 67.8;
+            /* 73% */
+            stroke-linecap: round;
+        }
+
+        /* TRUST BAR & COUNTERS */
+        .trust-bar {
+            background: var(--card-bg);
+            padding: 60px 0;
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            border-top: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .trust-stat {
+            text-align: center;
+        }
+
+        .stat-n {
+            display: block;
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .stat-l {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* PROBLEM SECTION */
+        .section {
+            padding: var(--section-padding);
+        }
+
+        .diagonals {
+            clip-path: polygon(0 0, 100% 3%, 100% 100%, 0% 100%);
+            margin-top: -80px;
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.25em;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-transform: uppercase;
+        }
+
+        .eyebrow::before {
+            content: '◆';
+            font-size: 9px;
+            filter: drop-shadow(0 0 5px var(--accent));
+        }
+
+        .section-h {
+            font-size: 52px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 80px;
+            line-height: 1.1;
+        }
+
+        /* CARDS */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 60px 40px;
+            min-height: 480px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 250%;
+            height: 250%;
+            background: radial-gradient(circle, rgba(0, 163, 255, 0.06) 0%, transparent 60%);
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+
+        .card-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(0, 163, 255, 0.1);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            background: var(--accent);
+            color: #000;
+            box-shadow: 0 0 25px var(--accent-glow);
+        }
+
+        .card h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        .case-note {
+            margin-top: auto;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 13px;
+            font-style: italic;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        /* HOW IT WORKS CONNECTOR */
+        .steps-box {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .connector-line {
+            position: absolute;
+            top: 68px;
+            left: 50px;
+            width: 0%;
+            height: 1px;
+            background: var(--accent);
+            transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 0;
+        }
+
+        .connector-line.active {
+            width: calc(100% - 100px);
+        }
+
+        .step-col {
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-n-box {
+            width: 56px;
+            height: 56px;
+            background: var(--bg);
+            border: 1px solid var(--card-border);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            margin-bottom: 40px;
+            position: relative;
+            transition: border-color 0.3s;
+        }
+
+        .step-col:hover .step-n-box {
+            border-color: var(--accent);
+        }
+
+        .step-dot {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .connector-line.active~.step-col .step-dot {
+            opacity: 1;
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        /* TESTIMONIALS */
+        .stars {
+            color: var(--accent);
+            margin-bottom: 12px;
+            font-size: 12px;
+            letter-spacing: 4px;
+        }
+
+        .verified-p {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--success);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 20px;
+        }
+
+        .verified-p::before {
+            content: '✓';
+            width: 14px;
+            height: 14px;
+            background: var(--success);
+            color: #000;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+        }
+
+        /* FINAL CTA */
+        .health-cta {
+            background: linear-gradient(135deg, #080E14 0%, #002D4A 100%);
+            border: 1px solid rgba(0, 163, 255, 0.2);
+            padding: 120px 40px;
+            text-align: center;
+            border-radius: 2px;
+        }
+
+        /* FOOTER */
+        footer {
+            padding: 100px 5% 40px;
+            border-top: 1px solid rgba(0, 163, 255, 0.1);
+        }
+
+        /* REVEALS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 968px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .connector-line {
+                display: none;
             }
         }
     </style>
@@ -866,226 +723,299 @@
 
 <body>
 
-    <div id="scroll-progress-container">
-        <div id="scroll-progress-fill"></div>
-    </div>
-
-    <nav id="sticky-nav">
-        <a href="#" class="nav-logo">Health-AI</a>
-        <a href="#" class="nav-btn">Start Free Assessment</a>
+    <nav id="navbar">
+        <div class="compliance-ticker">
+            <div class="ticker-content">
+                <span>◆ HIPAA COMPLIANT ◆ ISO 27001 CERTIFIED ◆ FDA REGISTERED ◆ 256-BIT ENCRYPTION ◆ GDPR COMPLIANT ◆
+                    QUALIFIED DOCTORS ◆ AVAILABLE 24/7 ◆ 12,847 PATIENTS HELPED ◆ 4.9★ APP STORE ◆&nbsp;</span>
+                <span>◆ HIPAA COMPLIANT ◆ ISO 27001 CERTIFIED ◆ FDA REGISTERED ◆ 256-BIT ENCRYPTION ◆ GDPR COMPLIANT ◆
+                    QUALIFIED DOCTORS ◆ AVAILABLE 24/7 ◆ 12,847 PATIENTS HELPED ◆ 4.9★ APP STORE ◆&nbsp;</span>
+            </div>
+        </div>
+        <div class="nav-inner">
+            <a href="#" class="logo">
+                <div class="logo-diamond"></div>
+                HEALTH-AI
+            </a>
+            <a href="#" class="nav-btn">Start Assessment</a>
+        </div>
     </nav>
 
-    <!-- ACT 1 -->
-    <section class="act bg-forest">
-        <div class="hero">
-            <div class="hero-eyebrow">HEALTH-AI — YOUR HEALTH ADVOCATE</div>
-            <h1 class="hero-headline">
-                <span class="line-1">You Shouldn't Have to Be</span>
-                <span class="line-2"><span class="gold">Dying</span> to Be Heard.</span>
-            </h1>
-            <p class="hero-subline">Don't let fear run your health.<br>Let Health-AI become your guide.</p>
-            <a href="#" class="btn-primary">Talk to a Doctor Now — Available 24/7</a>
+    <header class="hero container">
+        <div class="hero-bg-glow"></div>
+        <div class="hero-content reveal">
+            <h1>You Shouldn't Have to Fight to <span style="color:var(--accent)">Be Heard.</span></h1>
+            <p>Health-AI gives you the data, the words, and the doctors to finally be taken seriously. Pure health
+                advocacy in your pocket.</p>
+            <a href="#" class="hero-btn">Start Free — Takes 5 Minutes</a>
+        </div>
+        <div class="hero-visual reveal">
+            <div class="parallax-wrap">
+                <div class="floating-label label-1"><span></span>98% ACCURACY</div>
+                <div class="floating-label label-2"><span></span>&lt; 2HR DOCTOR RESPONSE</div>
+                <div class="floating-label label-3"><span></span>12,847 PATIENTS</div>
 
-            <div class="scroll-indicator">
-                <svg viewBox="0 0 24 24">
-                    <path d="M6 9l6 6 6-6" />
-                </svg>
+                <div class="mockup-frame">
+                    <div class="mockup-content">
+                        <span class="eyebrow" style="font-size:9px; margin-bottom:10px;">Health Interface</span>
+                        <div class="ecg-box">
+                            <svg class="ecg-svg" viewBox="0 0 300 100">
+                                <path class="ecg-line"
+                                    d="M0,50 L40,50 L50,20 L60,80 L70,50 L120,50 L130,10 L140,90 L150,50 L200,50 L210,40 L220,60 L230,50 L300,50" />
+                            </svg>
+                        </div>
+                        <div class="health-entry">
+                            <span class="health-date">MARCH 10, 2026</span>
+                            Persistent fatigue & systemic inflammation markers detected.
+                        </div>
+                        <div class="health-entry">
+                            <span class="health-date">MARCH 08, 2026</span>
+                            Resting HR elevated (+14 BPM) for 48-hour period.
+                        </div>
+                        <div class="doctor-msg">
+                            DR. ARIS: "I've reviewed your biometric Health Report. Let's discuss these trends."
+                        </div>
+                        <div class="ring-wrap">
+                            <svg class="ring-svg" viewBox="0 0 100 100">
+                                <circle class="ring-circle" cx="50" cy="50" r="40" />
+                            </svg>
+                            <span class="ring-val">73%</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    </header>
 
-        <div class="story-container">
-            <p class="treatment-a anim-fade">It's that look. You know the one.</p>
+    <div class="trust-bar counter-trigger">
+        <div class="trust-stat">
+            <span class="stat-n counter" data-target="4.9">4.0</span>
+            <span class="stat-l">★ App Store</span>
+        </div>
+        <div class="trust-stat">
+            <span class="stat-n" style="color:var(--accent); animation: pulse 2s infinite;">24/7</span>
+            <span class="stat-l">MEDICAL SUPPORT</span>
+        </div>
+        <div class="trust-stat">
+            <span class="stat-n counter" data-target="15">0</span>
+            <span class="stat-l">Min RESPONSE</span>
+        </div>
+        <div class="trust-stat">
+            <span class="stat-n counter" data-target="100">0</span>
+            <span class="stat-l">% SECURITY</span>
+        </div>
+    </div>
 
-            <p class="treatment-a anim-fade">You've just finished explaining your symptoms — the exhaustion, the pain,
-                the 'something just isn't right' feeling you've been carrying for months. You chose your words
-                carefully. You tried to sound measured, credible, not like someone who spent three hours on WebMD at
-                midnight.</p>
-
-            <div class="treatment-b-1 anim-fade-1-6">Then the doctor smiles. That smile.</div>
-
-            <p class="spoken-quote anim-fade">"And what medical school did you graduate from?"</p>
-
-            <p class="treatment-a anim-fade">The heat rises in your chest. The lump forms in your throat. You weren't
-                trying to play doctor. You were desperate. You just wanted someone to listen. But instead of an answer,
-                you get a lecture. Instead of help, you get a door.</p>
-
-            <p class="treatment-a anim-fade">You leave feeling worse than when you walked in.</p>
-
-            <div class="treatment-b-2 anim-fade-peak">Humiliated.</div>
-
-            <p class="treatment-a anim-fade">And somewhere on the drive home, the thought creeps in — the dangerous one:
-                I'm just going to stop going. I'll only deal with this if it gets really bad.</p>
-
-            <p class="treatment-a anim-fade">That thought has consequences. You know it does. But right now it feels
-                less terrible than walking back into that room.</p>
-
-            <div class="treatment-c stagger-group">
-                <h2 class="stagger-item">Here's what's true: you are not crazy.</h2>
-                <p class="stagger-item delay-300">You are not dramatic. You are not imagining things.</p>
+    <section class="section container">
+        <span class="eyebrow">SOUND FAMILIAR?</span>
+        <h2 class="section-h">The healthcare system is broken.<br>We are the fix.</h2>
+        <div class="grid-3">
+            <div class="card reveal">
+                <div class="card-icon">✕</div>
+                <h3>Dismissed</h3>
+                <p>Your symptoms were real. The appointment wasn't long enough. We give you the documentation to stay in
+                    the room and hold authority.</p>
+                <div class="case-note">"Patient presented with chronic pain; previous records cited 'stress'. Data log
+                    confirmed cyclic autoimmune markers."</div>
             </div>
-
-            <p class="treatment-a anim-fade">You are a person in a system that has quietly forgotten how to listen — and
-                you have been doing the exhausting, thankless work of trying to be heard inside it.</p>
-
-            <div class="treatment-b-3 anim-fade-1-6">That changes now.</div>
-        </div>
-    </section>
-
-    <!-- ACT 2 -->
-    <section class="act bg-forest">
-        <div class="act-2-opening stagger-group">
-            <div class="line-1 stagger-item">The problem was never you.</div>
-            <div class="line-2 stagger-item delay-200">It was the story you had no way to tell.</div>
-        </div>
-
-        <p class="treatment-a anim-fade">Doctors respond to evidence. Charts, trends, data, patterns over time. Not
-            because they don't care — but because a ten-minute appointment and a verbal description of how you've been
-            feeling since March isn't enough for them to act on.</p>
-
-        <p class="treatment-a anim-fade">You had the symptoms. You just didn't have the record.</p>
-
-        <div class="act-2-turn anim-fade-peak">Health-AI builds it for you.</div>
-
-        <p class="treatment-a anim-fade">Your heart rate trends. Your sleep cycles. Your symptom history, logged and
-            organised and presented as the kind of professional, timestamped record that doesn't get dismissed,
-            questioned, or smiled away. You walk in with documentation. You walk in with proof. You walk in with
-            something they are required to take seriously.</p>
-
-        <p class="treatment-a anim-fade">You stop being a patient they can second-guess.</p>
-
-        <div class="act-2-close anim-fade-1-4">You become a case they have to address.</div>
-    </section>
-
-    <!-- ACT 3 -->
-    <section class="act bg-cream">
-        <div class="act-3-container">
-            <div class="act-3-eyebrow anim-fade">AND WHEN YOU NEED MORE THAN A RECORD</div>
-            <h2 class="act-3-intro anim-fade">No appointment in three weeks. No waiting room. No commute to a ten-minute
-                conversation that goes nowhere.</h2>
-
-            <div class="feature-rows stagger-group">
-                <div class="feature-row stagger-item">
-                    <div class="feature-label">Consult</div>
-                    <div class="feature-body">Message or video call a qualified professional in under two hours, any
-                        time, any day.</div>
-                </div>
-                <div class="feature-row stagger-item">
-                    <div class="feature-label">Prescribe</div>
-                    <div class="feature-body">Get a real consultation, a real assessment, and a prescription sent
-                        directly to your local pharmacy before you've finished your coffee.</div>
-                </div>
-                <div class="feature-row stagger-item">
-                    <div class="feature-label">Answer</div>
-                    <div class="feature-body">No Google spirals. No 2 AM death-sentence search results. Just clear,
-                        honest answers based on your actual biology, from someone whose entire job is to help you, not
-                        manage their next appointment.</div>
+            <div class="card reveal">
+                <div class="card-icon">?</div>
+                <h3>Overwhelmed</h3>
+                <p>WebMD at 2AM helps no one. Our analysis engine synthesizes your real biological data into clear,
+                    actionable physician-grade reports.</p>
+                <div class="case-note">"Cross-analysis of Garmin telemetry and patient logs identified 4 distinct
+                    environmental triggers."</div>
+            </div>
+            <div class="card reveal">
+                <div class="card-icon">!</div>
+                <h3>Unheard</h3>
+                <p>You left feeling worse than when you walked in. Never again. We put professional medical advocacy in
+                    your pocket with every log entry.</p>
+                <div class="case-note">"Consult became evidence-based once patient provided 14-day professional Health
+                    Report."
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ACT 4 -->
-    <section class="act bg-forest">
-        <div class="story-container">
-            <p class="treatment-a anim-fade">You've already spent enough time in rooms that were supposed to feel safe
-                and didn't.</p>
-            <p class="treatment-a anim-fade">You've rehearsed your symptoms out loud in the car park. You've chosen your
-                outfit carefully, hoping to be taken more seriously. You've left appointments holding it together until
-                you got back to your car.</p>
-
-            <div class="treatment-b-2 anim-fade-peak">That's over.</div>
-
-            <p class="treatment-a anim-fade">Your next appointment, you walk in differently. You have the data. You have
-                the history. You have a team behind you that already knows your story — because they helped you build
-                it.</p>
-
-            <div class="act-4-close anim-fade-1-2">The lump in your throat doesn't have to be there anymore.</div>
+    <section class="section diagonals" style="background:#0D1821">
+        <div class="container">
+            <span class="eyebrow">HOW IT WORKS</span>
+            <h2 class="section-h">Three steps to medical dignity.</h2>
+            <div class="grid-3 steps-box">
+                <div class="connector-line" id="connector"></div>
+                <div class="step-col reveal">
+                    <div class="step-n-box">01 <div class="step-dot"></div>
+                    </div>
+                    <h3>Log in plain language.</h3>
+                    <p>Speak or type how you feel. Our AI does the plain English translation, tagging symptoms with
+                        standardized medical terminology.</p>
+                </div>
+                <div class="step-col reveal">
+                    <div class="step-n-box">02 <div class="step-dot"></div>
+                    </div>
+                    <h3>Build your record.</h3>
+                    <p>We correlate your reports with high-fidelity wearable data to create a timestamped, professional
+                        medical Health Report.</p>
+                </div>
+                <div class="step-col reveal">
+                    <div class="step-n-box">03 <div class="step-dot"></div>
+                    </div>
+                    <h3>Walk in with proof.</h3>
+                    <p>Present figures and trends to your doctor. Move from qualitative storytelling to quantitative
+                        health discussion.</p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- CTA -->
-    <section class="act bg-cream-dark cta-section">
-        <div class="hero-eyebrow" style="position:static; margin-bottom: 24px; transform: none;">GET STARTED</div>
-        <h2 class="cta-headline anim-fade">Reclaim Your Voice with Health-AI</h2>
-
-        <div class="cta-stack stagger-group">
-            <div class="cta-stack-line stagger-item">Your data.</div>
-            <div class="cta-stack-line stagger-item">Your dignity.</div>
-            <div class="cta-stack-line stagger-item">Your health.</div>
-            <div class="cta-stack-final stagger-item">Finally in one place.</div>
+    <section class="section container">
+        <div class="grid-3" style="align-items:center;">
+            <div class="hero-content reveal">
+                <span class="eyebrow">REAL PRECISION</span>
+                <h2 class="section-h" style="font-size:42px; margin-bottom:24px;">Your health story.<br>Finally told
+                    right.</h2>
+                <p>We combine your longitudinal wearable telemetry with precise symptom logs to build the most
+                    comprehensive health profile ever created.</p>
+                <div class="ecg-box" style="max-width:320px; border:1px solid var(--card-border)">
+                    <svg class="ecg-svg" viewBox="0 0 300 100">
+                        <path class="ecg-line" d="M0,50 L40,50 L50,20 L60,80 L70,50 L300,50" />
+                    </svg>
+                </div>
+            </div>
+            <div style="grid-column: span 2; display:flex; justify-content:center;" class="reveal">
+                <div class="mockup-frame">
+                    <div class="mockup-content">
+                        <span class="eyebrow" style="font-size:10px;">ANALYSIS_V04</span>
+                        <div class="health-entry" style="margin-top:20px;">Systemic Status: STABLE</div>
+                        <div class="health-entry" style="border-color:var(--success); color:var(--success)">
+                            ✓ HEALTH REPORT EXPORT READY
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="anim-fade delay-300" style="margin-top: 48px;">
-            <a href="#" class="btn-primary btn-forest">Reclaim Your Voice with Health-AI</a><br>
-            <a href="#" class="cta-link">Start Your Free Assessment — It Takes 5 Minutes &rarr;</a>
-            <div class="cta-reassurance">No credit card required. Qualified doctors. Available 24/7.</div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-forest">
-        <div class="footer-logo">Health-AI</div>
-        <div class="footer-tagline">Healthcare that hears you.</div>
-        <div class="footer-links">
-            <a href="#">Privacy</a><span>&middot;</span><a href="#">Terms</a><span>&middot;</span><a
-                href="#">Contact</a>
+    <section class="section container">
+        <h2 class="section-h" style="text-align:center">Real outcomes. Verified cases.</h2>
+        <div class="grid-3">
+            <div class="card reveal">
+                <div class="stars">★★★★★</div>
+                <p>"Health-AI didn't just give me data, it gave me my diagnosis. My specialist finally saw the patterns
+                    the GPs had been ignoring for years."</p>
+                <div class="verified-p">Julianne W. <span>· Verified Patient</span></div>
+            </div>
+            <div class="card reveal">
+                <div class="stars">★★★★★</div>
+                <p>"The plain English feature is a game-changer. I used to go blank in the office. Now I just
+                    hand over my phone with the data export."</p>
+                <div class="verified-p">Markus T. <span>· Verified Patient</span></div>
+            </div>
+            <div class="card reveal">
+                <div class="stars">★★★★★</div>
+                <p>"Exhaustive, precise, and completely secure. I've recommended this to every woman I know who is
+                    fighting to be heard."</p>
+                <div class="verified-p">Amara L. <span>· Verified Patient</span></div>
+            </div>
         </div>
+    </section>
+
+    <section class="container" style="padding-bottom: 120px;">
+        <div class="health-cta reveal">
+            <h2 class="section-h" style="margin-bottom:40px;">Take Back Control of Your Health.</h2>
+            <a href="#" class="hero-btn">Generate Your Health Report Now</a>
+        </div>
+    </section>
+
+    <footer class="container">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:60px;">
+            <div>
+                <a href="#" class="logo">
+                    <div class="logo-diamond"></div>
+                    HEALTH-AI
+                </a>
+                <p style="color:var(--muted); font-size:14px; margin-top:12px;">Healthcare governed by data, not
+                    guesswork.</p>
+            </div>
+            <div style="display:flex; gap:40px;">
+                <a href="#"
+                    style="color:var(--muted); text-decoration:none; font-size:11px; font-weight:700; letter-spacing:0.1em;">PRIVACY</a>
+                <a href="#"
+                    style="color:var(--muted); text-decoration:none; font-size:11px; font-weight:700; letter-spacing:0.1em;">TERMS</a>
+                <a href="#"
+                    style="color:var(--muted); text-decoration:none; font-size:11px; font-weight:700; letter-spacing:0.1em;">CONTACT</a>
+            </div>
+        </div>
+        <p style="text-align:center; color:rgba(74,98,120,0.5); font-size:10px; letter-spacing:0.1em;">© 2026 HEALTH-AI
+            SYSTEMS INC · FOR HEALTH ADVOCACY ONLY</p>
     </footer>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const nav = document.getElementById('sticky-nav');
-            const progressFill = document.getElementById('scroll-progress-fill');
-
-            window.addEventListener('scroll', () => {
-                // Nav visibility
-                if (window.scrollY > 80) {
-                    nav.classList.add('visible');
-                } else {
-                    nav.classList.remove('visible');
-                }
-
-                // Scroll progress bar
-                const scrollTop = window.scrollY || document.documentElement.scrollTop;
-                const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-                const scrollPercent = (scrollTop / docHeight) * 100;
-                progressFill.style.width = scrollPercent + '%';
+        // REVEAL ON SCROLL
+        const reveal = () => {
+            const reveals = document.querySelectorAll(".reveal");
+            reveals.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) el.classList.add("active");
             });
 
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
+            // STEP CONNECTOR
+            const connector = document.getElementById('connector');
+            const stepBox = document.querySelector('.steps-box');
+            if (stepBox.getBoundingClientRect().top < window.innerHeight - 200) {
+                connector.classList.add('active');
+            }
+        };
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, observerOptions);
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("load", reveal);
 
-            const animElements = document.querySelectorAll('.anim-fade, .anim-fade-1-2, .anim-fade-1-4, .anim-fade-1-6, .stagger-group');
-            animElements.forEach(el => observer.observe(el));
-
-            // For the peak elements, adjust threshold so they trigger when centered
-            const peakObserverOptions = {
-                root: null,
-                rootMargin: '-20% 0px -20% 0px',
-                threshold: 0.3
-            };
-            const peakObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, peakObserverOptions);
-
-            const peakElements = document.querySelectorAll('.anim-fade-peak');
-            peakElements.forEach(el => peakObserver.observe(el));
+        // NAVBAR SCROLL
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
         });
+
+        // PARALLAX HERO
+        const parallaxWrap = document.querySelector('.parallax-wrap');
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            if (y < window.innerHeight) {
+                parallaxWrap.style.transform = `translateY(${y * 0.15}px)`;
+            }
+        });
+
+        // STAT COUNTERS
+        const countUp = () => {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(c => {
+                const target = parseFloat(c.getAttribute('data-target'));
+                const duration = 2000;
+                let start = 0;
+                let startTime = null;
+
+                const animate = (t) => {
+                    if (!startTime) startTime = t;
+                    const progress = Math.min((t - startTime) / duration, 1);
+                    const val = progress * (target - start) + start;
+                    c.innerText = target % 1 === 0 ? Math.floor(val) : val.toFixed(1);
+                    if (progress < 1) requestAnimationFrame(animate);
+                    else c.innerText = target + (target === 4.9 ? '★' : (target === 100 ? '%' : ''));
+                };
+                requestAnimationFrame(animate);
+            });
+        };
+
+        const obs = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                countUp();
+                obs.disconnect();
+            }
+        }, { threshold: 0.5 });
+        obs.observe(document.querySelector('.counter-trigger'));
     </script>
 </body>
 

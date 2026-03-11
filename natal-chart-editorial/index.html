@@ -1,729 +1,1275 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Natal — Astrology Isn't Just Your Daily Horoscope</title>
-<meta name="description" content="A longform exploration of natal charts, planets, and the astrology that goes far beyond your horoscope. Pull your chart. Read the map.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Natal — Astrology Isn't Just Your Daily Horoscope</title>
+  <meta name="description"
+    content="A longform exploration of natal charts, planets, and the astrology that goes far beyond your horoscope. Pull your chart. Read the map.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-:root {
-  --navy: #0c0d14;
-  --cream: #f4efe6;
-  --gold: #c9a55a;
-  --terracotta: #b56b45;
-  --smoke: #7a7872;
-  --off-white: #f8f4ee;
-  --near-black: #1a1a18;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Lora', 'Times New Roman', serif;
-  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
-}
+    :root {
+      --navy: #0c0d14;
+      --cream: #f4efe6;
+      --gold: #c9a55a;
+      --terracotta: #b56b45;
+      --smoke: #7a7872;
+      --off-white: #f8f4ee;
+      --near-black: #1a1a18;
+      --font-display: 'Playfair Display', Georgia, serif;
+      --font-body: 'Lora', 'Times New Roman', serif;
+      --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
+    }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
 
-body {
-  margin: 0;
-  padding: 0;
-  background: var(--cream);
-  color: var(--near-black);
-  font-family: var(--font-body);
-  font-size: 18px;
-  line-height: 2;
-  overflow-x: hidden;
-}
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--cream);
+      color: var(--near-black);
+      font-family: var(--font-body);
+      font-size: 18px;
+      line-height: 2;
+      overflow-x: hidden;
+    }
 
-/* ─── NAVIGATION ─── */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  background: rgba(12, 13, 20, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 clamp(1.5rem, 4vw, 3rem);
-  height: 60px;
-  border-bottom: 1px solid rgba(201, 165, 90, 0.12);
-}
+    /* ─── NAVIGATION ─── */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(12, 13, 20, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(1.5rem, 4vw, 3rem);
+      height: 60px;
+      border-bottom: 1px solid rgba(201, 165, 90, 0.12);
+    }
 
-.nav-brand {
-  font-family: var(--font-display);
-  font-size: 1.35rem;
-  font-weight: 700;
-  color: var(--off-white);
-  letter-spacing: 0.02em;
-}
+    .nav-brand {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--off-white);
+      letter-spacing: 0.02em;
+    }
 
-.nav-tag {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: var(--smoke);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
+    .nav-tag {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--smoke);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
 
-/* ─── HERO ─── */
-.hero {
-  min-height: 100vh;
-  background: var(--navy);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 80px clamp(1.5rem, 5vw, 4rem) 4rem;
-  position: relative;
-}
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px clamp(1.5rem, 5vw, 4rem) 4rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-.hero-label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--gold);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 2.5rem;
-  opacity: 0;
-  transform: translateY(24px);
-}
+    .hero>*:not(#hero-stars) {
+      z-index: 1;
+      position: relative;
+    }
 
-.hero-headline {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(2.8rem, 7vw, 5.5rem);
-  line-height: 1.08;
-  color: var(--off-white);
-  max-width: 900px;
-  margin-bottom: 2rem;
-  opacity: 0;
-  transform: translateY(24px);
-}
+    #hero-stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
 
-.hero-subline {
-  font-family: var(--font-body);
-  font-style: italic;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  color: var(--smoke);
-  max-width: 600px;
-  margin-bottom: 2.5rem;
-  opacity: 0;
-  transform: translateY(24px);
-}
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(24px);
+    }
 
-.hero-rule {
-  width: 80px;
-  height: 1px;
-  background: var(--gold);
-  border: none;
-  opacity: 0;
-  transform: translateY(24px);
-}
+    .hero-headline {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      line-height: 1.08;
+      color: var(--off-white);
+      max-width: 900px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      transform: translateY(24px);
+    }
 
-.hero-animate {
-  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
+    .hero-subline {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--smoke);
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateY(24px);
+    }
 
-.hero-animate.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .hero-rule {
+      width: 80px;
+      height: 1px;
+      background: var(--gold);
+      border: none;
+      opacity: 0;
+      transform: translateY(24px);
+    }
 
-/* ─── READING SECTIONS (cream) ─── */
-.reading-section {
-  background: var(--cream);
-  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
-}
+    .hero-animate {
+      transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 
-.reading-section .container {
-  max-width: 740px;
-  margin: 0 auto;
-}
+    .hero-animate.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.reading-section p {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 2.2vw, 1.125rem);
-  line-height: 2;
-  color: var(--near-black);
-  margin-bottom: 1.8em;
-}
+    /* ─── NEW THEMATIC ENHANCEMENTS ─── */
+    .section-gap {
+      height: 0;
+      background: none;
+      pointer-events: none;
+      width: 100%;
+    }
 
-.reading-section p:last-child {
-  margin-bottom: 0;
-}
+    .planet-section--dark,
+    .closing-dark,
+    .thesis-section {
+      position: relative;
+    }
 
-/* ─── DARK SECTIONS ─── */
-.dark-section {
-  background: var(--navy);
-  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
-}
 
-.dark-section .container {
-  max-width: 740px;
-  margin: 0 auto;
-}
 
-.dark-section p {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 2.2vw, 1.125rem);
-  line-height: 2;
-  color: var(--off-white);
-  margin-bottom: 1.8em;
-}
+    #cursor-glow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 2;
+      background: transparent;
+    }
 
-.dark-section p:last-child {
-  margin-bottom: 0;
-}
+    .planet-glyph {
+      display: inline-block;
+      transition: transform 0.6s ease, color 0.6s ease;
+    }
 
-/* ─── THESIS SECTION ─── */
-.thesis-section {
-  background: var(--navy);
-  padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 3rem);
-  text-align: center;
-}
+    .planet-glyph.pulse {
+      transform: scale(1.3);
+      color: var(--gold);
+    }
 
-.thesis-statement {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  color: var(--gold);
-  line-height: 1.15;
-  max-width: 700px;
-  margin: 0 auto 2.5rem;
-}
+    #progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--gold);
+      z-index: 1001;
+      width: 0%;
+      pointer-events: none;
+    }
 
-.thesis-section p {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 2.2vw, 1.125rem);
-  line-height: 2;
-  color: var(--off-white);
-  max-width: 740px;
-  margin: 0 auto 1.8em;
-  text-align: left;
-}
+    /* ─── NEW INTERACTIVE LAYERS CSS ─── */
+    #constellation-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 5;
+    }
 
-.thesis-section .heres-how {
-  font-style: italic;
-  color: var(--gold);
-  text-align: center;
-  margin-top: 1rem;
-}
+    .zodiac-wheel-container {
+      margin-top: 3.5rem;
+      width: 280px;
+      height: 280px;
+      opacity: 0;
+      transform: translateY(24px);
+      z-index: 1;
+      position: relative;
+    }
 
-/* ─── PLANET SECTIONS ─── */
-.planet-section {
-  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
-}
+    .zodiac-wheel-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-.planet-section .container {
-  max-width: 740px;
-  margin: 0 auto;
-}
+    .zodiac-wheel {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
 
-.planet-section--cream {
-  background: var(--cream);
-}
+    .zodiac-wheel-outer {
+      transform-origin: 140px 140px;
+      animation: spinWheel 60s linear infinite;
+    }
 
-.planet-section--cream p {
-  color: var(--near-black);
-}
+    @keyframes spinWheel {
+      from {
+        transform: rotate(0deg);
+      }
 
-.planet-section--cream .planet-name {
-  color: var(--near-black);
-}
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
-.planet-section--dark {
-  background: var(--navy);
-}
+    .zodiac-glyph {
+      fill: var(--smoke);
+      font-family: var(--font-body);
+      font-size: 16px;
+      text-anchor: middle;
+      transform-origin: center;
+      transform-box: fill-box;
+      transition: fill 0.3s ease, transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+      pointer-events: none;
+    }
 
-.planet-section--dark p {
-  color: var(--off-white);
-}
+    .zodiac-segment {
+      cursor: pointer;
+    }
 
-.planet-section--dark .planet-name {
-  color: var(--off-white);
-}
+    .zodiac-segment:hover .zodiac-glyph {
+      fill: var(--gold);
+      transform: scale(1.4);
+    }
 
-.planet-label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--gold);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
+    .planet-name-wrapper {
+      position: relative;
+      display: inline-block;
+    }
 
-.planet-name {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  line-height: 1.1;
-  margin-bottom: 1rem;
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  transition-delay: 0.1s;
-}
+    .planet-tooltip {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      margin-top: 4px;
+      background: var(--navy);
+      color: var(--gold);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 1rem 1.2rem;
+      border: 1px solid rgba(201, 165, 90, 0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      pointer-events: none;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.6rem 1.5rem;
+      width: max-content;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
 
-.planet-rule {
-  width: 60px;
-  height: 1px;
-  background: var(--gold);
-  border: none;
-  margin-bottom: 2.5rem;
-  opacity: 0;
-  transform: translateX(-30px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  transition-delay: 0.2s;
-}
+    .planet-name-wrapper:hover .planet-tooltip {
+      opacity: 1;
+      visibility: visible;
+    }
 
-.planet-section p {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 2.2vw, 1.125rem);
-  line-height: 2;
-  margin-bottom: 1.8em;
-}
+    /* ─── READING SECTIONS (cream) ─── */
+    .reading-section {
+      background: var(--cream);
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
+    }
 
-.planet-section p:last-child {
-  margin-bottom: 0;
-}
+    .reading-section .container {
+      max-width: 740px;
+      margin: 0 auto;
+    }
 
-.planet-label.visible,
-.planet-name.visible,
-.planet-rule.visible {
-  opacity: 1;
-  transform: translateX(0);
-}
+    .reading-section p {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      line-height: 2;
+      letter-spacing: 0.01em;
+      color: var(--near-black);
+      margin-bottom: 1.8em;
+    }
 
-/* ─── PULL QUOTE ─── */
-.pull-quote {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-  line-height: 1.45;
-  color: var(--gold);
-  border-left: 3px solid var(--terracotta);
-  padding-left: clamp(1.5rem, 3vw, 2.5rem);
-  margin: 2.5rem 0 2.5rem -1rem;
-  max-width: 110%;
-  opacity: 0;
-  transform: scale(0.96);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
+    .reading-section p:last-child {
+      margin-bottom: 0;
+    }
 
-.pull-quote.visible {
-  opacity: 1;
-  transform: scale(1);
-}
+    /* ─── DARK SECTIONS ─── */
+    .dark-section {
+      background: var(--navy);
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
+    }
 
-/* ─── CLOSING SECTION ─── */
-.closing-cream {
-  background: var(--cream);
-  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
-}
+    .dark-section .container {
+      max-width: 740px;
+      margin: 0 auto;
+    }
 
-.closing-cream .container {
-  max-width: 740px;
-  margin: 0 auto;
-}
+    .dark-section p {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      line-height: 2;
+      letter-spacing: 0.01em;
+      color: var(--off-white);
+      margin-bottom: 1.8em;
+    }
 
-.closing-cream p {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 2.2vw, 1.125rem);
-  line-height: 2;
-  color: var(--near-black);
-  margin-bottom: 1.8em;
-}
+    .dark-section p:last-child {
+      margin-bottom: 0;
+    }
 
-.closing-dark {
-  background: var(--navy);
-  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
-}
+    /* ─── THESIS SECTION ─── */
+    .thesis-section {
+      background: var(--navy);
+      padding: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 5vw, 3rem);
+      text-align: center;
+    }
 
-.closing-dark .container {
-  max-width: 740px;
-  margin: 0 auto;
-}
+    .thesis-statement {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--gold);
+      line-height: 1.15;
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+    }
 
-.closing-dark p {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 2.2vw, 1.125rem);
-  line-height: 2;
-  color: var(--off-white);
-  margin-bottom: 1.8em;
-}
+    .thesis-section p {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      line-height: 2;
+      letter-spacing: 0.01em;
+      color: var(--off-white);
+      max-width: 740px;
+      margin: 0 auto 1.8em;
+      text-align: left;
+    }
 
-.huh {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: var(--gold);
-  text-align: center;
-  padding: 3rem 0;
-  opacity: 0;
-  transition: opacity 0.6s ease;
-}
+    .thesis-section .heres-how {
+      font-style: italic;
+      color: var(--gold);
+      text-align: center;
+      margin-top: 1rem;
+    }
 
-.huh.visible {
-  opacity: 1;
-}
+    /* ─── PLANET SECTIONS ─── */
+    .planet-section {
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
+    }
 
-/* ─── CTA SECTION ─── */
-.cta-section {
-  background: var(--navy);
-  padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 3rem);
-  text-align: center;
-}
+    .planet-section .container {
+      max-width: 740px;
+      margin: 0 auto;
+    }
 
-.cta-headline {
-  font-family: var(--font-display);
-  font-weight: 900;
-  font-size: clamp(1.8rem, 4vw, 3rem);
-  color: var(--off-white);
-  max-width: 700px;
-  margin: 0 auto 2.5rem;
-  line-height: 1.15;
-}
+    .planet-section--cream {
+      background: var(--cream);
+    }
 
-.cta-button {
-  display: block;
-  width: 100%;
-  max-width: 740px;
-  margin: 0 auto 1.5rem;
-  padding: 1.25rem 2rem;
-  background: var(--gold);
-  color: var(--navy);
-  font-family: var(--font-mono);
-  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border: 2px solid var(--gold);
-  border-radius: 0;
-  cursor: pointer;
-  transition: background 0s, color 0s;
-}
+    .planet-section--cream p {
+      color: var(--near-black);
+    }
 
-.cta-button:hover {
-  background: var(--navy);
-  color: var(--gold);
-}
+    .planet-section--cream .planet-name {
+      color: var(--near-black);
+    }
 
-.cta-footnote {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--smoke);
-  letter-spacing: 0.06em;
-  max-width: 500px;
-  margin: 0 auto;
-}
+    .planet-section--dark {
+      background: var(--navy);
+    }
 
-/* ─── SCROLL ANIMATION UTILITY ─── */
-.fade-in {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
+    .planet-section--dark p {
+      color: var(--off-white);
+    }
 
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .planet-section--dark .planet-name {
+      color: var(--off-white);
+    }
 
-/* ─── RESPONSIVE ─── */
-@media (max-width: 600px) {
-  .nav {
-    height: 52px;
-    padding: 0 1.2rem;
-  }
+    .planet-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
 
-  .nav-brand {
-    font-size: 1.15rem;
-  }
+    .planet-name {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition-delay: 0.1s;
+    }
 
-  .hero {
-    padding: 70px 1.2rem 3rem;
-  }
+    .planet-rule {
+      width: 60px;
+      height: 1px;
+      background: var(--gold);
+      border: none;
+      margin-bottom: 2.5rem;
+      opacity: 0;
+      transform: translateX(-30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      transition-delay: 0.2s;
+    }
 
-  .pull-quote {
-    margin-left: 0;
-    max-width: 100%;
-  }
-}
-</style>
+    .planet-section p {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      line-height: 2;
+      letter-spacing: 0.01em;
+      margin-bottom: 1.8em;
+    }
+
+    .planet-section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .planet-label.visible,
+    .planet-name.visible,
+    .planet-rule.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ─── PULL QUOTE ─── */
+    .pull-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+      line-height: 1.45;
+      color: var(--gold);
+      border-left: 3px solid var(--terracotta);
+      padding-left: clamp(1.5rem, 3vw, 2.5rem);
+      margin: 2.5rem 0 2.5rem -1rem;
+      max-width: 110%;
+      opacity: 0;
+      transform: scale(0.9);
+      transition: opacity 1.2s cubic-bezier(0.23, 1, 0.32, 1),
+        transform 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    .pull-quote.visible {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* ─── CLOSING SECTION ─── */
+    .closing-cream {
+      background: var(--cream);
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
+    }
+
+    .closing-cream .container {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    .closing-cream p {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      line-height: 2;
+      letter-spacing: 0.01em;
+      color: var(--near-black);
+      margin-bottom: 1.8em;
+    }
+
+    .closing-dark {
+      background: var(--navy);
+      padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 3rem);
+    }
+
+    .closing-dark .container {
+      max-width: 740px;
+      margin: 0 auto;
+    }
+
+    .closing-dark p {
+      font-family: var(--font-body);
+      font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+      font-weight: 400;
+      line-height: 2;
+      letter-spacing: 0.01em;
+      color: var(--off-white);
+      margin-bottom: 1.8em;
+    }
+
+    .huh {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--gold);
+      text-align: center;
+      padding: 3rem 0;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+
+    .huh.visible {
+      opacity: 1;
+    }
+
+    /* ─── CTA SECTION ─── */
+    .cta-section {
+      background: var(--navy);
+      padding: clamp(4rem, 8vw, 6rem) clamp(1.5rem, 5vw, 3rem);
+      text-align: center;
+    }
+
+    .cta-headline {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      color: var(--off-white);
+      max-width: 700px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.15;
+    }
+
+    .cta-button {
+      display: block;
+      width: 100%;
+      max-width: 740px;
+      margin: 0 auto 1.5rem;
+      padding: 1.25rem 2rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-family: var(--font-mono);
+      font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--gold);
+      border-radius: 0;
+      cursor: pointer;
+      transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .cta-button:hover {
+      background: var(--navy);
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+
+    .cta-footnote {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--smoke);
+      letter-spacing: 0.06em;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ─── SCROLL ANIMATION UTILITY ─── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 600px) {
+      .nav {
+        height: 52px;
+        padding: 0 1.2rem;
+      }
+
+      .nav-brand {
+        font-size: 1.15rem;
+      }
+
+      .hero {
+        padding: 70px 1.2rem 3rem;
+      }
+
+      .pull-quote {
+        margin-left: 0;
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ─── NAVIGATION ─── -->
-<nav class="nav" role="navigation">
-  <div class="nav-brand">Natal</div>
-  <div class="nav-tag">Beyond the Horoscope.</div>
-</nav>
+  <div id="progress-bar"></div>
+  <div id="cursor-glow"></div>
+  <canvas id="constellation-overlay"></canvas>
 
-<!-- ─── HERO ─── -->
-<section class="hero" id="hero">
-  <div class="hero-label hero-animate" id="hero-label">The Natal Chart</div>
-  <h1 class="hero-headline hero-animate" id="hero-headline">Astrology Isn't Just Your Daily Horoscope.</h1>
-  <p class="hero-subline hero-animate" id="hero-subline">Didn't see that coming, did you? Good. Keep reading.</p>
-  <hr class="hero-rule hero-animate" id="hero-rule">
-</section>
+  <!-- ─── NAVIGATION ─── -->
+  <nav class="nav" role="navigation">
+    <div class="nav-brand">Natal</div>
+    <div class="nav-tag">Beyond the Horoscope.</div>
+  </nav>
 
-<!-- ─── INTRO — CREAM ─── -->
-<section class="reading-section">
-  <div class="container">
-    <p class="fade-in">When most people hear the word astrology, their eyes glaze over. Or roll. Possibly both.</p>
-    <p class="fade-in">And honestly? That's fair.</p>
-    <p class="fade-in">It probably starts somewhere in childhood. Your older sister glances at you across the dinner table and says, "you're such a Libra," with the kind of confidence that only older sisters possess. You have no idea what a Libra is. She explains: twelve zodiac signs, birthdays, characteristics, the whole thing. She's a Sagittarius, she tells you proudly. Fiery, opinionated, born to travel. "I'll plan the next trip," she announces, "because I'm a Sagittarius and I simply know best."</p>
-    <p class="fade-in">You think: what is this nonsense?</p>
-    <p class="fade-in">But then it keeps happening. At school, at university, at family gatherings. So one day you Google it. Some of it fits, some of it doesn't. Then your aunt catches you off guard. "Oh, you're a Libra? Your Monday is going to be amazing, but watch your spending." Monday arrives. It's a disaster. Wallet perfectly intact, spirit thoroughly crushed.</p>
-    <p class="fade-in">You write the whole thing off. Decide that anyone who believes in astrology is, to put it diplomatically, not entirely well.</p>
-    <p class="fade-in">Here's the thing though.</p>
-    <p class="fade-in">Horoscopes? Largely nonsense. The kind your aunt reads from a newspaper over her morning tea — yes, let that go.</p>
-    <p class="fade-in">But astrology itself? That's a different conversation entirely.</p>
-  </div>
-</section>
+  <!-- ─── HERO ─── -->
+  <section class="hero" id="hero">
+    <canvas id="hero-stars"></canvas>
+    <div class="hero-label hero-animate" id="hero-label">The Natal Chart</div>
+    <h1 class="hero-headline hero-animate" id="hero-headline">Astrology Isn't Just Your Daily Horoscope.</h1>
+    <p class="hero-subline hero-animate" id="hero-subline">Didn't see that coming, did you? Good. Keep reading.</p>
+    <hr class="hero-rule hero-animate" id="hero-rule">
+    <div class="zodiac-wheel-container hero-animate" id="hero-wheel">
+      <svg id="zodiac-wheel" class="zodiac-wheel" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="140" cy="140" r="139" fill="none" stroke="var(--gold)" stroke-opacity="0.2" stroke-width="1" />
+        <circle cx="140" cy="140" r="105" fill="none" stroke="var(--gold)" stroke-opacity="0.3" stroke-width="1" />
+        <circle cx="140" cy="140" r="95" fill="none" stroke="var(--smoke)" stroke-opacity="0.2" stroke-width="1" />
+        <circle cx="140" cy="140" r="3" fill="var(--gold)" fill-opacity="0.5" />
+        <g class="zodiac-wheel-outer" id="zodiac-outer"></g>
+      </svg>
+    </div>
+  </section>
 
-<!-- ─── THESIS — DARK ─── -->
-<section class="thesis-section">
-  <div class="thesis-statement fade-in">Eight billion people. Twelve types.</div>
-  <p class="fade-in">Think about it this way. If astrology were really just twelve personalities, you'd be meeting the same twelve people on a loop for the rest of your life. The same Taurus on the bus. The same Cancer at the coffee shop. The same Scorpio at every party, giving you that look.</p>
-  <p class="fade-in">The math alone should make us suspicious.</p>
-  <p class="fade-in">But astrology was never meant to work that way.</p>
-  <p class="fade-in">The moment you were born, everything was in motion. The planets, the stars, the sun, the moon, each one sitting in a specific position in the sky, at a specific degree, at that specific hour, minute, and second. That arrangement has never existed before. It will never exist again. It was, in the most literal sense, a snapshot of the universe taken just for you.</p>
-  <p class="fade-in">That's your natal chart. That's you.</p>
-  <p class="fade-in">You are not simply a Taurus. You are not just a Cancer. You are an entire cosmos compressed into a single moment, and astrology is the language used to read it.</p>
-  <p class="fade-in heres-how">Here's how.</p>
-</section>
+  <div class="section-gap"></div>
 
-<!-- ─── THE SUN — CREAM ─── -->
-<section class="planet-section planet-section--cream" id="sun">
-  <div class="container">
-    <div class="planet-label">☉ Core Identity</div>
-    <h2 class="planet-name">The Sun</h2>
-    <hr class="planet-rule">
-    <p class="fade-in">This is what your sister was talking about at the dinner table. Libra, Aries, Pisces, whatever yours is, it's determined by the day and month you were born, and it does mean something real. When you read your sign's description and some of it lands with uncomfortable accuracy, that's why.</p>
-    <p class="fade-in">But the Sun sign is your most primal self. The version of you that existed before life got complicated, before heartbreak, growth, and hard lessons shaped you into who you are today. You see it most clearly in children, in that unfiltered, instinctive way they move through the world.</p>
-    <p class="fade-in">It's real. It's just not the whole story.</p>
-  </div>
-</section>
+  <!-- ─── INTRO — CREAM ─── -->
+  <section class="reading-section">
+    <div class="container">
+      <p class="fade-in">When most people hear the word astrology, their eyes glaze over. Or roll. Possibly both.</p>
+      <p class="fade-in">And honestly? That's fair.</p>
+      <p class="fade-in">It probably starts somewhere in childhood. Your older sister glances at you across the dinner
+        table and says, "you're such a Libra," with the kind of confidence that only older sisters possess. You have no
+        idea what a Libra is. She explains: twelve zodiac signs, birthdays, characteristics, the whole thing. She's a
+        Sagittarius, she tells you proudly. Fiery, opinionated, born to travel. "I'll plan the next trip," she
+        announces, "because I'm a Sagittarius and I simply know best."</p>
+      <p class="fade-in">You think: what is this nonsense?</p>
+      <p class="fade-in">But then it keeps happening. At school, at university, at family gatherings. So one day you
+        Google it. Some of it fits, some of it doesn't. Then your aunt catches you off guard. "Oh, you're a Libra? Your
+        Monday is going to be amazing, but watch your spending." Monday arrives. It's a disaster. Wallet perfectly
+        intact, spirit thoroughly crushed.</p>
+      <p class="fade-in">You write the whole thing off. Decide that anyone who believes in astrology is, to put it
+        diplomatically, not entirely well.</p>
+      <p class="fade-in">Here's the thing though.</p>
+      <p class="fade-in">Horoscopes? Largely nonsense. The kind your aunt reads from a newspaper over her morning tea —
+        yes, let that go.</p>
+      <p class="fade-in">But astrology itself? That's a different conversation entirely.</p>
+    </div>
+  </section>
 
-<!-- ─── THE MOON — DARK ─── -->
-<section class="planet-section planet-section--dark" id="moon">
-  <div class="container">
-    <div class="planet-label">☽ Inner World</div>
-    <h2 class="planet-name">The Moon</h2>
-    <hr class="planet-rule">
-    <p class="fade-in">The Sun stays in each sign for about a month. The Moon moves faster, shifting every two and a half days. Which means the timing of your birth matters enormously here. A few days in either direction, and you're dealing with something entirely different.</p>
-    <p class="fade-in">What the Moon deals in is this: your interior life. The feelings you share freely with the people closest to you and carefully guard from everyone else.</p>
-    <p class="fade-in">Say you're an Aries, all fire and impulse, first to act, first to speak, zero filter. Astrology would have you permanently on the verge of combustion. But your Moon is in Virgo. Grounded, controlled, quietly analytical. So your Moon steps in, steadies the flame, teaches you to check yourself before the explosion. You process internally. You hold it together in public. And more than once, someone has looked at you slightly puzzled and said,</p>
-    <div class="pull-quote">"wait, you're an Aries? You seem so… calm."</div>
-    <p class="fade-in">That's the Moon at work. It doesn't cancel your Sun. It collaborates with it, complicates it, adds depth to it.</p>
-    <p class="fade-in">It is, without question, one of the most revealing placements in the entire chart.</p>
-  </div>
-</section>
+  <div class="section-gap"></div>
 
-<!-- ─── THE RISING SIGN — CREAM ─── -->
-<section class="planet-section planet-section--cream" id="rising">
-  <div class="container">
-    <div class="planet-label">↑ First Impression</div>
-    <h2 class="planet-name">The Rising Sign</h2>
-    <hr class="planet-rule">
-    <p class="fade-in">This one shifts every two hours. Not every two days. Not every month. Every two hours.</p>
-    <p class="fade-in">Which is why someone born on the exact same day as you can feel like a completely different species. Same Sun, same Moon potentially, and yet you meet them and think: we share a birthday? In what universe are we the same person?</p>
-    <p class="fade-in">Your Rising Sign is the first impression you make before you've said a single word. The energy you carry into a room. The instinct strangers act on in the first few seconds of meeting you.</p>
-    <p class="fade-in">Take Cancer rising. To the outside world, you read as warmth itself — approachable, nurturing, the kind of person who reminds people of their favourite parent on a good day. You could be sitting quietly at a bar, minding your own business, and a complete stranger three drinks deep will materialise beside you and begin confessing things they haven't told their therapist. Not because you asked. Because your presence radiates the kind of safety that bypasses people's better judgement entirely.</p>
-    <p class="fade-in">From the inside, the world through Cancer rising eyes is a place of connection first, everything else second. New environments feel unsettling until they become familiar. Criticism lands harder than it should. Minor conflict feels bigger than it is.</p>
-    <p class="fade-in">And here's where it gets complex. Your Rising doesn't just add a layer. It interacts with everything else. A Sagittarius Moon that wants to blurt out every thought? A Cancer rising might make you pause, soften the delivery, read the room first.</p>
-    <p class="fade-in">This is why no two charts are alike. It's not twelve personalities. It's an endlessly shifting conversation between every placement you carry.</p>
-  </div>
-</section>
+  <!-- ─── THESIS — DARK ─── -->
+  <section class="thesis-section">
+    <div class="thesis-statement fade-in">Eight billion people. Twelve types.</div>
+    <p class="fade-in">Think about it this way. If astrology were really just twelve personalities, you'd be meeting the
+      same twelve people on a loop for the rest of your life. The same Taurus on the bus. The same Cancer at the coffee
+      shop. The same Scorpio at every party, giving you that look.</p>
+    <p class="fade-in">The math alone should make us suspicious.</p>
+    <p class="fade-in">But astrology was never meant to work that way.</p>
+    <p class="fade-in">The moment you were born, everything was in motion. The planets, the stars, the sun, the moon,
+      each one sitting in a specific position in the sky, at a specific degree, at that specific hour, minute, and
+      second. That arrangement has never existed before. It will never exist again. It was, in the most literal sense, a
+      snapshot of the universe taken just for you.</p>
+    <p class="fade-in">That's your natal chart. That's you.</p>
+    <p class="fade-in">You are not simply a Taurus. You are not just a Cancer. You are an entire cosmos compressed into
+      a single moment, and astrology is the language used to read it.</p>
+    <p class="fade-in heres-how">Here's how.</p>
+  </section>
 
-<!-- ─── MERCURY — DARK ─── -->
-<section class="planet-section planet-section--dark" id="mercury">
-  <div class="container">
-    <div class="planet-label">☿ Communication</div>
-    <h2 class="planet-name">Mercury</h2>
-    <hr class="planet-rule">
-    <p class="fade-in">If the Sun is who you are and the Moon is what you feel, Mercury is how you express all of it. It governs the way your mind works, how you form ideas, deliver opinions, crack jokes, argue a point, win an argument, and occasionally derail an entire conversation because something more interesting occurred to you mid-sentence.</p>
-    <p class="fade-in">It's what your friends encounter most often. The texture of you.</p>
-    <p class="fade-in">Aquarius Mercury, for example, operates on a slightly different frequency to everyone else in the room, and is usually perfectly aware of it. At their best, they spot the solution nobody considered, combine cold logic with genuine creative brilliance, and could, given the right environment, invent their own language and somehow convince other people to speak it.</p>
-    <p class="fade-in">The downside: all that expansive thinking can drift into detachment. Emotional undertones get missed. Feelings get underweighted. Their instinct to challenge conventional thinking, while often valuable, creates friction in rooms that prefer things done the way they've always been done.</p>
-    <p class="fade-in">Now pair that with a Pisces Sun. Deeply emotional, intuitive, occasionally lost in the current of their own feelings. Suddenly Aquarius Mercury becomes less of a quirk and more of a gift — a sharper edge, a rational anchor, a way to articulate the depths they feel but couldn't always reach.</p>
-    <p class="fade-in">Placements don't exist in isolation. They balance each other, challenge each other, and together they make you you.</p>
-  </div>
-</section>
+  <div class="section-gap"></div>
 
-<!-- ─── VENUS — CREAM ─── -->
-<section class="planet-section planet-section--cream" id="venus">
-  <div class="container">
-    <div class="planet-label">♀ Desire &amp; Pleasure</div>
-    <h2 class="planet-name">Venus</h2>
-    <hr class="planet-rule">
-    <p class="fade-in">Venus rules pleasure, beauty, and desire. The things that make life feel worth living — relationships, aesthetics, the small indulgences that bring you joy. It shapes your taste, your style, and most fascinatingly, your type.</p>
-    <p class="fade-in">You know that pattern in the people you fall for? The ones that are probably not the most sensible choice, and yet somehow you end up there every time?</p>
-    <p class="fade-in">Venus would like a word.</p>
-    <p class="fade-in">Say you're a Taurus, grounded, sensual, built for comfort and stability. Everything in you wants a love that lasts, solid and warm, like a home you never have to leave.</p>
-    <p class="fade-in">But your Venus is in Gemini.</p>
-    <p class="fade-in">Gemini Venus doesn't want solid. It wants electric. It's drawn to wit, wordplay, the person who makes you laugh until your sides hurt and keeps you guessing in a way that feels thrilling rather than exhausting. The charming rogue who is absolutely not the plan. And yet there you are, completely drawn in, only mildly sorry about it.</p>
-    <p class="fade-in">You try the sensible route. A Capricorn who offers everything your Taurus heart says it wants: stability, reliability, a proper future. Wonderful. Really. But something quietly isn't catching, because Gemini Venus gets bored when the spark goes predictable. It needs movement. A love that keeps evolving.</p>
-    <p class="fade-in">This doesn't mean you're doomed to chaos. It means the person for you needs to offer both: the security your Sun craves and the aliveness your Venus demands.</p>
-    <p class="fade-in">That combination exists. The road to finding it is just a little longer, and messier, than the plan suggested.</p>
-  </div>
-</section>
+  <!-- ─── THE SUN — CREAM ─── -->
+  <section class="planet-section planet-section--cream" id="sun">
+    <div class="container">
+      <div class="planet-label"><span class="planet-glyph">☉</span> Core Identity</div>
+      <h2 class="planet-name">The Sun</h2>
+      <hr class="planet-rule">
+      <p class="fade-in">This is what your sister was talking about at the dinner table. Libra, Aries, Pisces, whatever
+        yours is, it's determined by the day and month you were born, and it does mean something real. When you read
+        your sign's description and some of it lands with uncomfortable accuracy, that's why.</p>
+      <p class="fade-in">But the Sun sign is your most primal self. The version of you that existed before life got
+        complicated, before heartbreak, growth, and hard lessons shaped you into who you are today. You see it most
+        clearly in children, in that unfiltered, instinctive way they move through the world.</p>
+      <p class="fade-in">It's real. It's just not the whole story.</p>
+    </div>
+  </section>
 
-<!-- ─── MARS — DARK ─── -->
-<section class="planet-section planet-section--dark" id="mars">
-  <div class="container">
-    <div class="planet-label">♂ Drive &amp; Ambition</div>
-    <h2 class="planet-name">Mars</h2>
-    <hr class="planet-rule">
-    <p class="fade-in">Imagine your drunk uncle at the dinner table, locking horns with your father over something neither of them will let go of. Completely convinced of their position. Absolutely refusing to back down.</p>
-    <p class="fade-in">That's Mars. Unapologetic, combustible, and completely alive.</p>
-    <p class="fade-in">Mars is your drive. Your ambition. The thing that gets you out of bed when motivation alone wouldn't cut it. It governs how you pursue what you want, in your goals, your relationships, your bed. It's the fire behind your anger and the engine behind your desire. Whether you cry when you're furious or go dangerously quiet. Whether you explode on impact or let things simmer slowly until something gives.</p>
-    <p class="fade-in">Take an Aquarius Sun, brilliant, visionary, perpetually lost in the stratosphere of their own ideas. Aquarius can conceive of things other people won't understand for a decade. The problem: those ideas have a habit of staying exactly where they were born, inside the head, endlessly refined, never quite launched.</p>
-    <p class="fade-in">Give that Aquarius an Aries Mars, and everything changes. Aries Mars doesn't theorise. It moves. Impulsive, fearless, first out of the gate before the conditions are perfect. Because in Aries Mars's world, the conditions are never going to be perfect, and that was never the point anyway.</p>
-    <p class="fade-in">The ideas get legs. The visions get executed. The Aquarius stops drafting and starts building.</p>
-    <p class="fade-in">For an Aquarius, an Aries Mars isn't just a nice placement to have. It's a gift.</p>
-  </div>
-</section>
+  <div class="section-gap"></div>
 
-<!-- ─── CLOSING — CREAM ─── -->
-<section class="closing-cream">
-  <div class="container">
-    <p class="fade-in">And we've barely scratched the surface.</p>
-    <p class="fade-in">Ten planets. Twelve houses. Aspects, degrees, transits, each one adding another brushstroke to a picture that is, ultimately, just you. Your contradictions, your patterns, your gifts, your blind spots. The reasons you love the way you love, fight the way you fight, dream bigger than you act, or act before you think.</p>
-    <p class="fade-in">Astrology won't tell you what to do. It won't predict your Monday and it definitely won't excuse your situationship. When you go deeper than the newspaper column, deeper than your sister's dinner table verdict, what it does is hand you a mirror.</p>
-    <p class="fade-in">A surprisingly accurate, occasionally uncomfortable, genuinely fascinating mirror.</p>
-  </div>
-</section>
+  <!-- ─── THE MOON — DARK ─── -->
+  <section class="planet-section planet-section--dark" id="moon">
+    <div class="container">
+      <div class="planet-label"><span class="planet-glyph">☽</span> Inner World</div>
+      <h2 class="planet-name">The Moon</h2>
+      <hr class="planet-rule">
+      <p class="fade-in">The Sun stays in each sign for about a month. The Moon moves faster, shifting every two and a
+        half days. Which means the timing of your birth matters enormously here. A few days in either direction, and
+        you're dealing with something entirely different.</p>
+      <p class="fade-in">What the Moon deals in is this: your interior life. The feelings you share freely with the
+        people closest to you and carefully guard from everyone else.</p>
+      <p class="fade-in">Say you're an Aries, all fire and impulse, first to act, first to speak, zero filter. Astrology
+        would have you permanently on the verge of combustion. But your Moon is in Virgo. Grounded, controlled, quietly
+        analytical. So your Moon steps in, steadies the flame, teaches you to check yourself before the explosion. You
+        process internally. You hold it together in public. And more than once, someone has looked at you slightly
+        puzzled and said,</p>
+      <div class="pull-quote">"wait, you're an Aries? You seem so… calm."</div>
+      <p class="fade-in">That's the Moon at work. It doesn't cancel your Sun. It collaborates with it, complicates it,
+        adds depth to it.</p>
+      <p class="fade-in">It is, without question, one of the most revealing placements in the entire chart.</p>
+    </div>
+  </section>
 
-<!-- ─── CLOSING — DARK ─── -->
-<section class="closing-dark">
-  <div class="container">
-    <p class="fade-in">Your chart already exists. It's been yours since the exact second you arrived.</p>
-    <p class="fade-in">Most people never read past their Sun sign. Which means most people are walking around with one page of a book that runs to hundreds.</p>
-    <p class="fade-in">Pull your full chart. Find your Moon, your Rising, your Mars, your Venus. Read the thing that makes you stop mid-sentence and think, <em>how does it know that.</em></p>
-    <p class="fade-in">And if none of it lands? That's fine.</p>
-    <p class="fade-in">But something tells me at least one placement is going to make you put your phone down, stare at the ceiling, and quietly think —</p>
-    <div class="huh" id="huh">huh.</div>
-  </div>
-</section>
+  <div class="section-gap"></div>
 
-<!-- ─── CTA ─── -->
-<section class="cta-section">
-  <h2 class="cta-headline fade-in">Your chart already exists.</h2>
-  <a href="#" class="cta-button" id="cta-button">Read Your Full Chart — It Takes Two Minutes.</a>
-  <p class="cta-footnote fade-in">Birth date. Birth time. Birth location. That's all it needs. What it gives you back is considerably more interesting.</p>
-</section>
+  <!-- ─── THE RISING SIGN — CREAM ─── -->
+  <section class="planet-section planet-section--cream" id="rising">
+    <div class="container">
+      <div class="planet-label"><span class="planet-glyph">↑</span> First Impression</div>
+      <h2 class="planet-name">The Rising Sign</h2>
+      <hr class="planet-rule">
+      <p class="fade-in">This one shifts every two hours. Not every two days. Not every month. Every two hours.</p>
+      <p class="fade-in">Which is why someone born on the exact same day as you can feel like a completely different
+        species. Same Sun, same Moon potentially, and yet you meet them and think: we share a birthday? In what universe
+        are we the same person?</p>
+      <p class="fade-in">Your Rising Sign is the first impression you make before you've said a single word. The energy
+        you carry into a room. The instinct strangers act on in the first few seconds of meeting you.</p>
+      <p class="fade-in">Take Cancer rising. To the outside world, you read as warmth itself — approachable, nurturing,
+        the kind of person who reminds people of their favourite parent on a good day. You could be sitting quietly at a
+        bar, minding your own business, and a complete stranger three drinks deep will materialise beside you and begin
+        confessing things they haven't told their therapist. Not because you asked. Because your presence radiates the
+        kind of safety that bypasses people's better judgement entirely.</p>
+      <p class="fade-in">From the inside, the world through Cancer rising eyes is a place of connection first,
+        everything else second. New environments feel unsettling until they become familiar. Criticism lands harder than
+        it should. Minor conflict feels bigger than it is.</p>
+      <p class="fade-in">And here's where it gets complex. Your Rising doesn't just add a layer. It interacts with
+        everything else. A Sagittarius Moon that wants to blurt out every thought? A Cancer rising might make you pause,
+        soften the delivery, read the room first.</p>
+      <p class="fade-in">This is why no two charts are alike. It's not twelve personalities. It's an endlessly shifting
+        conversation between every placement you carry.</p>
+    </div>
+  </section>
 
-<script>
-(function() {
-  'use strict';
+  <div class="section-gap"></div>
 
-  // ─── HERO STAGGER ANIMATION ───
-  const heroElements = [
-    document.getElementById('hero-label'),
-    document.getElementById('hero-headline'),
-    document.getElementById('hero-subline'),
-    document.getElementById('hero-rule')
-  ];
+  <!-- ─── MERCURY — DARK ─── -->
+  <section class="planet-section planet-section--dark" id="mercury">
+    <div class="container">
+      <div class="planet-label"><span class="planet-glyph">☿</span> Communication</div>
+      <h2 class="planet-name">Mercury</h2>
+      <hr class="planet-rule">
+      <p class="fade-in">If the Sun is who you are and the Moon is what you feel, Mercury is how you express all of it.
+        It governs the way your mind works, how you form ideas, deliver opinions, crack jokes, argue a point, win an
+        argument, and occasionally derail an entire conversation because something more interesting occurred to you
+        mid-sentence.</p>
+      <p class="fade-in">It's what your friends encounter most often. The texture of you.</p>
+      <p class="fade-in">Aquarius Mercury, for example, operates on a slightly different frequency to everyone else in
+        the room, and is usually perfectly aware of it. At their best, they spot the solution nobody considered, combine
+        cold logic with genuine creative brilliance, and could, given the right environment, invent their own language
+        and somehow convince other people to speak it.</p>
+      <p class="fade-in">The downside: all that expansive thinking can drift into detachment. Emotional undertones get
+        missed. Feelings get underweighted. Their instinct to challenge conventional thinking, while often valuable,
+        creates friction in rooms that prefer things done the way they've always been done.</p>
+      <p class="fade-in">Now pair that with a Pisces Sun. Deeply emotional, intuitive, occasionally lost in the current
+        of their own feelings. Suddenly Aquarius Mercury becomes less of a quirk and more of a gift — a sharper edge, a
+        rational anchor, a way to articulate the depths they feel but couldn't always reach.</p>
+      <p class="fade-in">Placements don't exist in isolation. They balance each other, challenge each other, and
+        together they make you you.</p>
+    </div>
+  </section>
 
-  heroElements.forEach(function(el, i) {
-    setTimeout(function() {
-      el.classList.add('visible');
-    }, 400 + (i * 200));
-  });
+  <div class="section-gap"></div>
 
-  // ─── INTERSECTION OBSERVER — GENERAL FADE-IN ───
-  var fadeObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        fadeObserver.unobserve(entry.target);
+  <!-- ─── VENUS — CREAM ─── -->
+  <section class="planet-section planet-section--cream" id="venus">
+    <div class="container">
+      <div class="planet-label"><span class="planet-glyph">♀</span> Desire &amp; Pleasure</div>
+      <h2 class="planet-name">Venus</h2>
+      <hr class="planet-rule">
+      <p class="fade-in">Venus rules pleasure, beauty, and desire. The things that make life feel worth living —
+        relationships, aesthetics, the small indulgences that bring you joy. It shapes your taste, your style, and most
+        fascinatingly, your type.</p>
+      <p class="fade-in">You know that pattern in the people you fall for? The ones that are probably not the most
+        sensible choice, and yet somehow you end up there every time?</p>
+      <p class="fade-in">Venus would like a word.</p>
+      <p class="fade-in">Say you're a Taurus, grounded, sensual, built for comfort and stability. Everything in you
+        wants a love that lasts, solid and warm, like a home you never have to leave.</p>
+      <p class="fade-in">But your Venus is in Gemini.</p>
+      <p class="fade-in">Gemini Venus doesn't want solid. It wants electric. It's drawn to wit, wordplay, the person who
+        makes you laugh until your sides hurt and keeps you guessing in a way that feels thrilling rather than
+        exhausting. The charming rogue who is absolutely not the plan. And yet there you are, completely drawn in, only
+        mildly sorry about it.</p>
+      <p class="fade-in">You try the sensible route. A Capricorn who offers everything your Taurus heart says it wants:
+        stability, reliability, a proper future. Wonderful. Really. But something quietly isn't catching, because Gemini
+        Venus gets bored when the spark goes predictable. It needs movement. A love that keeps evolving.</p>
+      <p class="fade-in">This doesn't mean you're doomed to chaos. It means the person for you needs to offer both: the
+        security your Sun craves and the aliveness your Venus demands.</p>
+      <p class="fade-in">That combination exists. The road to finding it is just a little longer, and messier, than the
+        plan suggested.</p>
+    </div>
+  </section>
+
+  <div class="section-gap"></div>
+
+  <!-- ─── MARS — DARK ─── -->
+  <section class="planet-section planet-section--dark" id="mars">
+    <div class="container">
+      <div class="planet-label"><span class="planet-glyph">♂</span> Drive &amp; Ambition</div>
+      <h2 class="planet-name">Mars</h2>
+      <hr class="planet-rule">
+      <p class="fade-in">Imagine your drunk uncle at the dinner table, locking horns with your father over something
+        neither of them will let go of. Completely convinced of their position. Absolutely refusing to back down.</p>
+      <p class="fade-in">That's Mars. Unapologetic, combustible, and completely alive.</p>
+      <p class="fade-in">Mars is your drive. Your ambition. The thing that gets you out of bed when motivation alone
+        wouldn't cut it. It governs how you pursue what you want, in your goals, your relationships, your bed. It's the
+        fire behind your anger and the engine behind your desire. Whether you cry when you're furious or go dangerously
+        quiet. Whether you explode on impact or let things simmer slowly until something gives.</p>
+      <p class="fade-in">Take an Aquarius Sun, brilliant, visionary, perpetually lost in the stratosphere of their own
+        ideas. Aquarius can conceive of things other people won't understand for a decade. The problem: those ideas have
+        a habit of staying exactly where they were born, inside the head, endlessly refined, never quite launched.</p>
+      <p class="fade-in">Give that Aquarius an Aries Mars, and everything changes. Aries Mars doesn't theorise. It
+        moves. Impulsive, fearless, first out of the gate before the conditions are perfect. Because in Aries Mars's
+        world, the conditions are never going to be perfect, and that was never the point anyway.</p>
+      <p class="fade-in">The ideas get legs. The visions get executed. The Aquarius stops drafting and starts building.
+      </p>
+      <p class="fade-in">For an Aquarius, an Aries Mars isn't just a nice placement to have. It's a gift.</p>
+    </div>
+  </section>
+
+  <div class="section-gap"></div>
+
+  <!-- ─── CLOSING — CREAM ─── -->
+  <section class="closing-cream">
+    <div class="container">
+      <p class="fade-in">And we've barely scratched the surface.</p>
+      <p class="fade-in">Ten planets. Twelve houses. Aspects, degrees, transits, each one adding another brushstroke to
+        a picture that is, ultimately, just you. Your contradictions, your patterns, your gifts, your blind spots. The
+        reasons you love the way you love, fight the way you fight, dream bigger than you act, or act before you think.
+      </p>
+      <p class="fade-in">Astrology won't tell you what to do. It won't predict your Monday and it definitely won't
+        excuse your situationship. When you go deeper than the newspaper column, deeper than your sister's dinner table
+        verdict, what it does is hand you a mirror.</p>
+      <p class="fade-in">A surprisingly accurate, occasionally uncomfortable, genuinely fascinating mirror.</p>
+    </div>
+  </section>
+
+  <div class="section-gap"></div>
+
+  <!-- ─── CLOSING — DARK ─── -->
+  <section class="closing-dark">
+    <div class="container">
+      <p class="fade-in">Your chart already exists. It's been yours since the exact second you arrived.</p>
+      <p class="fade-in">Most people never read past their Sun sign. Which means most people are walking around with one
+        page of a book that runs to hundreds.</p>
+      <p class="fade-in">Pull your full chart. Find your Moon, your Rising, your Mars, your Venus. Read the thing that
+        makes you stop mid-sentence and think, <em>how does it know that.</em></p>
+      <p class="fade-in">And if none of it lands? That's fine.</p>
+      <p class="fade-in">But something tells me at least one placement is going to make you put your phone down, stare
+        at the ceiling, and quietly think —</p>
+      <div class="huh" id="huh">huh.</div>
+    </div>
+  </section>
+
+  <!-- ─── CTA ─── -->
+  <section class="cta-section">
+    <h2 class="cta-headline fade-in">Your chart already exists.</h2>
+    <a href="#" class="cta-button" id="cta-button">Read Your Full Chart — It Takes Two Minutes.</a>
+    <p class="cta-footnote fade-in">Birth date. Birth time. Birth location. That's all it needs. What it gives you back
+      is considerably more interesting.</p>
+  </section>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // ─── HERO STAGGER ANIMATION ───
+      const heroElements = [
+        document.getElementById('hero-label'),
+        document.getElementById('hero-headline'),
+        document.getElementById('hero-subline'),
+        document.getElementById('hero-rule'),
+        document.getElementById('hero-wheel')
+      ];
+
+      heroElements.forEach(function (el, i) {
+        setTimeout(function () {
+          if (el) el.classList.add('visible');
+        }, 400 + (i * 200));
+      });
+
+      // ─── STAR PARTICLE BACKGROUND (HERO) ───
+      const heroStars = document.getElementById('hero-stars');
+      const ctxStars = heroStars ? heroStars.getContext('2d') : null;
+      let stars = [];
+      let starsActive = true;
+
+      function initStars() {
+        if (!heroStars) return;
+        heroStars.width = window.innerWidth;
+        heroStars.height = window.innerHeight;
+        stars = [];
+        for (let i = 0; i < 160; i++) {
+          stars.push({
+            x: Math.random() * heroStars.width,
+            y: Math.random() * heroStars.height,
+            r: 0.5 + Math.random() * 1.3,
+            a: 0.2 + Math.random() * 0.6,
+            vy: -0.1 - Math.random() * 0.3,
+            isGold: Math.random() > 0.85
+          });
+        }
       }
-    });
-  }, {
-    threshold: 0.15,
-    rootMargin: '0px 0px -40px 0px'
-  });
 
-  document.querySelectorAll('.fade-in').forEach(function(el) {
-    fadeObserver.observe(el);
-  });
+      function drawStars() {
+        if (!starsActive || !ctxStars) return;
+        ctxStars.clearRect(0, 0, heroStars.width, heroStars.height);
 
-  // ─── INTERSECTION OBSERVER — PLANET HEADERS (slide from left) ───
-  var planetObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        planetObserver.unobserve(entry.target);
+        stars.forEach(function (s) {
+          s.y += s.vy;
+          if (s.y < -5) {
+            s.y = heroStars.height + 5;
+            s.x = Math.random() * heroStars.width;
+          }
+
+          ctxStars.globalAlpha = s.a;
+          ctxStars.beginPath();
+          ctxStars.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctxStars.fillStyle = s.isGold ? '#c9a55a' : '#ffffff';
+          ctxStars.fill();
+        });
+
+        requestAnimationFrame(drawStars);
       }
-    });
-  }, {
-    threshold: 0.2,
-    rootMargin: '0px 0px -30px 0px'
-  });
 
-  document.querySelectorAll('.planet-label, .planet-name, .planet-rule').forEach(function(el) {
-    planetObserver.observe(el);
-  });
+      if (heroStars) {
+        initStars();
+        drawStars();
+        window.addEventListener('resize', initStars);
 
-  // ─── INTERSECTION OBSERVER — PULL QUOTE ───
-  var pullObserver = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        pullObserver.unobserve(entry.target);
+        const heroStarObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              if (!starsActive) {
+                starsActive = true;
+                drawStars();
+              }
+            } else {
+              starsActive = false;
+            }
+          });
+        });
+        heroStarObserver.observe(document.getElementById('hero'));
       }
-    });
-  }, {
-    threshold: 0.3
-  });
 
-  document.querySelectorAll('.pull-quote').forEach(function(el) {
-    pullObserver.observe(el);
-  });
+      // ─── ZODIAC WHEEL GENERATION ───
+      const outerWheel = document.getElementById('zodiac-outer');
+      if (outerWheel) {
+        const glyphs = ['♈︎', '♉︎', '♊︎', '♋︎', '♌︎', '♍︎', '♎︎', '♏︎', '♐︎', '♑︎', '♒︎', '♓︎'];
+        let svgContent = '';
+        glyphs.forEach(function (g, i) {
+          const angle = i * 30;
+          const textAngle = angle + 15;
+          svgContent += '<line x1="140" y1="1" x2="140" y2="35" stroke="var(--gold)" stroke-opacity="0.2" stroke-width="1" transform="rotate(' + angle + ' 140 140)" />';
+          svgContent += '<g class="zodiac-segment" transform="rotate(' + textAngle + ' 140 140)">' +
+            '<rect x="120" y="1" width="40" height="34" fill="transparent" style="cursor: pointer;" />' +
+            '<text x="140" y="24" class="zodiac-glyph">' + g + '</text>' +
+            '</g>';
+        });
+        outerWheel.innerHTML = svgContent;
+      }
 
-  // ─── INTERSECTION OBSERVER — HUH (slower, 600ms, no movement) ───
-  var huhEl = document.getElementById('huh');
-  if (huhEl) {
-    huhEl.style.transition = 'opacity 0.6s ease';
-    huhEl.style.transform = 'none';
+      // ─── HOVER REVEALS (PLANET NAMES) ───
+      const tooltipData = {
+        'The Sun': '☉',
+        'The Moon': '☽',
+        'The Rising Sign': '↑',
+        'Mercury': '☿',
+        'Venus': '♀',
+        'Mars': '♂'
+      };
+      const signs = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn', 'Aquarius', 'Pisces'];
 
-    var huhObserver = new IntersectionObserver(function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          huhObserver.unobserve(entry.target);
+      document.querySelectorAll('.planet-name').forEach(function (el) {
+        const planetText = el.textContent.trim();
+        const glyph = tooltipData[planetText];
+        if (glyph) {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'planet-name-wrapper';
+
+          const tooltip = document.createElement('div');
+          tooltip.className = 'planet-tooltip';
+
+          signs.forEach(function (sign) {
+            const div = document.createElement('div');
+            div.textContent = glyph + ' in ' + sign;
+            tooltip.appendChild(div);
+          });
+
+          el.parentNode.insertBefore(wrapper, el);
+          wrapper.appendChild(el);
+          wrapper.appendChild(tooltip);
         }
       });
-    }, {
-      threshold: 0.5
-    });
 
-    huhObserver.observe(huhEl);
-  }
-})();
-</script>
+      // ─── CONSTELLATION OVERLAY ───
+      const constCanvas = document.getElementById('constellation-overlay');
+      const ctxConst = constCanvas ? constCanvas.getContext('2d') : null;
+      let activeConstellations = [];
+
+      function resizeConst() {
+        if (!constCanvas) return;
+        constCanvas.width = window.innerWidth;
+        constCanvas.height = window.innerHeight;
+      }
+
+      if (constCanvas) {
+        window.addEventListener('resize', resizeConst);
+        resizeConst();
+
+        function drawConstellations() {
+          ctxConst.clearRect(0, 0, constCanvas.width, constCanvas.height);
+          let keepAnimating = false;
+          const now = Date.now();
+
+          for (let i = activeConstellations.length - 1; i >= 0; i--) {
+            const anim = activeConstellations[i];
+            const elapsed = now - anim.startTime;
+            const duration = 1500;
+
+            if (elapsed > duration) {
+              activeConstellations.splice(i, 1);
+              continue;
+            }
+
+            keepAnimating = true;
+
+            let progress = elapsed / duration;
+            let opacity = 0;
+            if (progress < 0.2) {
+              opacity = (progress / 0.2) * 0.35;
+            } else {
+              opacity = (1 - ((progress - 0.2) / 0.8)) * 0.35;
+            }
+
+            ctxConst.strokeStyle = 'rgba(201, 165, 90, ' + opacity + ')';
+            ctxConst.fillStyle = 'rgba(201, 165, 90, ' + (opacity + 0.1) + ')';
+            ctxConst.lineWidth = 1;
+
+            ctxConst.beginPath();
+            for (let j = 0; j < anim.points.length; j++) {
+              const pt = anim.points[j];
+              if (j === 0) ctxConst.moveTo(pt.x, pt.y);
+              else ctxConst.lineTo(pt.x, pt.y);
+            }
+            ctxConst.stroke();
+
+            anim.points.forEach(function (pt) {
+              ctxConst.beginPath();
+              ctxConst.arc(pt.x, pt.y, 1.5, 0, Math.PI * 2);
+              ctxConst.fill();
+            });
+          }
+
+          if (keepAnimating) requestAnimationFrame(drawConstellations);
+        }
+
+        function triggerConstellation() {
+          const numPoints = 4 + Math.floor(Math.random() * 2);
+          const points = [];
+          const cx = window.innerWidth / 2 + (Math.random() - 0.5) * window.innerWidth * 0.6;
+          const cy = window.innerHeight / 2 + (Math.random() - 0.5) * window.innerHeight * 0.6;
+
+          for (let i = 0; i < numPoints; i++) {
+            points.push({
+              x: cx + (Math.random() - 0.5) * 350,
+              y: cy + (Math.random() - 0.5) * 350
+            });
+          }
+
+          activeConstellations.push({
+            startTime: Date.now(),
+            points: points
+          });
+
+          if (activeConstellations.length === 1) drawConstellations();
+        }
+
+        const constObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              if (!entry.target.dataset.triggered) {
+                entry.target.dataset.triggered = 'true';
+                triggerConstellation();
+                constObserver.unobserve(entry.target);
+              }
+            }
+          });
+        }, {
+          rootMargin: "-40% 0px -40% 0px"
+        });
+
+        document.querySelectorAll('.planet-section').forEach(function (el) {
+          constObserver.observe(el);
+        });
+      }
+
+      // ─── INTERSECTION OBSERVER — GENERAL FADE-IN ───
+      var fadeObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      document.querySelectorAll('.fade-in').forEach(function (el) {
+        fadeObserver.observe(el);
+      });
+
+      // ─── INTERSECTION OBSERVER — PLANET HEADERS (slide from left) ───
+      var planetObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            if (entry.target.classList.contains('planet-label')) {
+              setTimeout(function () {
+                var glyph = entry.target.querySelector('.planet-glyph');
+                if (glyph) {
+                  glyph.classList.add('pulse');
+                  setTimeout(function () {
+                    glyph.classList.remove('pulse');
+                  }, 600);
+                }
+              }, 600);
+            }
+            planetObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.2,
+        rootMargin: '0px 0px -30px 0px'
+      });
+
+      document.querySelectorAll('.planet-label, .planet-name, .planet-rule').forEach(function (el) {
+        planetObserver.observe(el);
+      });
+
+      // ─── CURSOR GLOW TRAIL ───
+      const cursorGlow = document.getElementById('cursor-glow');
+      window.addEventListener('mousemove', function (e) {
+        if (cursorGlow) {
+          cursorGlow.style.background = 'radial-gradient(200px circle at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(201,165,90,0.07), transparent)';
+        }
+      });
+
+      // ─── READING PROGRESS BAR ───
+      const progressBar = document.getElementById('progress-bar');
+      window.addEventListener('scroll', function () {
+        if (progressBar) {
+          const scrollTop = window.scrollY || document.documentElement.scrollTop;
+          const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+          const progress = (scrollTop / scrollHeight) * 100;
+          progressBar.style.width = progress + '%';
+        }
+      });
+
+      // ─── INTERSECTION OBSERVER — PULL QUOTE ───
+      var pullObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            pullObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.3
+      });
+
+      document.querySelectorAll('.pull-quote').forEach(function (el) {
+        pullObserver.observe(el);
+      });
+
+      // ─── INTERSECTION OBSERVER — HUH (slower, 600ms, no movement) ───
+      var huhEl = document.getElementById('huh');
+      if (huhEl) {
+        huhEl.style.transition = 'opacity 2s ease';
+        huhEl.style.transform = 'none';
+
+        var huhObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              huhObserver.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.5
+        });
+
+        huhObserver.observe(huhEl);
+      }
+    })();
+  </script>
 
 </body>
+
 </html>
