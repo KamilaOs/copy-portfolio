@@ -1182,7 +1182,7 @@
         .work-card {
             display: flex;
             flex-direction: column;
-            height: 500px;
+            height: 100%;
             border-right: 1px solid var(--rule);
             border-bottom: 1px solid var(--rule);
             transition: background 0.3s ease;
@@ -1270,7 +1270,8 @@
         }
 
         .card-thumb-wrap {
-            flex: 65;
+            flex-shrink: 0;
+            aspect-ratio: 1 / 1;
             width: 100%;
             overflow: hidden;
             background: #ECEAE4;
@@ -1331,7 +1332,7 @@
         }
 
         .card-body {
-            flex: 35;
+            flex: 1;
             padding: 12px 14px 14px;
             display: flex;
             flex-direction: column;
@@ -1856,7 +1857,7 @@
             }
 
             .work-card {
-                height: auto;
+                height: 100%;
             }
 
             /* Why Me responsive */
@@ -1867,11 +1868,11 @@
 
             .card-thumb-wrap {
                 flex: none;
-                aspect-ratio: 4/3;
+                aspect-ratio: 1 / 1;
             }
 
             .card-body {
-                flex: none;
+                flex: 1;
                 overflow: visible;
             }
 
