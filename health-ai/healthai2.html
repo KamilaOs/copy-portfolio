@@ -648,6 +648,23 @@
             letter-spacing: 4px;
         }
 
+        .testimonial-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+            border: 2px solid var(--card-border);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            background: var(--bg);
+        }
+
+        .card:hover .testimonial-avatar {
+            border-color: var(--accent);
+            box-shadow: 0 0 20px var(--accent-glow);
+            transform: scale(1.05);
+        }
+
         .verified-p {
             display: flex;
             align-items: center;
@@ -926,20 +943,21 @@
         <h2 class="section-h" style="text-align:center">Real outcomes. Verified cases.</h2>
         <div class="grid-3">
             <div class="card reveal">
-                <img src="./assets/HEALTHAI-WAIT-3.jpg" alt=""
-                    style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover; object-position: center top; display: block; margin-bottom: 16px; opacity: 0.95;">
+                <img src="assets/julliane.jpg" alt="Julianne W." class="testimonial-avatar">
                 <div class="stars">★★★★★</div>
                 <p>"Health-AI didn't just give me data, it gave me my diagnosis. My specialist finally saw the patterns
                     the GPs had been ignoring for years."</p>
                 <div class="verified-p">Julianne W. <span>· Verified Patient</span></div>
             </div>
             <div class="card reveal">
+                <img src="assets/markus.jpg" alt="Markus T." class="testimonial-avatar">
                 <div class="stars">★★★★★</div>
                 <p>"The plain English feature is a game-changer. I used to go blank in the office. Now I just
                     hand over my phone with the data export."</p>
                 <div class="verified-p">Markus T. <span>· Verified Patient</span></div>
             </div>
             <div class="card reveal">
+                <img src="assets/amara.jpg" alt="Amara L." class="testimonial-avatar">
                 <div class="stars">★★★★★</div>
                 <p>"Exhaustive, precise, and completely secure. I've recommended this to every woman I know who is
                     fighting to be heard."</p>
