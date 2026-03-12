@@ -653,10 +653,30 @@
         max-width: 100%;
       }
     }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+      }
+    }
   </style>
 </head>
 
 <body>
+
+  <noscript>
+    <style>
+      .fade-up, .fade-in, .fade-in.slow, .reveal, .anim, .scroll-fade,
+      .hero-animate, .hero-eyebrow, .hero-headline, .hero-subline, .hero-rule,
+      .hero-line span, .zodiac-wheel-container, .case-file, .hero-label,
+      [data-hero], .section-block, .fade-section {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    </style>
+  </noscript>
 
   <div id="progress-bar"></div>
   <div id="cursor-glow"></div>
@@ -713,7 +733,7 @@
   </section>
 
   <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 4vw;">
-      <img src="./assets/NATAL-1.jpg" alt="" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+      <img src="./assets/NATAL-1.jpg" alt="" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" loading="lazy">
   </div>
 
   <div class="section-gap"></div>
@@ -755,7 +775,7 @@
   </section>
 
   <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 4vw;">
-      <img src="./assets/NATAL-2.jpg" alt="" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+      <img src="./assets/NATAL-2.jpg" alt="" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);" loading="lazy">
   </div>
 
   <div class="section-gap"></div>
@@ -934,7 +954,7 @@
   </section>
 
   <div class="container" style="max-width: 900px; margin: 0 auto; padding: 0 4vw; margin-top: 40px; margin-bottom: -40px; position: relative; z-index: 10;">
-      <img src="./assets/NATAL-3.jpg" alt="" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.4);">
+      <img src="./assets/NATAL-3.jpg" alt="" style="width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 4px; box-shadow: 0 15px 40px rgba(0,0,0,0.4);" loading="lazy">
   </div>
 
   <!-- ─── CTA ─── -->
@@ -1015,13 +1035,16 @@
 
         const heroStarObserver = new IntersectionObserver(function (entries) {
           entries.forEach(function (entry) {
+            const zodiacOuter = document.querySelector('.zodiac-wheel-outer');
             if (entry.isIntersecting) {
               if (!starsActive) {
                 starsActive = true;
                 drawStars();
               }
+              if (zodiacOuter) zodiacOuter.style.animationPlayState = 'running';
             } else {
               starsActive = false;
+              if (zodiacOuter) zodiacOuter.style.animationPlayState = 'paused';
             }
           });
         });
@@ -1225,24 +1248,37 @@
         planetObserver.observe(el);
       });
 
-      // ─── CURSOR GLOW TRAIL ───
+      // ─── CURSOR GLOW TRAIL (rAF throttled) ───
       const cursorGlow = document.getElementById('cursor-glow');
+      let glowRafPending = false;
       window.addEventListener('mousemove', function (e) {
-        if (cursorGlow) {
-          cursorGlow.style.background = 'radial-gradient(200px circle at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(201,165,90,0.07), transparent)';
+        if (!glowRafPending) {
+          glowRafPending = true;
+          requestAnimationFrame(function () {
+            if (cursorGlow) {
+              cursorGlow.style.background = 'radial-gradient(200px circle at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(201,165,90,0.07), transparent)';
+            }
+            glowRafPending = false;
+          });
         }
-      });
+      }, { passive: true });
 
-      // ─── READING PROGRESS BAR ───
+      // ─── READING PROGRESS BAR (rAF throttled) ───
       const progressBar = document.getElementById('progress-bar');
+      let progressRafPending = false;
       window.addEventListener('scroll', function () {
-        if (progressBar) {
-          const scrollTop = window.scrollY || document.documentElement.scrollTop;
-          const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-          const progress = (scrollTop / scrollHeight) * 100;
-          progressBar.style.width = progress + '%';
+        if (!progressRafPending) {
+          progressRafPending = true;
+          requestAnimationFrame(function () {
+            if (progressBar) {
+              const scrollTop = window.scrollY || document.documentElement.scrollTop;
+              const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+              progressBar.style.width = ((scrollTop / scrollHeight) * 100) + '%';
+            }
+            progressRafPending = false;
+          });
         }
-      });
+      }, { passive: true });
 
       // ─── INTERSECTION OBSERVER. PULL QUOTE ───
       var pullObserver = new IntersectionObserver(function (entries) {

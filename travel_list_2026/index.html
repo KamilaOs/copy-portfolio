@@ -168,12 +168,12 @@
             align-items: center;
         }
 
-        .destination:nth-child(even) {
-            direction: rtl;
+        .destination:nth-child(even) .destination__image-wrapper {
+            order: 2;
         }
 
-        .destination:nth-child(even)>* {
-            direction: ltr;
+        .destination:nth-child(even) .destination__content {
+            order: 1;
         }
 
         @media (max-width: 900px) {
@@ -182,8 +182,12 @@
                 gap: 4rem;
             }
 
-            .destination:nth-child(even) {
-                direction: ltr;
+            .destination:nth-child(even) .destination__image-wrapper {
+                order: unset;
+            }
+
+            .destination:nth-child(even) .destination__content {
+                order: unset;
             }
         }
 
@@ -194,7 +198,7 @@
             transform: translate(-50%, -50%);
             font-size: 35vw;
             font-weight: 700;
-            color: rgba(245, 239, 230, 0.03);
+            color: rgba(245, 239, 230, 0.06);
             font-family: var(--font-display);
             line-height: 1;
             z-index: 0;
@@ -425,6 +429,7 @@
             background-color: #e5c040;
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+            animation-play-state: paused;
         }
 
         /* Pulse Animation */
@@ -510,10 +515,29 @@
                 display: none;
             }
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                transition-delay: 0ms !important;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <noscript>
+        <style>
+            .fade-up, .fade-in, .fade-slide-up, .fade-section, .hero-animate, .anim,
+            .hero-label, .hero-headline, .hero-subline, .hero-rule, [data-hero] {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        </style>
+    </noscript>
+    <div id="scroll-progress-bar" style="position:fixed;top:0;left:0;height:2px;width:0%;background:var(--accent-amber);z-index:9999;pointer-events:none;transition:width 0.1s ease;"></div>
 
     <header class="hero">
         <div class="hero__bg"
@@ -533,16 +557,16 @@
     </header>
 
     <aside class="rank-sidebar" id="rank-nav">
-        <div class="rank-dot active" data-rank="10" onclick="document.getElementById('rank-10').scrollIntoView({behavior:'smooth'})"></div>
-        <div class="rank-dot" data-rank="9" onclick="document.getElementById('rank-9').scrollIntoView({behavior:'smooth'})"></div>
-        <div class="rank-dot" data-rank="8" onclick="document.getElementById('rank-8').scrollIntoView({behavior:'smooth'})"></div>
-        <div class="rank-dot" data-rank="7" onclick="document.getElementById('rank-7').scrollIntoView({behavior:'smooth'})"></div>
-        <div class="rank-dot" data-rank="6" onclick="document.getElementById('rank-6').scrollIntoView({behavior:'smooth'})"></div>
-        <div class="rank-dot" data-rank="5" onclick="document.getElementById('rank-5').scrollIntoView({behavior:'smooth'})"></div>
-        <div class="rank-dot" data-rank="4" onclick="document.getElementById('rank-4').scrollIntoView({behavior:'smooth'})"></div>
-        <div class="rank-dot" data-rank="3" onclick="document.getElementById('rank-3').scrollIntoView({behavior:'smooth'})"></div>
-        <div class="rank-dot" data-rank="2" onclick="document.getElementById('rank-2').scrollIntoView({behavior:'smooth'})"></div>
-        <div class="rank-dot" data-rank="1" onclick="document.getElementById('rank-1').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot active" data-rank="10" title="Hurghada, Egypt" onclick="document.getElementById('rank-10').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="9" title="Tbilisi, Georgia" onclick="document.getElementById('rank-9').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="8" title="Barcelona, Spain" onclick="document.getElementById('rank-8').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="7" title="Hanoi, Vietnam" onclick="document.getElementById('rank-7').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="6" title="London, England" onclick="document.getElementById('rank-6').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="5" title="Dublin, Ireland" onclick="document.getElementById('rank-5').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="4" title="Siem Reap, Cambodia" onclick="document.getElementById('rank-4').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="3" title="Madeira, Portugal" onclick="document.getElementById('rank-3').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="2" title="Marrakech, Morocco" onclick="document.getElementById('rank-2').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="1" title="Bali, Indonesia" onclick="document.getElementById('rank-1').scrollIntoView({behavior:'smooth'})"></div>
     </aside>
 
     <main class="destinations">
@@ -551,7 +575,7 @@
         <section class="destination js-scroll" id="rank-10" data-rank-id="10">
             <div class="destination__rank">10</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="hurghada.jpg" alt="Hurghada, Egypt"
-                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
             <div class="destination__content">
                 <h2 class="destination__title fade-slide-up stagger-2">Hurghada, Egypt</h2>
                 <div class="destination__tags fade-slide-up stagger-3">
@@ -585,7 +609,7 @@
         <section class="destination js-scroll" id="rank-9" data-rank-id="9">
             <div class="destination__rank">9</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="tbilisi.jpg" alt="Tbilisi, Georgia"
-                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
             <div class="destination__content">
                 <h2 class="destination__title fade-slide-up stagger-2">Tbilisi, Georgia</h2>
                 <div class="destination__tags fade-slide-up stagger-3">
@@ -620,7 +644,7 @@
         <section class="destination js-scroll" id="rank-8" data-rank-id="8">
             <div class="destination__rank">8</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="barcelona.jpg" alt="Barcelona, Spain"
-                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
             <div class="destination__content">
                 <h2 class="destination__title fade-slide-up stagger-2">Barcelona, Spain</h2>
                 <div class="destination__tags fade-slide-up stagger-3">
@@ -669,7 +693,7 @@
         <section class="destination js-scroll" id="rank-7" data-rank-id="7">
             <div class="destination__rank">7</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="hanoi.jpg" alt="Hanoi, Vietnam"
-                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
             <div class="destination__content">
                 <h2 class="destination__title fade-slide-up stagger-2">Hanoi, Vietnam</h2>
                 <div class="destination__tags fade-slide-up stagger-3">
@@ -704,7 +728,7 @@
         <section class="destination js-scroll" id="rank-6" data-rank-id="6">
             <div class="destination__rank">6</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="london.jpg" alt="London, England"
-                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
             <div class="destination__content">
                 <h2 class="destination__title fade-slide-up stagger-2">London, England</h2>
                 <div class="destination__tags fade-slide-up stagger-3">
@@ -739,7 +763,7 @@
         <section class="destination js-scroll" id="rank-5" data-rank-id="5">
             <div class="destination__rank">5</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="dublin.jpg" alt="Dublin, Ireland"
-                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
             <div class="destination__content">
                 <h2 class="destination__title fade-slide-up stagger-2">Dublin, Ireland</h2>
                 <div class="destination__tags fade-slide-up stagger-3">
@@ -774,7 +798,7 @@
         <section class="destination js-scroll" id="rank-4" data-rank-id="4">
             <div class="destination__rank">4</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="siemreap.jpg" alt="Siem Reap, Cambodia"
-                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
             <div class="destination__content">
                 <h2 class="destination__title fade-slide-up stagger-2">Siem Reap, Cambodia</h2>
                 <div class="destination__tags fade-slide-up stagger-3">
@@ -809,7 +833,7 @@
         <section class="destination js-scroll" id="rank-3" data-rank-id="3">
             <div class="destination__rank">3</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="madeira.jpg" alt="Madeira, Portugal"
-                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
             <div class="destination__content">
                 <h2 class="destination__title fade-slide-up stagger-2">Madeira, Portugal</h2>
                 <div class="destination__tags fade-slide-up stagger-3">
@@ -844,7 +868,7 @@
         <section class="destination js-scroll" id="rank-2" data-rank-id="2">
             <div class="destination__rank">2</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="marrakech.jpg" alt="Marrakech, Morocco"
-                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
             <div class="destination__content">
                 <h2 class="destination__title fade-slide-up stagger-2">Marrakech, Morocco</h2>
                 <div class="destination__tags fade-slide-up stagger-3">
@@ -879,7 +903,7 @@
         <section class="destination js-scroll" id="rank-1" data-rank-id="1">
             <div class="destination__rank">1</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="bali.jpg" alt="Bali, Indonesia"
-                    style="width: 100%; height: 100%; object-fit: cover;"></div>
+                    style="width: 100%; height: 100%; object-fit: cover;" loading="lazy"></div>
             <div class="destination__content">
                 <h2 class="destination__title fade-slide-up stagger-2">Bali, Indonesia</h2>
                 <div class="destination__tags fade-slide-up stagger-3">
@@ -967,6 +991,25 @@
             document.querySelectorAll('.destination').forEach(dest => {
                 sidebarObserver.observe(dest);
             });
+
+            // Scroll progress bar
+            const progressBar = document.getElementById('scroll-progress-bar');
+            window.addEventListener('scroll', () => {
+                const scrolled = window.scrollY;
+                const height = document.documentElement.scrollHeight - window.innerHeight;
+                if (progressBar) progressBar.style.width = (scrolled / height * 100) + '%';
+            }, { passive: true });
+
+            // U4: Hide scroll indicator after 80px
+            const scrollIndicator = document.querySelector('.hero__indicator');
+            if (scrollIndicator) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 80) {
+                        scrollIndicator.style.opacity = '0';
+                        scrollIndicator.style.pointerEvents = 'none';
+                    }
+                }, { passive: true });
+            }
         });
     </script>
 </body>

@@ -155,6 +155,12 @@
             100% { border-color: rgba(184, 50, 50, 1); }
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            .case-file {
+                animation-play-state: paused !important;
+            }
+        }
+
         .hero-label {
             font-family: var(--mono);
             font-size: 0.75rem;
@@ -445,12 +451,36 @@
             text-align: center;
             box-shadow: 0 4px 24px rgba(184, 50, 50, 0.35);
             transition: background 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 1rem;
         }
 
         .cta-button:hover {
             background: #8a1a1a;
             box-shadow: 0 6px 32px rgba(184, 50, 50, 0.55);
             color: var(--off-white);
+        }
+
+        .email-input {
+            width: 100%;
+            max-width: 640px;
+            margin: 0 auto 1rem;
+            padding: 1.2rem 1.5rem;
+            font-family: var(--serif-body);
+            font-size: 1rem;
+            border: 1px solid rgba(26, 25, 24, 0.15);
+            border-radius: 0;
+            background: var(--off-white);
+            color: var(--near-black);
+            outline: none;
+            transition: border-color 0.2s ease;
+        }
+
+        .email-input:focus {
+            border-color: var(--blood);
+        }
+
+        .email-input::placeholder {
+            color: var(--smoke);
         }
 
         .closing-line {
@@ -522,10 +552,29 @@
                 padding: 1.1rem 1rem;
             }
         }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                transition-delay: 0ms !important;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <noscript>
+        <style>
+            .fade-up, .fade-in, .fade-in.slow, .reveal, .anim, .scroll-fade,
+            .hero-animate, .hero-headline, .hero-subline, .hero-rule, .hero-label,
+            .case-file, [data-hero], .section-block, .fade-section {
+                opacity: 1 !important;
+                transform: none !important;
+                animation: none !important;
+            }
+        </style>
+    </noscript>
 
     <!-- ── FIXED NAV ── -->
     <nav class="nav">
@@ -541,8 +590,9 @@
         </div>
         <h1 class="hero-headline" data-hero="1">Where Does Women's Love for True Crime Actually Come From?</h1>
         <p class="hero-subline" data-hero="2">Turns out, psychology has a lot to say about it.</p>
-        <hr class="hero-rule" data-hero="3">
-        <div class="hero-meta" data-hero="4">
+        <div data-hero="3" style="font-family: var(--mono); font-size: 0.8rem; color: var(--smoke); margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 0.1em;">4 min read</div>
+        <hr class="hero-rule" data-hero="4">
+        <div class="hero-meta" data-hero="5">
             <span>1 AM. Three episodes deep.</span>
             <span>Still can't turn it off.</span>
         </div>
@@ -589,7 +639,7 @@
             <div class="section-block" style="padding: 0; margin-bottom: 3rem;">
               <img src="./assets/TRUECRIME-1.jpg" alt="" aria-hidden="true"
                 style="width: 100%; height: 280px; object-fit: cover; object-position: center; display: block; opacity: 0.85;"
-                onerror="this.style.display='none'">
+                loading="lazy" onerror="this.style.display='none'">
             </div>
 
             <!-- Justice feels good -->
@@ -626,7 +676,7 @@
     <div style="width: 100%; overflow: hidden;">
       <img src="./assets/TRUECRIME-2.jpg" alt="" aria-hidden="true"
         style="width: 100%; height: 240px; object-fit: cover; object-position: center; display: block; opacity: 0.75;"
-        onerror="this.style.display='none'">
+        loading="lazy" onerror="this.style.display='none'">
     </div>
 
     <!-- ── DARK INTERLUDE ── -->
@@ -665,8 +715,9 @@
             </div>
 
             <div class="fade-section">
+                <div class="closing-line" style="padding-bottom: 1.5rem; background: transparent;">Join 8,500+ women who stopped feeling weird about it.</div>
+                <input type="email" class="email-input" placeholder="Your email address" aria-label="Email address" required>
                 <a href="#" class="cta-button" id="cta">YES, I'M IN. START READING FREE.</a>
-                <div class="closing-line">Join 8,500+ women who stopped feeling weird about it.</div>
             </div>
         </div>
     </section>

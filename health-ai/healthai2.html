@@ -143,7 +143,7 @@
         .ticker-content {
             display: inline-flex;
             animation: ticker-move 60s linear infinite;
-            font-size: 10px;
+            font-size: 12px;
             font-weight: 700;
             color: var(--muted);
             letter-spacing: 0.2em;
@@ -191,7 +191,7 @@
 
         .hero h1 {
             font-weight: 800;
-            font-size: 82px;
+            font-size: clamp(40px, 7vw, 82px);
             line-height: 0.95;
             letter-spacing: -0.05em;
             margin-bottom: 32px;
@@ -719,10 +719,26 @@
                 display: none;
             }
         }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                transition-delay: 0ms !important;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <noscript>
+        <style>
+            .fade-up, .fade-in, .reveal, .anim, .scroll-fade, [data-hero] {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        </style>
+    </noscript>
 
     <nav id="navbar">
         <div class="compliance-ticker">
@@ -840,7 +856,7 @@
     </section>
 
     <div class="container" style="padding: 0 5%; margin-bottom: 80px;">
-        <img src="./assets/HEALTHAI-WAIT-1.jpg" alt="" style="width: 100%; height: 500px; object-fit: cover; border-radius: 2px; opacity: 0.8;">
+        <img src="./assets/HEALTHAI-WAIT-1.jpg" alt="" style="width: 100%; height: 500px; object-fit: cover; border-radius: 2px; opacity: 0.8;" loading="lazy">
     </div>
 
     <section class="section diagonals" style="background:#0D1821">
@@ -965,40 +981,46 @@
     </footer>
 
     <script>
-        // REVEAL ON SCROLL
-        const reveal = () => {
-            const reveals = document.querySelectorAll(".reveal");
-            reveals.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight - 100) el.classList.add("active");
+        // REVEAL ON SCROLL — IntersectionObserver-based
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
             });
+        }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
 
-            // STEP CONNECTOR
-            const connector = document.getElementById('connector');
-            const stepBox = document.querySelector('.steps-box');
-            if (stepBox.getBoundingClientRect().top < window.innerHeight - 200) {
-                connector.classList.add('active');
-            }
-        };
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        window.addEventListener("scroll", reveal);
-        window.addEventListener("load", reveal);
+        const connectorObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.getElementById('connector')?.classList.add('active');
+                    connectorObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        const stepBox = document.querySelector('.steps-box');
+        if (stepBox) connectorObserver.observe(stepBox);
 
         // NAVBAR SCROLL
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
-        });
+        }, { passive: true });
 
-        // PARALLAX HERO
+        // PARALLAX HERO (null guarded)
         const parallaxWrap = document.querySelector('.parallax-wrap');
-        window.addEventListener('scroll', () => {
-            const y = window.scrollY;
-            if (y < window.innerHeight) {
-                parallaxWrap.style.transform = `translateY(${y * 0.15}px)`;
-            }
-        });
+        if (parallaxWrap) {
+            window.addEventListener('scroll', () => {
+                const y = window.scrollY;
+                if (y < window.innerHeight) {
+                    parallaxWrap.style.transform = `translateY(${y * 0.15}px)`;
+                }
+            }, { passive: true });
+        }
 
         // STAT COUNTERS
         const countUp = () => {

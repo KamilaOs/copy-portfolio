@@ -83,7 +83,6 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease;
-      cursor: none;
     }
     nav.visible {
       opacity: 1;
@@ -169,7 +168,7 @@
     }
     .hero-headline > div {
       font-weight: 900;
-      font-size: 96px;
+      font-size: clamp(44px, 9vw, 96px);
       line-height: 0.92;
       color: var(--text);
     }
@@ -235,7 +234,7 @@
     }
     .again-word {
       font-weight: 900;
-      font-size: 140px; /* Enforced desktop constraint */
+      font-size: clamp(64px, 13vw, 140px);
       line-height: 1;
       color: var(--honey);
       z-index: 2;
@@ -274,7 +273,7 @@
     }
     .strip-title {
       font-weight: 900;
-      font-size: 72px;
+      font-size: clamp(36px, 6vw, 72px);
       color: var(--text);
       margin-bottom: 24px;
       line-height: 1;
@@ -647,13 +646,14 @@
       line-height: 1;
     }
     .blur-in {
-      filter: blur(4px);
       opacity: 0;
-      transition: filter 0.7s ease, opacity 0.7s ease;
+      filter: blur(8px);
+      transition: opacity 0.9s ease, filter 0.9s ease;
+      transition-delay: var(--delay, 0s);
     }
     .blur-in.visible {
-      filter: blur(0px);
       opacity: 1;
+      filter: blur(0px);
     }
     .cta-btn {
       display: inline-flex;
@@ -718,10 +718,31 @@
     .f-links a:hover {
       color: var(--honey);
     }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <noscript>
+    <style>
+      .fade-up, .fade-in, .fade-in.slow, .reveal, .anim, .scroll-fade,
+      .hero-animate, .hero-eyebrow, .hero-headline, .hero-subline, .hero-rule,
+      .hero-line span, .zodiac-wheel-container, .case-file, .hero-label,
+      [data-hero], .section-block, .fade-section, .blur-in {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    </style>
+  </noscript>
+  <div id="scroll-progress-bar" style="position:fixed;top:0;left:0;height:2px;width:0%;background:var(--honey);z-index:9999;pointer-events:none;transition:width 0.1s ease;"></div>
   <div class="custom-cursor" id="custom-cursor"></div>
   <nav id="nav">
     <div class="nav-logo">Sleep🐻Bear Pro</div>
@@ -974,7 +995,26 @@
       window.addEventListener('scroll', () => {
         if (window.scrollY > 80) nav.classList.add('visible');
         else nav.classList.remove('visible');
-      });
+      }, { passive: true });
+
+      // Scroll progress bar
+      const progressBar = document.getElementById('scroll-progress-bar');
+      window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        if (progressBar) progressBar.style.width = (scrolled / height * 100) + '%';
+      }, { passive: true });
+
+      // U4: Scroll indicator hide
+      const scrollIndicator = document.querySelector('.hero__indicator, .chevron, .scroll-indicator, .again-emoji');
+      if (scrollIndicator) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 80) {
+            scrollIndicator.style.opacity = '0';
+            scrollIndicator.style.pointerEvents = 'none';
+          }
+        }, { passive: true });
+      }
 
       // Counter animation
       const counter = document.getElementById('counter');

@@ -207,7 +207,7 @@
         /* Layout Grid Rules */
         .reading-column {
             max-width: 580px;
-            margin-left: 12vw;
+            margin-left: min(12vw, 160px);
             margin-right: auto;
             text-align: left;
             position: relative;
@@ -345,13 +345,7 @@
         }
 
         .final-text {
-            font-size: 80px;
-        }
-
-        @media (max-width: 768px) {
-            .final-text {
-                font-size: 48px;
-            }
+            font-size: clamp(32px, 8vw, 80px);
         }
         
         /* ── FONT SIZE NORMALIZATION ── */
@@ -389,40 +383,37 @@
         .return-section [style*="font-size: 26px"],
         .return-section [style*="font-size:26px"] { font-size: 22px !important; }
 
-        /* ── SPACING NORMALIZATION ── */
-
-        .centered-block[style*="padding-top: 120px"],
-        .centered-block[style*="padding-top:120px"] { padding-top: 72px !important; }
-
-        .centered-block[style*="padding-bottom: 120px"],
-        .centered-block[style*="padding-bottom:120px"] { padding-bottom: 72px !important; }
-
-        .centered-block[style*="padding-top: 100px"],
-        .centered-block[style*="padding-top:100px"] { padding-top: 60px !important; }
-
-        .centered-block[style*="padding-bottom: 100px"],
-        .centered-block[style*="padding-bottom:100px"] { padding-bottom: 60px !important; }
-
-        .reading-column[style*="padding-top: 120px"],
-        .reading-column[style*="padding-top:120px"] { padding-top: 72px !important; }
-
-        .reading-column[style*="padding-bottom: 120px"],
-        .reading-column[style*="padding-bottom:120px"] { padding-bottom: 72px !important; }
-
-        .reading-column[style*="padding-top: 80px"],
-        .reading-column[style*="padding-top:80px"] { padding-top: 48px !important; }
-
-        .reading-column[style*="padding-bottom: 80px"],
-        .reading-column[style*="padding-bottom:80px"] { padding-bottom: 48px !important; }
+        /* ── SPACING NORMALIZATION (clamp-based) ── */
+        .centered-block, .reading-column {
+            padding-top: clamp(40px, 6vw, 120px);
+            padding-bottom: clamp(40px, 6vw, 120px);
+        }
 
         .final-section {
             height: 60vh !important;
             min-height: 280px !important;
         }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                transition-delay: 0ms !important;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <noscript>
+        <style>
+            .fade-up, .fade-in, .anim, .section-block, .fade-section, .word {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        </style>
+    </noscript>
     <div id="scroll-track">
         <div id="scroll-fill"></div>
     </div>
@@ -661,7 +652,18 @@
                 const scrollY = window.scrollY;
                 const percent = Math.min((scrollY / Math.max(docHeight - winHeight, 1)) * 100, 100);
                 fill.style.width = percent + '%';
-            });
+            }, { passive: true });
+
+            // U4: hide chevron scroll indicator
+            const chevron = document.querySelector('.chevron');
+            if (chevron) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 80) {
+                        chevron.style.opacity = '0';
+                        chevron.style.pointerEvents = 'none';
+                    }
+                }, { passive: true });
+            }
 
             const observerOptions = {
                 root: null,

@@ -139,7 +139,7 @@
         }
 
         .nav-cta:hover {
-            background: #2563EB;
+            background: #1D4ED8;
             transform: scale(1.03);
         }
 
@@ -385,7 +385,7 @@
             line-height: 1;
             padding: 56px 0;
             text-align: center;
-            opacity: 1;
+            opacity: 0;
             transition: opacity 1s ease;
         }
 
@@ -733,7 +733,7 @@
         }
 
         .peak-moment {
-            opacity: 1;
+            opacity: 0;
         }
 
         .js-loaded .peak-moment {
@@ -861,10 +861,28 @@
                 font-size: 24px;
             }
         }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                transition-delay: 0ms !important;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <noscript>
+        <style>
+            .fade-up, .fade-in, .fade-in.slow, .reveal, .anim, .scroll-fade,
+            .hero-animate, .hero-eyebrow, .hero-headline, .hero-subline, .hero-rule,
+            .hero-line span, .case-file, [data-hero] {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+        </style>
+    </noscript>
 
     <div id="scroll-progress">
         <div id="scroll-fill"></div>
@@ -926,7 +944,7 @@
                 <div class="stat-divider"></div>
                 <div class="stat-item">
                     <div class="stat-number counter" data-target="4.9★">4.9★</div>
-                    <div class="stat-label">qualified doctors available</div>
+                    <div class="stat-label">average doctor rating</div>
                 </div>
             </div>
         </div>
@@ -1102,19 +1120,19 @@
 
             <div class="act-3-grid content-layer reveal" style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; padding: 0 4vw;">
                 <div style="text-align: center;">
-                    <img src="./assets/holding-hand-01.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" alt="Connect">
+                    <img src="./assets/holding-hand-01.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" loading="lazy" alt="Connect">
                     <h4 style="font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 8px;">01. Connect</h4>
                 </div>
                 <div style="text-align: center;">
-                    <img src="./assets/call-04.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" alt="Consult">
+                    <img src="./assets/call-04.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" loading="lazy" alt="Consult">
                     <h4 style="font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 8px;">02. Consult</h4>
                 </div>
                 <div style="text-align: center;">
-                    <img src="./assets/app-05.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" alt="Resolve">
+                    <img src="./assets/app-05.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" loading="lazy" alt="Resolve">
                     <h4 style="font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 8px;">03. Resolve</h4>
                 </div>
                 <div style="text-align: center;">
-                    <img src="./assets/answering-06.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" alt="Expand">
+                    <img src="./assets/answering-06.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" loading="lazy" alt="Expand">
                     <h4 style="font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 8px;">04. Expand</h4>
                 </div>
             </div>
@@ -1135,7 +1153,7 @@
             <div class="nav-divider"></div>
             <div class="stats-item">
                 <div class="stats-num counter" data-target="4.9★">4.9★</div>
-                <div class="stats-lbl">qualified doctors available</div>
+                <div class="stats-lbl">average doctor rating</div>
             </div>
         </div>
     </section>
@@ -1196,10 +1214,9 @@
                 <div class="cta-stack-item final reveal" data-delay="0.45s">Finally in one place.</div>
             </div>
 
-            <div class="cta-btns">
+            <div class="cta-btns" style="margin-bottom: 24px;">
                 <button class="btn-primary">Start Your Free Assessment</button>
             </div>
-            <a href="#" class="cta-secondary">Start Your Free Assessment. It Takes 5 Minutes →</a>
             <div class="cta-reassurance">No credit card required · Qualified doctors · Available 24/7</div>
         </div>
     </section>
@@ -1234,16 +1251,22 @@
         window.addEventListener('scroll', () => {
             if (window.scrollY > 80) nav.classList.add('visible');
             else nav.classList.remove('visible');
-        });
+        }, { passive: true });
 
         // 2. Scroll Progress Bar
         const progressFill = document.getElementById('scroll-fill');
+        let progressRafPending = false;
         window.addEventListener('scroll', () => {
-            const winScroll = document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            progressFill.style.width = scrolled + "%";
-        });
+            if (!progressRafPending) {
+                progressRafPending = true;
+                requestAnimationFrame(() => {
+                    const winScroll = document.documentElement.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    progressFill.style.width = ((winScroll / height) * 100) + '%';
+                    progressRafPending = false;
+                });
+            }
+        }, { passive: true });
 
         // 3. Reveal Animations (Intersection Observer)
         const revealObserver = new IntersectionObserver((entries) => {
@@ -1293,7 +1316,15 @@
 
         // 5. Parallax Logic
         const parallaxImgs = document.querySelectorAll('.parallax-img');
+        const heroSectionForParallax = document.querySelector('.hero');
         function handleParallax() {
+            if (heroSectionForParallax) {
+                const rect = heroSectionForParallax.getBoundingClientRect();
+                if (rect.bottom < 0) {
+                    requestAnimationFrame(handleParallax);
+                    return;
+                }
+            }
             const scrollY = window.scrollY;
             parallaxImgs.forEach(img => {
                 const parent = img.parentElement;

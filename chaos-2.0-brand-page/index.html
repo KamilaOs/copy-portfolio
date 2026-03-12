@@ -34,6 +34,10 @@
             'red-hot': '#FF2020',
             white: '#FAFAFA',
             zinc: 'rgba(250, 250, 250, 0.65)',
+          },
+          transitionDuration: {
+            '800': '800ms',
+            '1200': '1200ms',
           }
         }
       }
@@ -62,17 +66,33 @@
       width: 0px;
       background: transparent;
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        transition-delay: 0ms !important;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <noscript>
+    <style>
+      #root { display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: sans-serif; }
+    </style>
+    <div id="root"><p style="padding:2rem;">JavaScript is required to view this page.</p></div>
+  </noscript>
   <div id="root"></div>
 
-  <script type="text/babel" data-type="module">
-    const { useState, useEffect, useRef } = React;
-    const { motion, AnimatePresence } = window.Motion;
-
-    const FilmGrain = ({ isChaos }) => (
+    <script type="text/babel" data-type="module">
+      const { useState, useEffect, useRef } = React;
+      const MotionModule = window.Motion;
+      const { motion, AnimatePresence, useReducedMotion, MotionConfig } = MotionModule || { motion: { div: 'div', p: 'p', button: 'button', h2: 'h2' }, AnimatePresence: React.Fragment, useReducedMotion: () => false, MotionConfig: React.Fragment };
+      
+      const FilmGrain = ({ isChaos }) => (
       <div
         className={`fixed inset-0 pointer-events-none z-[100] transition-opacity duration-1000 ease-in-out mix-blend-overlay ${isChaos ? 'opacity-25' : 'opacity-0'}`}
         style={{
@@ -108,7 +128,7 @@
             much space as you deserve.
           </p>
 
-          <button className="w-fit bg-red-hot text-white font-bebas text-[24px] tracking-[0.08em] uppercase px-12 py-5 rounded-none duration-150 transition-colors hover:bg-white hover:text-red-hot">
+          <button className="w-fit bg-red-hot text-white font-bebas text-[24px] tracking-[0.08em] uppercase px-12 py-5 border-none rounded-none duration-150 transition-colors shadow-none outline-none hover:bg-white hover:text-red-hot cursor-pointer hover:scale-[1.02] transform">
             GRAB THE LINER. CHAOS STARTS HERE
           </button>
         </div>
@@ -379,43 +399,53 @@
       </section>
     );
 
-    const App = () => {
-      const [isChaos, setIsChaos] = useState(false);
-      const [scrollProgress, setScrollProgress] = useState(0);
-      const triggerRef = useRef(null);
+      const App = () => {
+        const [isChaos, setIsChaos] = useState(false);
+        const [scrollProgress, setScrollProgress] = useState(0);
+        const triggerRef = useRef(null);
+        const shouldReduceMotion = typeof useReducedMotion === 'function' ? useReducedMotion() : false;
 
-      useEffect(() => {
-        const handleScroll = () => {
-          // Progress bar logic
-          const scrolled = window.scrollY;
-          const height = document.documentElement.scrollHeight - window.innerHeight;
-          const progress = (scrolled / height) * 100;
-          setScrollProgress(progress);
+        useEffect(() => {
+          let scrollRafPending = false;
+          
+          const handleScroll = () => {
+            if (!scrollRafPending) {
+              scrollRafPending = true;
+              requestAnimationFrame(() => {
+                // Progress bar logic
+                const scrolled = window.scrollY;
+                const height = document.documentElement.scrollHeight - window.innerHeight;
+                const progress = (scrolled / height) * 100;
+                setScrollProgress(progress);
 
-          // isChaos logic
-          if (triggerRef.current) {
-            const rect = triggerRef.current.getBoundingClientRect();
-            if (rect.top < window.innerHeight / 1.5) {
-              setIsChaos(true);
-            } else {
-              setIsChaos(false);
+                // isChaos logic
+                if (triggerRef.current) {
+                  const rect = triggerRef.current.getBoundingClientRect();
+                  if (rect.top < window.innerHeight / 1.5) {
+                    setIsChaos(true);
+                  } else {
+                    setIsChaos(false);
+                  }
+                }
+                scrollRafPending = false;
+              });
             }
-          }
-        };
+          };
 
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        handleScroll();
+          window.addEventListener('scroll', handleScroll, { passive: true });
+          handleScroll();
 
-        return () => window.removeEventListener('scroll', handleScroll);
-      }, []);
+          return () => window.removeEventListener('scroll', handleScroll);
+        }, []);
 
       return (
-        <div
-          className="w-full min-h-screen overflow-x-hidden transition-colors duration-[1200ms]"
-          style={{
-            backgroundColor: isChaos ? '#0A0A0A' : '#F7F4EF'
-          }}
-        >
+        <MotionConfig reducedMotion="user">
+          <div
+            className="w-full min-h-screen overflow-x-hidden transition-colors duration-[1200ms]"
+            style={{
+              backgroundColor: isChaos ? '#0A0A0A' : '#F7F4EF'
+            }}
+          >
           <style>{`
             ::selection {
               background-color: ${isChaos ? '#FF2020' : '#1A1714'};
@@ -432,16 +462,13 @@
             <BridgeSection ref={triggerRef} isChaos={isChaos} />
 
             <div
-              className="transition-opacity duration-[1000ms] w-full"
-              style={{
-                opacity: isChaos ? 1 : 0,
-                pointerEvents: isChaos ? 'auto' : 'none'
-              }}
+              className={`transition-opacity duration-[1000ms] w-full ${isChaos ? 'opacity-100 block' : 'opacity-0 hidden'}`}
             >
               <ChaosSection />
             </div>
           </div>
         </div>
+        </MotionConfig>
       );
     };
 
