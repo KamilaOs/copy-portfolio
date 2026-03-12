@@ -189,15 +189,15 @@
 
         .destination__rank {
             position: absolute;
-            top: -15%;
-            left: -2%;
-            font-size: 22vw;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 35vw;
             font-weight: 700;
-            color: rgba(245, 239, 230, 0.08);
-            /* #F5EFE6 at 8% opacity */
+            color: rgba(245, 239, 230, 0.03);
             font-family: var(--font-display);
             line-height: 1;
-            z-index: -1;
+            z-index: 0;
             pointer-events: none;
             user-select: none;
             letter-spacing: -0.05em;
@@ -205,7 +205,8 @@
 
         .destination:nth-child(even) .destination__rank {
             left: auto;
-            right: -2%;
+            right: 50%;
+            transform: translate(50%, -50%);
         }
 
         .destination__image {
@@ -455,6 +456,60 @@
             border-top: 1px solid rgba(255, 255, 255, 0.03);
             letter-spacing: 0.05em;
         }
+
+        /* Rank Sidebar Navigation */
+        .rank-sidebar {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 100;
+        }
+
+        .rank-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid var(--accent-amber);
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .rank-dot::after {
+            content: attr(data-rank);
+            position: absolute;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-amber);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            pointer-events: none;
+        }
+
+        .rank-dot.active {
+            background: var(--accent-amber);
+            transform: scale(1.2);
+        }
+
+        .rank-dot.active::after,
+        .rank-dot:hover::after {
+            opacity: 1;
+            transform: translateY(-50%) translateX(-5px);
+        }
+
+        @media (max-width: 1200px) {
+            .rank-sidebar {
+                display: none;
+            }
+        }
     </style>
 </head>
 
@@ -477,10 +532,23 @@
         </div>
     </header>
 
+    <aside class="rank-sidebar" id="rank-nav">
+        <div class="rank-dot active" data-rank="10" onclick="document.getElementById('rank-10').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="9" onclick="document.getElementById('rank-9').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="8" onclick="document.getElementById('rank-8').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="7" onclick="document.getElementById('rank-7').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="6" onclick="document.getElementById('rank-6').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="5" onclick="document.getElementById('rank-5').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="4" onclick="document.getElementById('rank-4').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="3" onclick="document.getElementById('rank-3').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="2" onclick="document.getElementById('rank-2').scrollIntoView({behavior:'smooth'})"></div>
+        <div class="rank-dot" data-rank="1" onclick="document.getElementById('rank-1').scrollIntoView({behavior:'smooth'})"></div>
+    </aside>
+
     <main class="destinations">
 
         <!-- 10. Hurghada, Egypt -->
-        <section class="destination js-scroll">
+        <section class="destination js-scroll" id="rank-10" data-rank-id="10">
             <div class="destination__rank">10</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="hurghada.jpg" alt="Hurghada, Egypt"
                     style="width: 100%; height: 100%; object-fit: cover;"></div>
@@ -514,7 +582,7 @@
         </section>
 
         <!-- 9. Tbilisi, Georgia -->
-        <section class="destination js-scroll">
+        <section class="destination js-scroll" id="rank-9" data-rank-id="9">
             <div class="destination__rank">9</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="tbilisi.jpg" alt="Tbilisi, Georgia"
                     style="width: 100%; height: 100%; object-fit: cover;"></div>
@@ -528,7 +596,7 @@
                     A city that looks like it was built from the fever dreams of an eccentric poet. Carved balconies
                     lean precariously over winding, cobblestone alleys, while brutalist Soviet architecture looms in the
                     backdrop. Tbilisi is fueled by amber wine, profound hospitality, and a raucous underground
-                    electronic music scene. It’s romantic, gritty, and fiercely alive—a place where history doesn’t just
+                    electronic music scene. It’s romantic, gritty, and fiercely alive. a place where history doesn’t just
                     sit in museums, but stains the walls and flows in the glasses.
                 </p>
                 <div class="gem-card fade-slide-up stagger-5">
@@ -549,7 +617,7 @@
         </section>
 
         <!-- 8. Barcelona, Spain -->
-        <section class="destination js-scroll">
+        <section class="destination js-scroll" id="rank-8" data-rank-id="8">
             <div class="destination__rank">8</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="barcelona.jpg" alt="Barcelona, Spain"
                     style="width: 100%; height: 100%; object-fit: cover;"></div>
@@ -561,7 +629,7 @@
                 </div>
                 <p class="destination__body fade-slide-up stagger-4">
                     The sultry, architectural darling of Catalonia. Despite its fame, Barcelona retains the ability to
-                    hide secrets in plain sight. Beyond the crowded Ramblas lies a labyrinth of shadowed Gothic
+                    hide secrets in plain sight. Beyond the crowded Ramblas lies a maze of shadowed Gothic
                     corridors, vermouth bars roaring with local debates, and modernist facades melting under the
                     Mediterranean sun. You don't just visit Barcelona; you surrender to its late-night rhythm and
                     surrealist bones.
@@ -598,7 +666,7 @@
         </section>
 
         <!-- 7. Hanoi, Vietnam -->
-        <section class="destination js-scroll">
+        <section class="destination js-scroll" id="rank-7" data-rank-id="7">
             <div class="destination__rank">7</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="hanoi.jpg" alt="Hanoi, Vietnam"
                     style="width: 100%; height: 100%; object-fit: cover;"></div>
@@ -609,7 +677,7 @@
                     <span class="tag">November–December</span>
                 </div>
                 <p class="destination__body fade-slide-up stagger-4">
-                    Motorbike exhaust, roasting pork, and jasmine incense—Hanoi hits the senses like a heavy, beautiful
+                    Motorbike exhaust, roasting pork, and jasmine incense. Hanoi hits the senses like a heavy, beautiful
                     fog. The Old Quarter is a cacophony of commerce and survival, a tight tangle of streets where
                     ancient temples sit shoulder-to-shoulder with narrow tube houses. It is a city that moves
                     relentlessly forward while dragging the ghosts of its thousand-year history behind it. Sit on a
@@ -633,7 +701,7 @@
         </section>
 
         <!-- 6. London, England -->
-        <section class="destination js-scroll">
+        <section class="destination js-scroll" id="rank-6" data-rank-id="6">
             <div class="destination__rank">6</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="london.jpg" alt="London, England"
                     style="width: 100%; height: 100%; object-fit: cover;"></div>
@@ -646,7 +714,7 @@
                 <p class="destination__body fade-slide-up stagger-4">
                     An unforgiving, expensive, and staggeringly brilliant metropolis. London wraps you in an eternal,
                     grey-skied mood that feels as sharp as a tailored coat. It is a collage of villages that just happen
-                    to touch—each with its own distinct vocabulary of pubs, parks, and brutalism. From the neon-soaked
+                    to touch. each with its own distinct vocabulary of pubs, parks, and brutalism. From the neon-soaked
                     alleys of Soho to the bone-chilling mist hanging over Hampstead Heath, London insists that you show
                     up, pay up, and earn your keep.
                 </p>
@@ -668,7 +736,7 @@
         </section>
 
         <!-- 5. Dublin, Ireland -->
-        <section class="destination js-scroll">
+        <section class="destination js-scroll" id="rank-5" data-rank-id="5">
             <div class="destination__rank">5</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="dublin.jpg" alt="Dublin, Ireland"
                     style="width: 100%; height: 100%; object-fit: cover;"></div>
@@ -695,7 +763,7 @@
                         </svg>
                         Hidden Gem:
                     </div>
-                    <p class="gem-card__desc">A Victorian ‘snug’—a private, enclosed booth within an older pub—in
+                    <p class="gem-card__desc">A Victorian ‘snug’. a private, enclosed booth within an older pub. in
                         Stoneybatter, where time essentially stopped in 1910.</p>
                     <span class="gem-card__price">Pint of stout: £5.50</span>
                 </div>
@@ -703,7 +771,7 @@
         </section>
 
         <!-- 4. Siem Reap, Cambodia -->
-        <section class="destination js-scroll">
+        <section class="destination js-scroll" id="rank-4" data-rank-id="4">
             <div class="destination__rank">4</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="siemreap.jpg" alt="Siem Reap, Cambodia"
                     style="width: 100%; height: 100%; object-fit: cover;"></div>
@@ -717,7 +785,7 @@
                     You arrive for the temples, but you stay for the haunting resilience of the jungle. Angkor Wat is a
                     monolithic triumph, but the real magic is felt when you leave the crowds behind, stepping over the
                     strangled, vine-choked ruins of Ta Prohm as the dawn light carves through the canopy. Siem Reap is
-                    dusty, sweat-drenched, and intensely spiritual—a place where the impermanence of empires is etched
+                    dusty, sweat-drenched, and intensely spiritual. a place where the impermanence of empires is etched
                     into every stone.
                 </p>
                 <div class="gem-card fade-slide-up stagger-5">
@@ -738,7 +806,7 @@
         </section>
 
         <!-- 3. Madeira, Portugal -->
-        <section class="destination js-scroll">
+        <section class="destination js-scroll" id="rank-3" data-rank-id="3">
             <div class="destination__rank">3</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="madeira.jpg" alt="Madeira, Portugal"
                     style="width: 100%; height: 100%; object-fit: cover;"></div>
@@ -773,7 +841,7 @@
         </section>
 
         <!-- 2. Marrakech, Morocco -->
-        <section class="destination js-scroll">
+        <section class="destination js-scroll" id="rank-2" data-rank-id="2">
             <div class="destination__rank">2</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="marrakech.jpg" alt="Marrakech, Morocco"
                     style="width: 100%; height: 100%; object-fit: cover;"></div>
@@ -784,7 +852,7 @@
                     <span class="tag">March–May</span>
                 </div>
                 <p class="destination__body fade-slide-up stagger-4">
-                    An overwhelming collision of terracotta, shadows, and noise. The Medina is a labyrinth designed to
+                    An overwhelming collision of terracotta, shadows, and noise. The Medina is a maze designed to
                     disorient you, smelling of tanned leather, lamb fat, and crushed mint. You will get thoroughly lost,
                     and that is precisely the point. The madness of the souks stands in stark contrast to the whispered
                     stillness of the riads hidden behind heavy wooden doors. Marrakech does not gently introduce itself;
@@ -808,7 +876,7 @@
         </section>
 
         <!-- 1. Bali, Indonesia -->
-        <section class="destination js-scroll">
+        <section class="destination js-scroll" id="rank-1" data-rank-id="1">
             <div class="destination__rank">1</div>
             <div class="destination__image fade-slide-up stagger-1"><img src="bali.jpg" alt="Bali, Indonesia"
                     style="width: 100%; height: 100%; object-fit: cover;"></div>
@@ -881,6 +949,23 @@
             // so they stagger nicely when the block hits the viewport.
             document.querySelectorAll('.js-scroll').forEach(section => {
                 observer.observe(section);
+            });
+
+            // Sidebar Active State Observer
+            const dots = document.querySelectorAll('.rank-dot');
+            const sidebarObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('data-rank-id');
+                        dots.forEach(dot => dot.classList.remove('active'));
+                        const activeDot = document.querySelector(`.rank-dot[data-rank="${id}"]`);
+                        if(activeDot) activeDot.classList.add('active');
+                    }
+                });
+            }, { rootMargin: '-40% 0px -40% 0px', threshold: 0 });
+
+            document.querySelectorAll('.destination').forEach(dest => {
+                sidebarObserver.observe(dest);
             });
         });
     </script>

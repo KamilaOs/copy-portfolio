@@ -508,125 +508,6 @@
             font-size: 20px;
         }
 
-        /* Sticky Tabs */
-        .tabs-bar {
-            position: sticky;
-            top: 60px;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid #E2E8F0;
-            z-index: 10;
-            display: flex;
-            justify-content: center;
-        }
-
-        .tab-btn {
-            font-weight: 600;
-            font-size: 12px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            padding: 22px 40px;
-            cursor: pointer;
-            color: var(--muted);
-            border-bottom: 2px solid transparent;
-            transition: all 0.2s ease;
-        }
-
-        .tab-btn.active {
-            color: var(--accent);
-            border-bottom-color: var(--accent);
-        }
-
-        .tab-btn:hover {
-            color: var(--navy);
-        }
-
-        .tabs-layout {
-            display: grid;
-            grid-template-columns: 55% 45%;
-            margin-top: 0;
-        }
-
-        .tab-content-panel {
-            padding: 80px 0 80px 8vw;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .tab-content-panel.active {
-            display: block;
-            opacity: 1;
-        }
-
-        .tab-number {
-            font-weight: 800;
-            font-size: 130px;
-            color: var(--accent-light);
-            line-height: 1;
-            margin-bottom: -40px;
-            position: relative;
-            z-index: -1;
-        }
-
-        .tab-headline {
-            font-weight: 700;
-            font-size: 38px;
-            color: var(--navy);
-            line-height: 1.2;
-            margin: 20px 0 24px;
-        }
-
-        .tab-body {
-            font-weight: 300;
-            font-size: 18px;
-            color: var(--muted);
-            line-height: 1.8;
-        }
-
-        .tab-image-container,
-        .tab-sticky-right {
-            position: sticky;
-            top: 120px;
-            height: auto;
-            display: flex;
-            align-items: flex-start;
-            padding: 40px 8vw 40px 0;
-            align-self: flex-start;
-        }
-
-        .tab-image-box {
-            width: 100%;
-            max-width: 420px;
-            height: 480px;
-            border-radius: 20px;
-            overflow: hidden;
-            position: relative;
-            box-shadow: var(--shadow);
-            margin-left: auto;
-        }
-
-        .tab-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.4s ease, transform 0.4s ease;
-            display: block;
-        }
-
-        .tab-img.active {
-            opacity: 1;
-        }
-
-        .tab-img:hover {
-            transform: scale(1.03);
-        }
-
         /* Stats Section - Navy */
         .stats-section {
             background: var(--navy);
@@ -867,8 +748,6 @@
         /* Mobile Adjustments */
         @media (max-width: 768px) {
 
-            .tab-sticky-right,
-            .tabs-bar,
             [class*="sticky"] {
                 position: relative !important;
                 height: auto !important;
@@ -907,10 +786,6 @@
                 font-size: 28px;
             }
 
-            .act-1 {
-                /* No grid template columns needed for single column */
-            }
-
             .act-1-reading-col {
                 padding: 0 24px;
                 /* Ensure padding is consistent */
@@ -946,15 +821,6 @@
 
             .act-3-headline {
                 font-size: 32px;
-            }
-
-            .tabs-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .tab-content-panel {
-                padding-left: 6vw;
-                padding-right: 6vw;
             }
 
             .stats-grid {
@@ -1084,13 +950,28 @@
             <div class="story-peak-headline reveal">That smile.</div> It's the smile of someone who has already
             mentally moved on to their next appointment.
             </p>
+
+            <img src="./assets/HEALTHAI-HEARD-1.jpg" class="reveal" style="width:100%; height:420px; object-fit:cover; margin:24px 0 48px; border-radius:12px; box-shadow:0 12px 40px rgba(0,0,0,0.3);" alt="">
             <div class="quote-block reveal">
                 "And what medical school did you graduate from?"
             </div>
             <p class="story-p reveal">
-                The air leaves the room. Your preparation, your data, your genuine fear—all reduced to a "patient
+                The air leaves the room. Your preparation, your data, your genuine fear. all reduced to a "patient
                 being difficult."
             </p>
+
+            <div class="timeline-block reveal" style="margin: 48px 0; border-left: 2px solid var(--accent); padding-left: 24px;">
+                <div style="margin-bottom: 24px;">
+                    <div style="font-weight: 700; color: var(--accent); font-size: 14px; letter-spacing: 0.1em; margin-bottom: 8px;">2005</div>
+                    <div style="font-weight: 300; font-size: 20px; color: rgba(255,255,255,0.78);">"It's probably just stress. Get some rest."</div>
+                </div>
+                <div>
+                    <div style="font-weight: 700; color: var(--accent); font-size: 14px; letter-spacing: 0.1em; margin-bottom: 8px;">2025</div>
+                    <div style="font-weight: 300; font-size: 20px; color: rgba(255,255,255,0.78);">"We have 24 months of biometric data proving otherwise."</div>
+                </div>
+            </div>
+
+            <img src="./assets/HEALTHAI-HEARD-2.jpg" class="reveal" style="width:100%; height:420px; object-fit:cover; margin:24px 0 48px; border-radius:12px; box-shadow:0 12px 40px rgba(0,0,0,0.3);" alt="">
 
             <div class="peak-moment reveal">Humiliated.</div>
 
@@ -1098,6 +979,8 @@
                 You walk to your car and wonder if you're making it up. The pain is real, but the system says you're
                 an outlier. A number to be processed.
             </p>
+
+            <img src="./assets/HEALTHAI-HEARD-3.jpg" class="reveal" style="width:100%; height:420px; object-fit:cover; margin:24px 0 48px; border-radius:12px; box-shadow:0 12px 40px rgba(0,0,0,0.3);" alt="">
 
             <div class="centered-headline-group reveal">
                 <h2 class="headline-h2" style="text-align:center;">Here's what's true: you are not crazy.</h2>
@@ -1142,12 +1025,14 @@
         <div class="content-layer">
             <h2 class="act-2-turn reveal">Health-AI builds it for you.</h2>
             <div class="reading-col">
+                <img src="./assets/holding-hand-01.jpg" class="reveal" style="width:100%; height:420px; object-fit:cover; margin:0 0 48px; border-radius:12px; box-shadow:var(--shadow);" alt="">
+
                 <p class="story-p reveal">
                     We believe healthcare should be evidence-based. Not just the doctor's evidence, but yours. Your
                     history, your symptoms, your timeline.
                 </p>
                 <p class="story-p reveal">
-                    Our AI-driven assessment doesn't just listen—it organises. It turns your intuition into a clinical
+                    Our AI-driven assessment doesn't just listen. it organises. It turns your intuition into a clinical
                     record. It gives you the language of the system.
                 </p>
                 <div class="act-2-close reveal">You become a case they have to address.</div>
@@ -1212,47 +1097,25 @@
                 <div class="hero-eyebrow">AND WHEN YOU NEED MORE</div>
             </div>
             <div class="act-3-intro reveal">
-                <h2 class="act-3-headline">No appointment in three weeks. No waiting room. No commute to go nowhere.
-                </h2>
+                <h3 class="act-3-headline">No appointment in three weeks. No waiting room. No commute to go nowhere.</h3>
             </div>
 
-            <div class="tabs-bar">
-                <div class="tab-btn active" data-tab="1">CONNECT</div>
-                <div class="tab-btn" data-tab="2">RESOLVE</div>
-                <div class="tab-btn" data-tab="3">EXPAND</div>
-            </div>
-
-            <div class="tabs-layout">
-                <div class="tab-left-col">
-                    <div class="tab-content-panel active" data-tab="1">
-                        <div class="tab-number">01</div>
-                        <div class="hero-eyebrow">CONNECT</div>
-                        <h3 class="tab-headline">Speak to a qualified professional via video call in under two hours.
-                        </h3>
-                        <p class="tab-body">A real consultation with someone who has already read your full Health-AI
-                            record. No cold starts. No repeating yourself.</p>
-                    </div>
-                    <div class="tab-content-panel" data-tab="2">
-                        <div class="tab-number">02</div>
-                        <div class="hero-eyebrow">RESOLVE</div>
-                        <h3 class="tab-headline">Receive digital prescriptions sent instantly to your local pharmacy.
-                        </h3>
-                        <p class="tab-body">No follow-up appointments just to get what you already know you need.</p>
-                    </div>
-                    <div class="tab-content-panel" data-tab="3">
-                        <div class="tab-number">03</div>
-                        <div class="hero-eyebrow">EXPAND</div>
-                        <h3 class="tab-headline">Our doctors don't just treat. They refer.</h3>
-                        <p class="tab-body">If your case needs more, you get a direct specialist referral based on
-                            documented evidence.</p>
-                    </div>
+            <div class="act-3-grid content-layer reveal" style="max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; padding: 0 4vw;">
+                <div style="text-align: center;">
+                    <img src="./assets/holding-hand-01.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" alt="Connect">
+                    <h4 style="font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 8px;">01. Connect</h4>
                 </div>
-                <div class="tab-sticky-right">
-                    <div class="tab-image-box">
-                        <img src="./assets/call-04.jpg" class="tab-img active" data-tab="1">
-                        <img src="./assets/app-05.jpg" class="tab-img" data-tab="2">
-                        <img src="./assets/answering-06.jpg" class="tab-img" data-tab="3">
-                    </div>
+                <div style="text-align: center;">
+                    <img src="./assets/call-04.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" alt="Consult">
+                    <h4 style="font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 8px;">02. Consult</h4>
+                </div>
+                <div style="text-align: center;">
+                    <img src="./assets/app-05.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" alt="Resolve">
+                    <h4 style="font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 8px;">03. Resolve</h4>
+                </div>
+                <div style="text-align: center;">
+                    <img src="./assets/answering-06.jpg" style="width: 100%; aspect-ratio: 4/5; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: var(--shadow);" alt="Expand">
+                    <h4 style="font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 8px;">04. Expand</h4>
                 </div>
             </div>
         </div>
@@ -1336,7 +1199,7 @@
             <div class="cta-btns">
                 <button class="btn-primary">Start Your Free Assessment</button>
             </div>
-            <a href="#" class="cta-secondary">Start Your Free Assessment — It Takes 5 Minutes →</a>
+            <a href="#" class="cta-secondary">Start Your Free Assessment. It Takes 5 Minutes →</a>
             <div class="cta-reassurance">No credit card required · Qualified doctors · Available 24/7</div>
         </div>
     </section>
@@ -1447,29 +1310,6 @@
             requestAnimationFrame(handleParallax);
         }
         requestAnimationFrame(handleParallax);
-
-        // 6. Tab Switching Logic
-        const tabBtns = document.querySelectorAll('.tab-btn');
-        const tabPanels = document.querySelectorAll('.tab-content-panel');
-        const tabImages = document.querySelectorAll('.tab-img');
-
-        tabBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const tabId = btn.getAttribute('data-tab');
-                tabBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-
-                tabPanels.forEach(panel => {
-                    panel.classList.remove('active');
-                    if (panel.getAttribute('data-tab') === tabId) panel.classList.add('active');
-                });
-
-                tabImages.forEach(img => {
-                    img.classList.remove('active');
-                    if (img.getAttribute('data-tab') === tabId) img.classList.add('active');
-                });
-            });
-        });
 
         // 7. CTA Stagger Trigger
         const ctaObserver = new IntersectionObserver((entries) => {
