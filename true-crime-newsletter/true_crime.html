@@ -84,7 +84,7 @@
         /* ── HERO ── */
         .hero {
             min-height: 100vh;
-            background: var(--parchment);
+            background: var(--ink);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -93,72 +93,6 @@
             padding: 6rem 2rem 4rem;
             position: relative;
             overflow: hidden;
-            z-index: 1; /* Establish stacking context for background */
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-            background-blend-mode: overlay;
-            opacity: 0.3;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* ── CASE FILE GRAPHIC ── */
-        .case-file {
-            border: 1px solid var(--blood);
-            display: inline-block;
-            padding: 0.8rem 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(24px);
-            animation: pulse-border 4s infinite alternate ease-in-out;
-        }
-
-        .case-file-line-1 {
-            font-family: var(--mono);
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--blood);
-            letter-spacing: 0.1em;
-            margin-bottom: 0.3rem;
-            text-align: left;
-        }
-
-        .case-file-line-2 {
-            font-family: var(--mono);
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: var(--off-white);
-            letter-spacing: 0.15em;
-            position: relative;
-            display: inline-block;
-        }
-
-        .case-file-line-2::after {
-            content: '';
-            position: absolute;
-            top: 2px;
-            bottom: 2px;
-            left: -4px;
-            right: -4px;
-            background-color: var(--blood);
-            opacity: 0.85; /* Mimic redaction bar */
-            z-index: 10;
-        }
-
-        @keyframes pulse-border {
-            0% { border-color: rgba(184, 50, 50, 0.3); }
-            100% { border-color: rgba(184, 50, 50, 1); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            .case-file {
-                animation-play-state: paused !important;
-            }
         }
 
         .hero-label {
@@ -177,7 +111,7 @@
             font-family: var(--serif-display);
             font-weight: 900;
             font-size: clamp(2.4rem, 6vw, 4.5rem);
-            color: var(--ink);
+            color: var(--off-white);
             line-height: 1.12;
             max-width: 820px;
             margin-bottom: 1.8rem;
@@ -208,7 +142,7 @@
         .hero-meta {
             font-family: var(--serif-display);
             font-size: clamp(1rem, 1.8vw, 1.4rem);
-            color: var(--near-black);
+            color: var(--off-white);
             letter-spacing: 0.04em;
             line-height: 1.5;
             opacity: 0;
@@ -436,51 +370,25 @@
             width: 100%;
             max-width: 640px;
             margin: 0 auto 2rem;
-            padding: 1.5rem 2rem;
-            background: var(--blood);
+            padding: 1.3rem 2rem;
+            background: var(--ink);
             color: var(--off-white);
             font-family: var(--mono);
-            font-size: 0.85rem;
-            font-weight: 700;
-            letter-spacing: 0.14em;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
             text-transform: uppercase;
             border: none;
             border-radius: 0;
             cursor: pointer;
             text-decoration: none;
             text-align: center;
-            box-shadow: 0 4px 24px rgba(184, 50, 50, 0.35);
-            transition: background 0.2s ease, box-shadow 0.2s ease;
-            margin-top: 1rem;
+            transition: none;
         }
 
         .cta-button:hover {
-            background: #8a1a1a;
-            box-shadow: 0 6px 32px rgba(184, 50, 50, 0.55);
+            background: var(--blood);
             color: var(--off-white);
-        }
-
-        .email-input {
-            width: 100%;
-            max-width: 640px;
-            margin: 0 auto 1rem;
-            padding: 1.2rem 1.5rem;
-            font-family: var(--serif-body);
-            font-size: 1rem;
-            border: 1px solid rgba(26, 25, 24, 0.15);
-            border-radius: 0;
-            background: var(--off-white);
-            color: var(--near-black);
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .email-input:focus {
-            border-color: var(--blood);
-        }
-
-        .email-input::placeholder {
-            color: var(--smoke);
         }
 
         .closing-line {
@@ -552,29 +460,10 @@
                 padding: 1.1rem 1rem;
             }
         }
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                transition-delay: 0ms !important;
-            }
-        }
     </style>
 </head>
 
 <body>
-    <noscript>
-        <style>
-            .fade-up, .fade-in, .fade-in.slow, .reveal, .anim, .scroll-fade,
-            .hero-animate, .hero-headline, .hero-subline, .hero-rule, .hero-label,
-            .case-file, [data-hero], .section-block, .fade-section {
-                opacity: 1 !important;
-                transform: none !important;
-                animation: none !important;
-            }
-        </style>
-    </noscript>
 
     <!-- ── FIXED NAV ── -->
     <nav class="nav">
@@ -584,15 +473,10 @@
 
     <!-- ── HERO ── -->
     <section class="hero" id="hero">
-        <div class="case-file" data-hero="0">
-            <div class="case-file-line-1">CASE FILE: OPEN</div>
-            <div class="case-file-line-2">CLASSIFIED</div>
-        </div>
         <h1 class="hero-headline" data-hero="1">Where Does Women's Love for True Crime Actually Come From?</h1>
         <p class="hero-subline" data-hero="2">Turns out, psychology has a lot to say about it.</p>
-        <div data-hero="3" style="font-family: var(--mono); font-size: 0.8rem; color: var(--smoke); margin-bottom: 2rem; text-transform: uppercase; letter-spacing: 0.1em;">4 min read</div>
-        <hr class="hero-rule" data-hero="4">
-        <div class="hero-meta" data-hero="5">
+        <hr class="hero-rule" data-hero="3">
+        <div class="hero-meta" data-hero="4">
             <span>1 AM. Three episodes deep.</span>
             <span>Still can't turn it off.</span>
         </div>
@@ -636,12 +520,6 @@
                     almost happened, wasn't your fault, and wasn't unique to you.</p>
             </div>
 
-            <div class="section-block" style="padding: 0; margin-bottom: 3rem;">
-              <img src="./assets/TRUECRIME-1.jpg" alt="" aria-hidden="true"
-                style="width: 100%; height: 280px; object-fit: cover; object-position: center; display: block; opacity: 0.85;"
-                loading="lazy" onerror="this.style.display='none'">
-            </div>
-
             <!-- Justice feels good -->
             <div class="section-block">
                 <div class="section-label">Justice feels good. Really good.</div>
@@ -672,12 +550,6 @@
 
         </div>
     </section>
-
-    <div style="width: 100%; overflow: hidden;">
-      <img src="./assets/TRUECRIME-2.jpg" alt="" aria-hidden="true"
-        style="width: 100%; height: 240px; object-fit: cover; object-position: center; display: block; opacity: 0.75;"
-        loading="lazy" onerror="this.style.display='none'">
-    </div>
 
     <!-- ── DARK INTERLUDE ── -->
     <div class="transition-strip" style="background: linear-gradient(to bottom, var(--parchment), var(--ink));"></div>
@@ -715,9 +587,8 @@
             </div>
 
             <div class="fade-section">
-                <div class="closing-line" style="padding-bottom: 1.5rem; background: transparent;">Join 8,500+ women who stopped feeling weird about it.</div>
-                <input type="email" class="email-input" placeholder="Your email address" aria-label="Email address" required>
-                <a href="#" class="cta-button" id="cta">YES, I'M IN. START READING FREE.</a>
+                <a href="#" class="cta-button" id="cta">YES, I'M IN — START READING FREE.</a>
+                <div class="closing-line">Join 8,500+ women who stopped feeling weird about it.</div>
             </div>
         </div>
     </section>
