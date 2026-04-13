@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why You Don't Crave Sex Out of Nowhere — Moe Health</title>
+    <meta name="description" content="You love your partner. You enjoy sex when it happens. So why don't you think about it more often? The answer is simpler than you think.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400;1,9..144,500&family=Figtree:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:        #faf8f5;
+            --bg-warm:   #f4efe8;
+            --bg-card:   #ffffff;
+            --text:      #2a2118;
+            --text-soft: #7a6e63;
+            --text-muted:#b0a89e;
+            --accent:    #c4756a;
+            --accent-lt: #f0dbd8;
+            --accent-dk: #9e5a50;
+            --sage:      #7a9e8e;
+            --sage-lt:   #e4efe9;
+            --blush:     #e8c4bc;
+            --rule:      rgba(180,160,145,0.25);
+
+            --font-display: "Fraunces", serif;
+            --font-body:    "Figtree", sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font-body);
+            font-size: 18px;
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── Progress bar ── */
+        #progress {
+            position: fixed; top: 0; left: 0;
+            height: 2px; width: 0%;
+            background: linear-gradient(to right, var(--accent), var(--sage));
+            z-index: 1000; transition: width 0.08s linear;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%;
+            background: rgba(250,248,245,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--rule);
+            z-index: 900;
+            padding: 0 36px;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            height: 56px;
+        }
+        .nav-brand {
+            font-family: var(--font-display);
+            font-size: 18px; font-weight: 400;
+            color: var(--text); letter-spacing: -0.3px;
+        }
+        .nav-brand span { color: var(--accent); }
+        .nav-tag {
+            font-family: var(--font-body);
+            font-size: 11px; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--text-muted);
+        }
+        .nav-cta {
+            font-family: var(--font-body);
+            font-size: 13px; font-weight: 500;
+            color: var(--accent-dk);
+            text-decoration: none;
+            border: 1px solid var(--blush);
+            padding: 7px 18px; border-radius: 100px;
+            transition: all 0.2s ease;
+        }
+        .nav-cta:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        /* ── Layout ── */
+        main { padding-top: 56px; }
+        .container {
+            width: 100%; max-width: 680px;
+            padding: 0 36px; margin: 0 auto;
+        }
+        .container-wide {
+            width: 100%; max-width: 960px;
+            padding: 0 36px; margin: 0 auto;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 80px 36px 64px;
+            max-width: 680px; margin: 0 auto;
+            position: relative;
+        }
+        .hero-meta {
+            display: flex; align-items: center; gap: 16px;
+            margin-bottom: 32px;
+            font-family: var(--font-body);
+            font-size: 11px; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--text-muted);
+        }
+        .hero-meta-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--blush); }
+        .hero-tag {
+            background: var(--accent-lt);
+            color: var(--accent-dk);
+            padding: 3px 10px; border-radius: 100px;
+            font-size: 10px; letter-spacing: 1.5px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 5vw, 54px);
+            font-weight: 300;
+            line-height: 1.12;
+            color: var(--text);
+            letter-spacing: -1px;
+            margin-bottom: 28px;
+            opacity: 0; transform: translateY(20px);
+            animation: fadeUp 0.9s cubic-bezier(0.22,1,0.36,1) 0.1s forwards;
+        }
+        .hero h1 em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero-standfirst {
+            font-family: var(--font-body);
+            font-size: 20px; font-weight: 300;
+            color: var(--text-soft); line-height: 1.65;
+            border-left: 2px solid var(--blush);
+            padding-left: 20px;
+            margin-bottom: 36px;
+            opacity: 0; animation: fadeUp 0.7s ease 0.3s forwards;
+        }
+
+        .hero-byline {
+            display: flex; align-items: center; gap: 12px;
+            opacity: 0; animation: fadeUp 0.7s ease 0.5s forwards;
+        }
+        .byline-avatar {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--blush), var(--accent-lt));
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-display); font-size: 14px;
+            color: var(--accent-dk); font-style: italic;
+        }
+        .byline-text { font-size: 13px; color: var(--text-muted); }
+        .byline-text strong { color: var(--text-soft); font-weight: 500; }
+
+        .hero-divider {
+            width: 100%; height: 1px;
+            background: var(--rule);
+            margin: 48px 0 0;
+            opacity: 0; animation: fadeUp 0.5s ease 0.6s forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity:0; transform:translateY(16px); }
+            to   { opacity:1; transform:translateY(0); }
+        }
+
+        /* ── STORY ── */
+        .story { padding: 56px 0; }
+
+        .fp {
+            color: var(--text);
+            margin-bottom: 24px;
+            opacity: 0; transform: translateY(18px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1);
+        }
+        .fp.visible { opacity:1; transform:translateY(0); }
+
+        /* Section label */
+        .section-label {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--text-muted);
+            margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+        }
+        .section-label::after {
+            content: ''; flex: 1; height: 1px; background: var(--rule);
+        }
+
+        /* Big display lines */
+        .display-line {
+            font-family: var(--font-display);
+            font-size: clamp(24px, 4vw, 38px);
+            font-weight: 300; font-style: italic;
+            line-height: 1.2; color: var(--text);
+            margin: 48px 0 28px; letter-spacing: -0.5px;
+        }
+        .display-line em { color: var(--accent); font-style: normal; }
+
+        /* Pull quote */
+        .pull-quote {
+            font-family: var(--font-display);
+            font-size: clamp(20px, 3vw, 28px);
+            font-weight: 300; font-style: italic;
+            color: var(--accent-dk); line-height: 1.5;
+            text-align: center; margin: 56px 0;
+            padding: 32px 0;
+            border-top: 1px solid var(--blush);
+            border-bottom: 1px solid var(--blush);
+            opacity: 0; transform: translateY(16px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .pull-quote.visible { opacity:1; transform:translateY(0); }
+
+        /* ── SAM CARD ── */
+        .sam-card {
+            background: var(--bg-warm);
+            border: 1px solid var(--blush);
+            border-left: 3px solid var(--accent);
+            border-radius: 12px;
+            padding: 32px 36px;
+            margin: 48px 0;
+            position: relative;
+        }
+        .sam-card-label {
+            font-family: var(--font-display);
+            font-size: 11px; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--accent);
+            margin-bottom: 16px; font-style: italic;
+        }
+        .sam-card p {
+            font-size: 17px; color: var(--text-soft);
+            line-height: 1.8; margin-bottom: 0;
+        }
+        .sam-card p + p { margin-top: 14px; }
+
+        /* ── DESIRE TYPE COMPARISON ── */
+        .desire-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 16px; margin: 48px 0;
+        }
+        @media (max-width: 600px) { .desire-grid { grid-template-columns: 1fr; } }
+
+        .desire-card {
+            background: var(--bg-card);
+            border: 1px solid var(--rule);
+            border-radius: 16px;
+            padding: 28px 28px 32px;
+            position: relative; overflow: hidden;
+        }
+        .desire-card::before {
+            content: ''; position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+        }
+        .desire-card.spontaneous::before { background: linear-gradient(to right, var(--accent), var(--blush)); }
+        .desire-card.responsive::before  { background: linear-gradient(to right, var(--sage), #b8d4c8); }
+
+        .desire-card-icon {
+            width: 40px; height: 40px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 18px; margin-bottom: 16px;
+        }
+        .desire-card.spontaneous .desire-card-icon { background: var(--accent-lt); }
+        .desire-card.responsive  .desire-card-icon { background: var(--sage-lt); }
+
+        .desire-card h3 {
+            font-family: var(--font-display);
+            font-size: 20px; font-weight: 400; font-style: italic;
+            margin-bottom: 8px; letter-spacing: -0.3px;
+        }
+        .desire-card.spontaneous h3 { color: var(--accent-dk); }
+        .desire-card.responsive h3  { color: var(--sage); }
+
+        .desire-card .desire-tag {
+            font-size: 10px; letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 16px;
+            font-family: var(--font-body);
+        }
+        .desire-card.spontaneous .desire-tag { color: var(--accent); }
+        .desire-card.responsive  .desire-tag { color: var(--sage); }
+
+        .desire-card p {
+            font-size: 15px; color: var(--text-soft);
+            line-height: 1.7; margin-bottom: 16px;
+        }
+        .desire-card .desire-flow {
+            font-size: 13px; font-weight: 500;
+            color: var(--text-muted);
+            display: flex; align-items: center; gap: 8px;
+            flex-wrap: wrap;
+        }
+        .flow-step {
+            padding: 4px 10px; border-radius: 100px;
+            font-size: 12px;
+        }
+        .desire-card.spontaneous .flow-step { background: var(--accent-lt); color: var(--accent-dk); }
+        .desire-card.responsive  .flow-step { background: var(--sage-lt);   color: var(--sage); }
+        .flow-arrow { color: var(--text-muted); font-size: 14px; }
+
+        /* ── REFRAME BLOCK ── */
+        .reframe {
+            background: linear-gradient(135deg, var(--accent-lt) 0%, #fdf0ee 100%);
+            border: 1px solid var(--blush);
+            border-radius: 16px;
+            padding: 40px 44px;
+            margin: 56px 0; text-align: center;
+        }
+        .reframe-label {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--accent);
+            margin-bottom: 20px;
+        }
+        .reframe-old {
+            font-family: var(--font-display);
+            font-size: 18px; font-style: italic;
+            color: var(--text-muted);
+            text-decoration: line-through;
+            text-decoration-color: var(--blush);
+            margin-bottom: 16px;
+        }
+        .reframe-arrow { font-size: 22px; color: var(--blush); margin-bottom: 16px; }
+        .reframe-new {
+            font-family: var(--font-display);
+            font-size: 24px; font-style: italic;
+            color: var(--accent-dk); font-weight: 400;
+            line-height: 1.4;
+        }
+
+        /* ── MISCONCEPTIONS ── */
+        .myth-list { margin: 48px 0; display: flex; flex-direction: column; gap: 16px; }
+        .myth-item {
+            background: var(--bg-card);
+            border: 1px solid var(--rule);
+            border-radius: 12px; padding: 22px 24px;
+        }
+        .myth-label {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 2.5px;
+            text-transform: uppercase; color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+        .myth-text {
+            font-size: 16px; color: var(--text-soft);
+            font-style: italic; margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--rule);
+        }
+        .truth-label {
+            font-size: 10px; letter-spacing: 2.5px;
+            text-transform: uppercase; color: var(--sage);
+            margin-bottom: 6px; font-family: var(--font-body);
+        }
+        .truth-text { font-size: 15px; color: var(--text); line-height: 1.65; }
+
+        /* ── TIPS SECTION ── */
+        .tips-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 20px; margin: 48px 0;
+        }
+        @media (max-width: 600px) { .tips-grid { grid-template-columns: 1fr; } }
+
+        .tips-card {
+            border-radius: 14px; padding: 26px 28px;
+        }
+        .tips-card.responsive-tips { background: var(--sage-lt); border: 1px solid #c8dfd6; }
+        .tips-card.spontaneous-tips { background: var(--accent-lt); border: 1px solid var(--blush); }
+
+        .tips-card h4 {
+            font-family: var(--font-display);
+            font-size: 17px; font-style: italic;
+            margin-bottom: 16px;
+        }
+        .tips-card.responsive-tips h4   { color: var(--sage); }
+        .tips-card.spontaneous-tips h4  { color: var(--accent-dk); }
+
+        .tips-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+        .tips-list li {
+            font-size: 14px; color: var(--text-soft);
+            line-height: 1.6; display: flex; gap: 10px;
+        }
+        .tips-list li::before { content: '—'; flex-shrink: 0; color: var(--text-muted); }
+
+        /* ── WHEN TO SEE A DOCTOR ── */
+        .doctor-card {
+            background: var(--bg-warm);
+            border: 1px solid var(--rule);
+            border-radius: 14px; padding: 32px 36px;
+            margin: 48px 0;
+            display: flex; gap: 20px; align-items: flex-start;
+        }
+        .doctor-icon {
+            font-size: 28px; flex-shrink: 0;
+            width: 48px; height: 48px;
+            background: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .doctor-body h4 {
+            font-family: var(--font-display);
+            font-size: 18px; font-weight: 400; font-style: italic;
+            color: var(--text); margin-bottom: 10px;
+        }
+        .doctor-body p { font-size: 15px; color: var(--text-soft); line-height: 1.7; }
+
+        /* ── TRY THIS WEEK ── */
+        .try-this {
+            margin: 56px 0; padding: 40px;
+            background: var(--bg-card);
+            border: 1px solid var(--rule);
+            border-radius: 20px;
+        }
+        .try-this-label {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--sage);
+            margin-bottom: 16px;
+        }
+        .try-this h3 {
+            font-family: var(--font-display);
+            font-size: 22px; font-weight: 300; font-style: italic;
+            color: var(--text); margin-bottom: 20px;
+            line-height: 1.3;
+        }
+        .try-steps { display: flex; flex-direction: column; gap: 14px; }
+        .try-step {
+            display: flex; gap: 14px; align-items: flex-start;
+        }
+        .try-step-num {
+            width: 26px; height: 26px; border-radius: 50%;
+            background: var(--sage-lt); color: var(--sage);
+            font-family: var(--font-body); font-size: 12px; font-weight: 500;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 2px;
+        }
+        .try-step p { font-size: 16px; color: var(--text-soft); line-height: 1.65; }
+
+        /* ── CTA SECTION ── */
+        .cta-section {
+            width: 100%;
+            background: linear-gradient(160deg, #2a2118 0%, #1a150f 100%);
+            padding: 100px 24px;
+            display: flex; flex-direction: column;
+            align-items: center; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute; top: -120px; left: 50%;
+            transform: translateX(-50%);
+            width: 600px; height: 400px;
+            background: radial-gradient(ellipse, rgba(196,117,106,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .cta-section > * { position: relative; z-index: 1; }
+
+        .cta-eyebrow {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--blush);
+            margin-bottom: 24px; opacity: 0.7;
+        }
+        .cta-section h2 {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4vw, 44px);
+            font-weight: 300; font-style: italic;
+            color: #f5ede8; line-height: 1.2;
+            letter-spacing: -0.5px; margin-bottom: 16px;
+        }
+        .cta-section h2 em { color: var(--accent); font-style: normal; }
+        .cta-body {
+            font-family: var(--font-body);
+            font-size: 17px; color: rgba(245,237,232,0.55);
+            max-width: 420px; line-height: 1.6; margin-bottom: 44px;
+        }
+        .cta-pills {
+            display: flex; gap: 12px; flex-wrap: wrap;
+            justify-content: center; margin-bottom: 36px;
+        }
+        .cta-pill {
+            background: rgba(245,237,232,0.08);
+            border: 1px solid rgba(245,237,232,0.15);
+            border-radius: 100px; padding: 8px 18px;
+            font-family: var(--font-body); font-size: 13px;
+            color: rgba(245,237,232,0.6);
+        }
+        .cta-btn-primary {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 15px; font-weight: 500;
+            background: var(--accent); color: white;
+            text-decoration: none; padding: 16px 44px;
+            border-radius: 100px;
+            transition: all 0.25s ease;
+            animation: softGlow 3s ease-in-out infinite;
+            margin-bottom: 14px;
+        }
+        .cta-btn-primary:hover { background: #b5665b; transform: translateY(-2px); }
+        @keyframes softGlow {
+            0%   { box-shadow: 0 0 0 0 rgba(196,117,106,0.4); }
+            70%  { box-shadow: 0 0 0 12px rgba(196,117,106,0); }
+            100% { box-shadow: 0 0 0 0 rgba(196,117,106,0); }
+        }
+        .cta-btn-secondary {
+            display: block;
+            font-family: var(--font-body);
+            font-size: 13px; color: rgba(245,237,232,0.4);
+            text-decoration: none; margin-bottom: 48px;
+            transition: color 0.2s ease;
+        }
+        .cta-btn-secondary:hover { color: rgba(245,237,232,0.7); }
+        .cta-disclaimer {
+            font-size: 12px; color: rgba(245,237,232,0.25);
+            max-width: 360px; line-height: 1.6;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #1a150f;
+            padding: 28px 36px;
+            display: flex; align-items: center;
+            justify-content: space-between; flex-wrap: wrap; gap: 16px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .footer-brand {
+            font-family: var(--font-display);
+            font-size: 16px; color: rgba(245,237,232,0.4);
+            font-style: italic;
+        }
+        .footer-brand span { color: var(--accent); }
+        .footer-links {
+            display: flex; gap: 24px;
+            font-family: var(--font-body);
+            font-size: 12px; color: rgba(245,237,232,0.25);
+        }
+        .footer-links a { color: inherit; text-decoration: none; }
+        .footer-links a:hover { color: rgba(245,237,232,0.5); }
+
+        /* ── READING PROGRESS SIDEBAR ── */
+        .reading-sidebar {
+            position: fixed; left: 20px; top: 50%;
+            transform: translateY(-50%);
+            display: flex; flex-direction: column;
+            gap: 8px; z-index: 100;
+        }
+        .sidebar-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--rule); cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .sidebar-dot.active { background: var(--accent); transform: scale(1.4); }
+        @media (max-width: 1100px) { .reading-sidebar { display: none; } }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; }
+            .hero { padding: 56px 24px 48px; }
+            .container { padding: 0 24px; }
+            .container-wide { padding: 0 24px; }
+            .reframe { padding: 28px 24px; }
+            .try-this { padding: 28px 24px; }
+            .doctor-card { flex-direction: column; gap: 14px; }
+            body { font-size: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="progress"></div>
+
+    <!-- Nav -->
+    <nav>
+        <div class="nav-brand">M<span>oe</span></div>
+        <div class="nav-tag">Intimacy & Relationships</div>
+        <a href="#download" class="nav-cta">Track with Moe</a>
+    </nav>
+
+    <!-- Reading sidebar dots -->
+    <div class="reading-sidebar">
+        <div class="sidebar-dot active" data-section="hero" title="Start"></div>
+        <div class="sidebar-dot" data-section="meet-sam" title="Meet Sam"></div>
+        <div class="sidebar-dot" data-section="what-is-desire" title="What is Desire"></div>
+        <div class="sidebar-dot" data-section="two-types" title="Two Types"></div>
+        <div class="sidebar-dot" data-section="reframe" title="Reframe"></div>
+        <div class="sidebar-dot" data-section="misconceptions" title="Myths"></div>
+        <div class="sidebar-dot" data-section="tips" title="What to Do"></div>
+        <div class="sidebar-dot" data-section="download" title="Try Moe"></div>
+    </div>
+
+    <main>
+        <!-- HERO -->
+        <section class="hero" id="hero">
+            <div class="hero-meta">
+                <span class="hero-tag">Sexual Wellness</span>
+                <div class="hero-meta-dot"></div>
+                <span>6 min read</span>
+                <div class="hero-meta-dot"></div>
+                <span>Evidence-based</span>
+            </div>
+            <h1>Why you don't crave sex out of nowhere — and why that's <em>completely normal</em></h1>
+            <p class="hero-standfirst">You love your partner. You enjoy sex when it happens. So why don't you think about it more often? The answer is simpler than you think: nothing is wrong.</p>
+            <div class="hero-byline">
+                <div class="byline-avatar">M</div>
+                <div class="byline-text">
+                    <strong>Moe Health Editorial</strong> · Reviewed by a qualified physician
+                </div>
+            </div>
+            <div class="hero-divider"></div>
+        </section>
+
+        <!-- STORY BODY -->
+        <article class="story">
+            <div class="container">
+
+                <!-- Meet Sam -->
+                <div class="section-label fp" id="meet-sam">Meet Sam</div>
+
+                <div class="sam-card fp">
+                    <div class="sam-card-label">A story that might sound familiar</div>
+                    <p>Sam spent years feeling broken. Sam loves their partner and enjoys intimacy, but never feels that sudden <em>"I need you right now"</em> urge. No daydreams about sex. No spontaneous cravings.</p>
+                    <p>Then Sam learned about the two types of sexual desire. Once Sam stopped waiting to feel like initiating and started staying open to connection — everything changed.</p>
+                </div>
+
+                <p class="fp">If Sam's story sounds familiar, keep reading. Because what most people are taught about desire is only half the picture.</p>
+
+                <!-- What is desire -->
+                <div class="section-label fp" id="what-is-desire" style="margin-top: 56px;">What is desire?</div>
+
+                <p class="fp">Desire is the mental and emotional pull that makes you think about, seek out, or feel open to sexual experiences. It is different from <em>arousal</em> — which is the physical response in your body.</p>
+
+                <p class="fp">Desire lives on a spectrum and changes with stress, hormones, health, relationship dynamics, and your cycle. Sometimes it is about physical craving. Other times it is about wanting closeness, or simply feeling wanted.</p>
+
+                <div class="display-line fp">Your desire is not broken. It might just work <em>differently</em> than you've been told.</div>
+
+                <!-- Two types -->
+                <div class="section-label fp" id="two-types" style="margin-top: 56px;">The two types of desire</div>
+
+                <p class="fp">Research by Dr. Rosemary Basson identified two main patterns of sexual desire. Knowing yours can transform how you approach intimacy.</p>
+
+                <div class="desire-grid fp">
+                    <div class="desire-card spontaneous">
+                        <div class="desire-card-icon">⚡</div>
+                        <div class="desire-tag">Type 01</div>
+                        <h3>Spontaneous</h3>
+                        <p>Appears on its own, without any trigger. You might wake up turned on or suddenly think about your partner during the day.</p>
+                        <div class="desire-flow">
+                            <span class="flow-step">Desire</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Seek experience</span>
+                        </div>
+                    </div>
+                    <div class="desire-card responsive">
+                        <div class="desire-card-icon">🌿</div>
+                        <div class="desire-tag">Type 02</div>
+                        <h3>Responsive</h3>
+                        <p>Builds in response to something: a gentle touch, emotional connection, or a relaxed moment. It doesn't arrive uninvited — it grows once intimacy has started.</p>
+                        <div class="desire-flow">
+                            <span class="flow-step">Experience begins</span>
+                            <span class="flow-arrow">→</span>
+                            <span class="flow-step">Desire builds</span>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="fp">Many people — especially in long-term relationships — experience responsive desire more often. If this sounds like you, it does not mean your libido is low. It simply means your desire needs a spark.</p>
+
+                <div class="pull-quote fp">"If you enjoy sex once it starts and feel satisfied afterward, your desire is working normally."</div>
+
+                <!-- Reframe -->
+                <div id="reframe"></div>
+                <div class="reframe fp">
+                    <div class="reframe-label">A helpful reframe</div>
+                    <div class="reframe-old">"Do I want sex right now?"</div>
+                    <div class="reframe-arrow">↓</div>
+                    <div class="reframe-new">"Would I enjoy being close<br>with my partner right now?"</div>
+                </div>
+
+                <p class="fp">The answer to the second question often feels very different. This small shift — from seeking spontaneous desire to staying open to responsive connection — is what changed everything for Sam.</p>
+
+                <!-- Misconceptions -->
+                <div class="section-label fp" id="misconceptions" style="margin-top: 56px;">Common misconceptions</div>
+
+                <div class="myth-list fp">
+                    <div class="myth-item">
+                        <div class="myth-label">Myth</div>
+                        <div class="myth-text">If you don't feel randomly turned on, you have low libido.</div>
+                        <div class="truth-label">Truth</div>
+                        <div class="truth-text">Responsive desire is not the same as low desire. If you enjoy sex once it starts and feel satisfied afterward, your desire is working normally.</div>
+                    </div>
+                    <div class="myth-item">
+                        <div class="myth-label">Myth</div>
+                        <div class="myth-text">Responsive desire is a "female trait."</div>
+                        <div class="truth-label">Truth</div>
+                        <div class="truth-text">It is reported more often by people assigned female at birth, but it is not a strict gender rule. People of all genders experience responsive desire.</div>
+                    </div>
+                    <div class="myth-item">
+                        <div class="myth-label">Myth</div>
+                        <div class="myth-text">Your desire type is fixed for life.</div>
+                        <div class="truth-label">Truth</div>
+                        <div class="truth-text">Most people shift between types depending on hormones, stress, health, relationship stage, and medication. It changes — and that's normal.</div>
+                    </div>
+                </div>
+
+                <!-- Tips -->
+                <div class="section-label fp" id="tips" style="margin-top: 56px;">Working with your desire type</div>
+
+                <div class="tips-grid fp">
+                    <div class="tips-card responsive-tips">
+                        <h4>If you have responsive desire</h4>
+                        <ul class="tips-list">
+                            <li>Start with non-sexual touch that feels good — cuddling, gentle massage. Let arousal build naturally.</li>
+                            <li>Identify what turns you on and what turns you off.</li>
+                            <li>Schedule time for connection. It's practical, not unromantic.</li>
+                            <li>Communicate openly about what feels good.</li>
+                        </ul>
+                    </div>
+                    <div class="tips-card spontaneous-tips">
+                        <h4>If you have spontaneous desire</h4>
+                        <ul class="tips-list">
+                            <li>Don't skip the emotional connection. Daily affection makes intimacy richer.</li>
+                            <li>Build anticipation with small gestures throughout the day.</li>
+                            <li>Learn your partner's preferences through conversation.</li>
+                            <li>Remember — your own needs matter too. You deserve to feel pursued as well.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p class="fp">When partners have different desire types, it is common and workable. One often does more initiating while the other stays open to connection. Neither approach is wrong.</p>
+
+                <!-- When desire shifts -->
+                <div class="section-label fp" style="margin-top: 56px;">When desire shifts</div>
+
+                <p class="fp">Desire naturally changes during different life stages. During your cycle, many notice more spontaneous desire around ovulation and responsive or lower interest at other times. Tracking in Moe helps you see your personal patterns.</p>
+
+                <p class="fp">Starting or stopping hormonal contraception, having children, entering long-term relationships, menopause — all of these can shift desire. This is usually temporary, and always valid.</p>
+
+                <!-- Doctor card -->
+                <div class="doctor-card fp">
+                    <div class="doctor-icon">🩺</div>
+                    <div class="doctor-body">
+                        <h4>When to speak to a doctor</h4>
+                        <p>Fluctuations are normal. Reach out to a healthcare provider if desire changes cause you distress, happen suddenly, come with pain during sex, or appear alongside mood shifts, fatigue, or irregular periods.</p>
+                    </div>
+                </div>
+
+                <!-- Closing -->
+                <div class="display-line fp">Your desire is <em>valid.</em></div>
+
+                <p class="fp">Whether your desire is spontaneous, responsive, higher, or lower — you are within the normal range of human sexuality. Many who thought they had low libido simply discovered they had responsive desire. They still genuinely want intimacy. Just in a different way.</p>
+
+                <p class="fp">Understanding your desire type helps you learn how your body and mind actually work. Above all, you deserve a sex life that feels good — one that honours your body, needs, boundaries, and pleasure.</p>
+
+                <!-- Try this week -->
+                <div class="try-this fp">
+                    <div class="try-this-label">Try this week</div>
+                    <h3>Start noticing your own patterns</h3>
+                    <div class="try-steps">
+                        <div class="try-step">
+                            <div class="try-step-num">1</div>
+                            <p>Notice when desire shows up for you. Does it appear on its own, or does it build during moments of closeness?</p>
+                        </div>
+                        <div class="try-step">
+                            <div class="try-step-num">2</div>
+                            <p>Log your observations in Moe's daily notes to spot your patterns over time.</p>
+                        </div>
+                        <div class="try-step">
+                            <div class="try-step-num">3</div>
+                            <p>For more on sexual wellness, communication, and how your cycle affects desire — explore Moe's Intimacy and Relationships section.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </article>
+
+        <!-- CTA SECTION -->
+        <section class="cta-section" id="download">
+            <div class="cta-eyebrow">Track with Moe</div>
+            <h2>Your cycle knows more<br>than you think. <em>Start listening.</em></h2>
+            <p class="cta-body">Moe tracks your cycle, mood, and desire patterns — so you can understand your body instead of wondering what's wrong with it.</p>
+            <div class="cta-pills">
+                <div class="cta-pill">Cycle tracking</div>
+                <div class="cta-pill">Desire patterns</div>
+                <div class="cta-pill">Intimacy insights</div>
+                <div class="cta-pill">Doctor-reviewed content</div>
+            </div>
+            <a href="#" class="cta-btn-primary">Start Your Free Assessment</a>
+            <a href="#" class="cta-btn-secondary">See how it works →</a>
+            <p class="cta-disclaimer">No credit card required · Qualified doctors available · Average response under 2 hours</p>
+        </section>
+
+        <footer>
+            <div class="footer-brand">M<span>oe</span> Health</div>
+            <div class="footer-links">
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+                <a href="#">Contact</a>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+    // Progress bar
+    const bar = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+        const h = document.documentElement.scrollHeight - innerHeight;
+        bar.style.width = (scrollY / h * 100) + '%';
+    }, { passive: true });
+
+    // Fade in on scroll
+    const fps = document.querySelectorAll('.fp');
+    const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                setTimeout(() => e.target.classList.add('visible'), 40 * (i % 4));
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.07 });
+    fps.forEach(el => io.observe(el));
+
+    // Sidebar dots
+    const sections = ['hero','meet-sam','what-is-desire','two-types','reframe','misconceptions','tips','download'];
+    const dots = document.querySelectorAll('.sidebar-dot');
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                const idx = sections.indexOf(e.target.id);
+                if (idx > -1) {
+                    dots.forEach(d => d.classList.remove('active'));
+                    dots[idx]?.classList.add('active');
+                }
+            }
+        });
+    }, { threshold: 0.3 });
+
+    sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) sectionObserver.observe(el);
+    });
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+            const el = document.getElementById(sections[i]);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+    </script>
+</body>
+</html>
