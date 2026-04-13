@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>You Have Been Treating Your Hair. — G-LAB</title>
+    <meta name="description" content="You should have been treating your scalp. G-LAB takes a completely different approach to haircare.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg:       #f7f5f0;
+            --bg-dark:  #111810;
+            --bg-card:  #ffffff;
+            --ink:      #111810;
+            --ink-soft: #4a4a3e;
+            --ink-mute: #9a9a8a;
+            --gold:     #b8975a;
+            --gold-lt:  #e8dcca;
+            --green:    #2d3d2a;
+            --green-md: #4a6344;
+            --green-lt: #dde6d8;
+            --rule:     rgba(17,24,16,0.1);
+
+            --font-display: "Cormorant Garamond", serif;
+            --font-body:    "Jost", sans-serif;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-body);
+            font-size: 17px;
+            line-height: 1.85;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* ── Progress ── */
+        #progress {
+            position: fixed; top: 0; left: 0;
+            height: 1px; width: 0%;
+            background: var(--gold);
+            z-index: 1000; transition: width 0.08s linear;
+        }
+
+        /* ── Nav ── */
+        nav {
+            position: fixed; top: 0; left: 0; width: 100%;
+            z-index: 900;
+            padding: 0 52px;
+            height: 60px;
+            display: flex; align-items: center;
+            justify-content: space-between;
+            background: rgba(247,245,240,0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--rule);
+        }
+        .nav-logo {
+            font-family: var(--font-display);
+            font-size: 22px; font-weight: 400;
+            letter-spacing: 4px; text-transform: uppercase;
+            color: var(--ink);
+        }
+        .nav-logo span { color: var(--gold); }
+        .nav-links {
+            display: flex; gap: 32px;
+            font-family: var(--font-body);
+            font-size: 11px; letter-spacing: 2px;
+            text-transform: uppercase; color: var(--ink-mute);
+        }
+        .nav-links a { color: inherit; text-decoration: none; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--ink); }
+        .nav-cta {
+            font-family: var(--font-body);
+            font-size: 11px; letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--bg);
+            background: var(--ink);
+            padding: 9px 22px; border-radius: 0;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+        .nav-cta:hover { background: var(--green); }
+        @media (max-width: 768px) {
+            nav { padding: 0 24px; }
+            .nav-links { display: none; }
+        }
+
+        /* ── Animations ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .fp {
+            opacity: 0; transform: translateY(20px);
+            transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1);
+        }
+        .fp.visible { opacity: 1; transform: translateY(0); }
+
+        /* ════════════════════════════════
+           HERO
+        ════════════════════════════════ */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            padding-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-left {
+            background: var(--bg-dark);
+            display: flex; flex-direction: column;
+            justify-content: flex-end;
+            padding: 80px 64px;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Botanical SVG background */
+        .hero-left::before {
+            content: '';
+            position: absolute; inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='600' viewBox='0 0 400 600'%3E%3Cg fill='none' stroke='rgba(184,151,90,0.08)' stroke-width='1'%3E%3Cellipse cx='200' cy='300' rx='80' ry='200'/%3E%3Cellipse cx='200' cy='300' rx='120' ry='260'/%3E%3Cline x1='200' y1='80' x2='200' y2='520'/%3E%3Cellipse cx='200' cy='200' rx='60' ry='40' transform='rotate(-30 200 200)'/%3E%3Cellipse cx='200' cy='380' rx='70' ry='45' transform='rotate(25 200 380)'/%3E%3Cellipse cx='150' cy='300' rx='50' ry='30' transform='rotate(-15 150 300)'/%3E%3Cellipse cx='250' cy='260' rx='55' ry='32' transform='rotate(20 250 260)'/%3E%3C/g%3E%3C/svg%3E");
+            background-size: cover; background-position: center;
+            opacity: 1;
+        }
+        .hero-left > * { position: relative; z-index: 1; }
+
+        .hero-brand-stamp {
+            font-family: var(--font-display);
+            font-size: 11px; letter-spacing: 5px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 40px; opacity: 0.7;
+        }
+
+        .hero-left h1 {
+            font-family: var(--font-display);
+            font-size: clamp(38px, 4vw, 58px);
+            font-weight: 300;
+            line-height: 1.12; color: #f5f0e8;
+            letter-spacing: -0.5px;
+            margin-bottom: 0;
+            opacity: 0;
+            animation: fadeUp 1s cubic-bezier(0.22,1,0.36,1) 0.2s forwards;
+        }
+        .hero-left h1 em {
+            font-style: italic; color: var(--gold);
+        }
+
+        /* Hero right — typographic statement */
+        .hero-right {
+            background: var(--bg);
+            display: flex; flex-direction: column;
+            justify-content: center;
+            padding: 80px 64px;
+            border-left: 1px solid var(--rule);
+            position: relative;
+        }
+
+        .hero-overline {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 28px;
+            opacity: 0; animation: fadeUp 0.7s ease 0.4s forwards;
+        }
+
+        .hero-statement {
+            font-family: var(--font-display);
+            font-size: clamp(18px, 2.2vw, 28px);
+            font-weight: 300; line-height: 1.7;
+            color: var(--ink-soft); letter-spacing: 0.2px;
+            margin-bottom: 40px;
+            opacity: 0; animation: fadeUp 0.8s ease 0.55s forwards;
+        }
+        .hero-statement strong {
+            font-weight: 400; color: var(--ink);
+            font-style: italic;
+        }
+
+        .hero-scroll {
+            display: flex; align-items: center; gap: 12px;
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 3px;
+            text-transform: uppercase; color: var(--ink-mute);
+            opacity: 0; animation: fadeUp 0.6s ease 0.9s forwards;
+        }
+        .hero-scroll-line {
+            width: 40px; height: 1px; background: var(--gold);
+        }
+
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-left { min-height: 60vh; padding: 60px 32px; }
+            .hero-right { padding: 60px 32px; }
+        }
+
+        /* ════════════════════════════════
+           PROBLEM SECTION
+        ════════════════════════════════ */
+        .problem-section {
+            padding: 120px 0;
+            position: relative;
+        }
+        .problem-section::before {
+            content: '';
+            position: absolute; left: 0; top: 0; bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--gold-lt), transparent);
+            margin-left: 52px;
+        }
+
+        .container { max-width: 700px; padding: 0 52px; margin: 0 auto; }
+        .container-wide { max-width: 1100px; padding: 0 52px; margin: 0 auto; }
+
+        .section-tag {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 48px;
+            display: flex; align-items: center; gap: 16px;
+        }
+        .section-tag::after {
+            content: ''; flex: 1; height: 1px; background: var(--gold-lt); max-width: 60px;
+        }
+
+        .problem-stanza {
+            margin-bottom: 56px;
+        }
+        .problem-stanza p {
+            font-family: var(--font-display);
+            font-size: clamp(20px, 2.5vw, 30px);
+            font-weight: 300; line-height: 1.55;
+            color: var(--ink); letter-spacing: 0.1px;
+            margin-bottom: 0;
+        }
+        .problem-stanza p + p { margin-top: 4px; }
+        .problem-stanza p em { font-style: italic; color: var(--ink-soft); }
+        .problem-stanza p.accent {
+            color: var(--green-md); font-style: italic;
+        }
+
+        .problem-body p {
+            font-family: var(--font-body);
+            font-size: 17px; font-weight: 300;
+            color: var(--ink-soft); line-height: 1.9;
+            margin-bottom: 22px;
+        }
+        .problem-body p strong {
+            font-weight: 400; color: var(--ink);
+        }
+
+        .pull-quote {
+            font-family: var(--font-display);
+            font-size: clamp(22px, 3vw, 34px);
+            font-style: italic; font-weight: 300;
+            color: var(--ink); line-height: 1.45;
+            text-align: center;
+            margin: 80px 0;
+            padding: 40px 0;
+            border-top: 1px solid var(--gold-lt);
+            border-bottom: 1px solid var(--gold-lt);
+            opacity: 0; transform: translateY(16px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+        .pull-quote.visible { opacity: 1; transform: translateY(0); }
+        .pull-quote em { color: var(--gold); }
+
+        /* ════════════════════════════════
+           BRAND INTRO — FULL BLEED DARK
+        ════════════════════════════════ */
+        .brand-intro {
+            background: var(--bg-dark);
+            padding: 120px 52px;
+            position: relative; overflow: hidden;
+        }
+        .brand-intro::before {
+            content: '';
+            position: absolute; top: -200px; right: -100px;
+            width: 600px; height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(184,151,90,0.08) 0%, transparent 70%);
+        }
+        .brand-intro-inner {
+            max-width: 800px; margin: 0 auto;
+            position: relative; z-index: 1;
+        }
+        .brand-intro-tag {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 36px; opacity: 0.7;
+        }
+        .brand-intro h2 {
+            font-family: var(--font-display);
+            font-size: clamp(32px, 4vw, 54px);
+            font-weight: 300; font-style: italic;
+            color: #f5f0e8; line-height: 1.2;
+            letter-spacing: -0.5px; margin-bottom: 28px;
+        }
+        .brand-intro h2 em { color: var(--gold); font-style: normal; }
+        .brand-intro p {
+            font-family: var(--font-body);
+            font-size: 17px; font-weight: 300;
+            color: rgba(245,240,232,0.55); line-height: 1.9;
+            max-width: 620px; margin-bottom: 20px;
+        }
+        .brand-intro p strong { color: rgba(245,240,232,0.8); font-weight: 400; }
+
+        .water-badge {
+            display: inline-flex; align-items: center; gap: 14px;
+            margin-top: 36px;
+            border: 1px solid rgba(184,151,90,0.3);
+            padding: 14px 24px;
+            border-radius: 0;
+        }
+        .water-badge-icon {
+            font-size: 22px;
+        }
+        .water-badge-text {
+            font-family: var(--font-body);
+            font-size: 12px; font-weight: 300;
+            color: rgba(245,240,232,0.5); line-height: 1.5;
+            letter-spacing: 0.3px;
+        }
+        .water-badge-text strong {
+            display: block; color: var(--gold);
+            font-size: 13px; font-weight: 400;
+            letter-spacing: 1px; text-transform: uppercase;
+            margin-bottom: 2px;
+        }
+
+        /* ════════════════════════════════
+           COLLECTIONS
+        ════════════════════════════════ */
+        .collections {
+            padding: 120px 0;
+            background: var(--bg);
+        }
+
+        .collections-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .collections-header .section-tag {
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+        .collections-header .section-tag::after { display: none; }
+        .collections-header h2 {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 3.5vw, 46px);
+            font-weight: 300; letter-spacing: -0.5px;
+            color: var(--ink); line-height: 1.2;
+        }
+        .collections-header h2 em { font-style: italic; color: var(--green-md); }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+        @media (max-width: 900px) { .collections-grid { grid-template-columns: 1fr; gap: 16px; } }
+
+        .collection-card {
+            background: var(--bg-card);
+            padding: 52px 44px 56px;
+            position: relative; overflow: hidden;
+            border: 1px solid var(--rule);
+            transition: border-color 0.3s ease;
+        }
+        .collection-card:hover { border-color: var(--gold-lt); }
+        .collection-card::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0;
+            height: 2px;
+        }
+        .collection-card.carbon::before  { background: linear-gradient(to right, #2a2a2a, #555); }
+        .collection-card.lipid::before   { background: linear-gradient(to right, var(--gold), #d4b07a); }
+        .collection-card.amaranth::before { background: linear-gradient(to right, var(--green), var(--green-md)); }
+
+        .collection-num {
+            font-family: var(--font-display);
+            font-size: 72px; font-weight: 300; font-style: italic;
+            line-height: 1; color: rgba(17,24,16,0.05);
+            margin-bottom: -12px;
+            display: block;
+        }
+
+        .collection-icon {
+            width: 44px; height: 44px;
+            border-radius: 50%;
+            display: flex; align-items: center;
+            justify-content: center; font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .collection-card.carbon  .collection-icon { background: rgba(50,50,50,0.08); }
+        .collection-card.lipid   .collection-icon { background: rgba(184,151,90,0.1); }
+        .collection-card.amaranth .collection-icon { background: var(--green-lt); }
+
+        .collection-name {
+            font-family: var(--font-display);
+            font-size: 26px; font-weight: 400; font-style: italic;
+            margin-bottom: 6px; letter-spacing: -0.3px;
+        }
+        .collection-card.carbon   .collection-name { color: var(--ink); }
+        .collection-card.lipid    .collection-name { color: var(--gold); }
+        .collection-card.amaranth .collection-name { color: var(--green-md); }
+
+        .collection-for {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 2.5px;
+            text-transform: uppercase; color: var(--ink-mute);
+            margin-bottom: 20px;
+        }
+
+        .collection-rule {
+            width: 32px; height: 1px;
+            background: var(--gold-lt); margin-bottom: 20px;
+        }
+
+        .collection-desc {
+            font-family: var(--font-body);
+            font-size: 15px; font-weight: 300;
+            color: var(--ink-soft); line-height: 1.8;
+            margin-bottom: 28px;
+        }
+
+        .collection-key {
+            font-family: var(--font-display);
+            font-size: 15px; font-style: italic;
+            color: var(--ink-mute); line-height: 1.6;
+            padding-top: 20px;
+            border-top: 1px solid var(--rule);
+        }
+
+        /* ════════════════════════════════
+           PACKAGING SECTION
+        ════════════════════════════════ */
+        .packaging {
+            background: var(--bg-dark);
+            padding: 100px 52px;
+        }
+        .packaging-inner {
+            max-width: 900px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 80px; align-items: center;
+        }
+        @media (max-width: 768px) {
+            .packaging-inner { grid-template-columns: 1fr; gap: 40px; }
+        }
+        .packaging-visual {
+            position: relative; height: 320px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        /* SVG bottle illustration */
+        .packaging-copy .section-tag { color: var(--gold); }
+        .packaging-copy .section-tag::after { background: rgba(184,151,90,0.2); }
+        .packaging-copy h2 {
+            font-family: var(--font-display);
+            font-size: clamp(26px, 3vw, 40px);
+            font-weight: 300; font-style: italic;
+            color: #f5f0e8; line-height: 1.25;
+            letter-spacing: -0.3px; margin-bottom: 20px;
+        }
+        .packaging-copy h2 em { color: var(--gold); font-style: normal; }
+        .packaging-copy p {
+            font-family: var(--font-body);
+            font-size: 16px; font-weight: 300;
+            color: rgba(245,240,232,0.5); line-height: 1.85;
+            margin-bottom: 16px;
+        }
+        .packaging-copy p strong { color: rgba(245,240,232,0.75); font-weight: 400; }
+        .packaging-attrs {
+            display: flex; flex-direction: column; gap: 10px;
+            margin-top: 28px;
+        }
+        .packaging-attr {
+            display: flex; align-items: center; gap: 12px;
+            font-family: var(--font-body);
+            font-size: 13px; font-weight: 300;
+            color: rgba(245,240,232,0.45); letter-spacing: 0.3px;
+        }
+        .packaging-attr::before {
+            content: ''; width: 20px; height: 1px;
+            background: var(--gold); flex-shrink: 0;
+        }
+
+        /* ════════════════════════════════
+           FOR YOU SECTION
+        ════════════════════════════════ */
+        .for-you {
+            padding: 100px 0;
+            background: var(--bg);
+        }
+        .for-you-inner {
+            max-width: 700px; margin: 0 auto; padding: 0 52px;
+            text-align: center;
+        }
+        .for-you-tag {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            margin-bottom: 28px;
+        }
+        .for-you h2 {
+            font-family: var(--font-display);
+            font-size: clamp(24px, 3vw, 40px);
+            font-weight: 300; font-style: italic;
+            color: var(--ink); line-height: 1.3;
+            letter-spacing: -0.3px; margin-bottom: 40px;
+        }
+        .for-you-list {
+            list-style: none;
+            display: flex; flex-direction: column; gap: 14px;
+            text-align: left; margin-bottom: 56px;
+        }
+        .for-you-list li {
+            font-family: var(--font-display);
+            font-size: 20px; font-style: italic;
+            font-weight: 300; color: var(--ink-soft);
+            line-height: 1.5; padding: 14px 0;
+            border-bottom: 1px solid var(--rule);
+            display: flex; align-items: baseline; gap: 16px;
+        }
+        .for-you-list li::before {
+            content: '—'; color: var(--gold);
+            flex-shrink: 0; font-style: normal;
+        }
+
+        /* ════════════════════════════════
+           CLOSING STATEMENT
+        ════════════════════════════════ */
+        .closing {
+            padding: 80px 52px;
+            max-width: 700px; margin: 0 auto;
+            text-align: center;
+        }
+        .closing p {
+            font-family: var(--font-display);
+            font-size: clamp(18px, 2.5vw, 28px);
+            font-weight: 300; line-height: 1.65;
+            color: var(--ink-soft); margin-bottom: 6px;
+        }
+        .closing p.strong-line {
+            font-size: clamp(20px, 3vw, 34px);
+            color: var(--ink); font-style: italic;
+        }
+
+        /* ════════════════════════════════
+           CTA
+        ════════════════════════════════ */
+        .cta-section {
+            background: var(--bg-dark);
+            padding: 120px 52px;
+            text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute; bottom: -150px; left: 50%;
+            transform: translateX(-50%);
+            width: 700px; height: 400px;
+            background: radial-gradient(ellipse, rgba(184,151,90,0.1) 0%, transparent 65%);
+        }
+        .cta-section > * { position: relative; z-index: 1; }
+        .cta-eyebrow {
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--gold);
+            opacity: 0.7; margin-bottom: 28px;
+        }
+        .cta-section h2 {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4vw, 52px);
+            font-weight: 300; font-style: italic;
+            color: #f5f0e8; line-height: 1.2;
+            letter-spacing: -0.5px; margin-bottom: 16px;
+        }
+        .cta-section h2 em { color: var(--gold); font-style: normal; }
+        .cta-sub {
+            font-family: var(--font-body);
+            font-size: 15px; font-weight: 300;
+            color: rgba(245,240,232,0.4); max-width: 400px;
+            margin: 0 auto 52px; line-height: 1.7;
+        }
+        .cta-btn {
+            display: inline-block;
+            font-family: var(--font-body);
+            font-size: 11px; font-weight: 400;
+            letter-spacing: 3px; text-transform: uppercase;
+            color: var(--bg-dark); background: var(--gold);
+            text-decoration: none;
+            padding: 18px 52px;
+            transition: all 0.25s ease;
+        }
+        .cta-btn:hover { background: #caa86a; }
+        .cta-secondary {
+            display: block; margin-top: 20px;
+            font-family: var(--font-display);
+            font-size: 15px; font-style: italic;
+            color: rgba(245,240,232,0.3); text-decoration: none;
+            transition: color 0.2s;
+        }
+        .cta-secondary:hover { color: rgba(245,240,232,0.6); }
+        .cta-trust {
+            margin-top: 52px;
+            display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.2);
+        }
+
+        /* ── Footer ── */
+        footer {
+            background: #0a0e09;
+            padding: 32px 52px;
+            display: flex; align-items: center;
+            justify-content: space-between; flex-wrap: wrap; gap: 16px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 18px; letter-spacing: 4px;
+            text-transform: uppercase; color: rgba(245,240,232,0.25);
+        }
+        .footer-logo span { color: var(--gold); }
+        .footer-links {
+            display: flex; gap: 24px;
+            font-family: var(--font-body);
+            font-size: 10px; letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: rgba(245,240,232,0.2);
+        }
+        .footer-links a { color: inherit; text-decoration: none; }
+        .footer-links a:hover { color: rgba(245,240,232,0.45); }
+    </style>
+</head>
+<body>
+    <div id="progress"></div>
+
+    <!-- Nav -->
+    <nav>
+        <div class="nav-logo">G<span>-</span>LAB</div>
+        <div class="nav-links">
+            <a href="#collections">Collections</a>
+            <a href="#about">About</a>
+            <a href="#cta">Where to Buy</a>
+        </div>
+        <a href="#cta" class="nav-cta">Explore Collections</a>
+    </nav>
+
+    <!-- ── HERO ── -->
+    <section class="hero">
+        <div class="hero-left">
+            <div class="hero-brand-stamp">G-LAB · Scalp Science · Lithuania</div>
+            <h1>You have been treating<br>your <em>hair.</em><br><br>You should have been<br>treating your <em>scalp.</em></h1>
+        </div>
+        <div class="hero-right">
+            <div class="hero-overline">The skinification of haircare</div>
+            <p class="hero-statement">
+                Your scalp is skin.<br>
+                <strong>The same living organ as the skin on your face.</strong><br>
+                The same delicate barrier. The same microbiome. The same sensitivity.<br><br>
+                Yet most women treat it far more harshly than their complexion.
+            </p>
+            <div class="hero-scroll">
+                <div class="hero-scroll-line"></div>
+                <span>Continue reading</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PROBLEM ── -->
+    <section class="problem-section">
+        <div class="container">
+            <div class="section-tag fp">The problem</div>
+
+            <div class="problem-stanza fp">
+                <p>You carefully choose gentle cleansers,<br>hydrating serums, and daily protection for your face.</p>
+            </div>
+
+            <div class="problem-stanza fp">
+                <p class="accent">Then you wash your scalp every day with harsh detergents<br>that strip, irritate, and disrupt its balance.</p>
+            </div>
+
+            <div class="problem-body fp">
+                <p>No wonder your color fades faster than expected. Your hair falls flat. Nothing seems to last.</p>
+                <p>The problem was never really your hair. <strong>It was what you were washing it with.</strong></p>
+            </div>
+
+            <div class="pull-quote fp">
+                Healthy hair begins with a healthy scalp.<br>
+                When the foundation is ignored, even the most expensive<br>
+                strand-focused products can only do <em>so much.</em>
+            </div>
+
+            <div class="problem-body fp">
+                <p>Your scalp battles heat tools, chemical treatments, hard water, and product buildup every single day. Most conventional shampoos ignore all of that.</p>
+                <p><strong>G-LAB takes a completely different approach.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── BRAND INTRO ── -->
+    <section class="brand-intro" id="about">
+        <div class="brand-intro-inner">
+            <div class="brand-intro-tag fp">The foundation</div>
+            <h2 class="fp">Every formula starts with<br><em>water.</em></h2>
+            <p class="fp">Every G-LAB formula starts with purified underground water from Lithuania — naturally filtered through ancient geological layers. This water is exceptionally pure and gentle.</p>
+            <p class="fp">It creates the perfect base for effective yet <strong>sensitive-friendly formulas</strong> — suitable during pregnancy and safe for children.</p>
+            <p class="fp">From this foundation, G-LAB built targeted collections that solve specific scalp and hair concerns. Not hair concerns. <strong>Scalp concerns.</strong></p>
+            <div class="water-badge fp">
+                <div class="water-badge-icon">💧</div>
+                <div class="water-badge-text">
+                    <strong>Lithuanian Underground Water</strong>
+                    Filtered through ancient geological layers · Exceptionally pure
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── COLLECTIONS ── -->
+    <section class="collections" id="collections">
+        <div class="container-wide">
+            <div class="collections-header fp">
+                <div class="section-tag">The Collections</div>
+                <h2>Three concerns.<br><em>Three solutions.</em></h2>
+            </div>
+
+            <div class="collections-grid">
+                <!-- Carbon Purify -->
+                <div class="collection-card carbon fp">
+                    <span class="collection-num">01</span>
+                    <div class="collection-icon">◈</div>
+                    <div class="collection-name">Carbon Purify</div>
+                    <div class="collection-for">For pollution + color-treated scalps</div>
+                    <div class="collection-rule"></div>
+                    <p class="collection-desc">For scalps exposed to pollution, buildup, and color treatments. Gently removes what regular shampoos leave behind so hair feels cleaner, smoother, and more vibrant for longer.</p>
+                    <div class="collection-key">Deeper clean. Longer color. Less buildup.</div>
+                </div>
+
+                <!-- Lipid Restore -->
+                <div class="collection-card lipid fp">
+                    <span class="collection-num">02</span>
+                    <div class="collection-icon">✦</div>
+                    <div class="collection-name">Lipid Restore</div>
+                    <div class="collection-for">For dry + chemically damaged hair</div>
+                    <div class="collection-rule"></div>
+                    <p class="collection-desc">For dry, brittle, or chemically damaged hair. Restores the scalp's natural lipid balance so moisture is held at the source — not just sitting on the surface.</p>
+                    <div class="collection-key">Moisture held at the root. Not on the surface.</div>
+                </div>
+
+                <!-- Amaranth Volumizer -->
+                <div class="collection-card amaranth fp">
+                    <span class="collection-num">03</span>
+                    <div class="collection-icon">❧</div>
+                    <div class="collection-name">Amaranth Volumizer</div>
+                    <div class="collection-for">For fine hair that lacks volume</div>
+                    <div class="collection-rule"></div>
+                    <p class="collection-desc">Powered by organic amaranth oil and vegetal hyaluronic acid. Builds real strength and lift from inside the strand — without any heaviness or buildup.</p>
+                    <div class="collection-key">Lift from within. No buildup. No heaviness.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── PACKAGING ── -->
+    <section class="packaging">
+        <div class="packaging-inner">
+            <div class="packaging-visual fp">
+                <!-- Bottle SVG illustration -->
+                <svg width="180" height="300" viewBox="0 0 180 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Bottle body -->
+                    <rect x="45" y="80" width="90" height="180" rx="12" fill="rgba(245,240,232,0.04)" stroke="rgba(184,151,90,0.3)" stroke-width="1"/>
+                    <!-- Bottle neck -->
+                    <rect x="65" y="50" width="50" height="36" rx="6" fill="rgba(245,240,232,0.04)" stroke="rgba(184,151,90,0.25)" stroke-width="1"/>
+                    <!-- Cap -->
+                    <rect x="62" y="32" width="56" height="24" rx="4" fill="rgba(184,151,90,0.15)" stroke="rgba(184,151,90,0.4)" stroke-width="1"/>
+                    <!-- Label area -->
+                    <rect x="55" y="120" width="70" height="100" rx="4" fill="rgba(245,240,232,0.03)" stroke="rgba(184,151,90,0.12)" stroke-width="1"/>
+                    <!-- G-LAB text on label -->
+                    <text x="90" y="158" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="11" letter-spacing="4" fill="rgba(184,151,90,0.6)" text-transform="uppercase">G-LAB</text>
+                    <text x="90" y="178" text-anchor="middle" font-family="Jost, sans-serif" font-size="7" letter-spacing="2" fill="rgba(245,240,232,0.2)">SCALP SCIENCE</text>
+                    <!-- Decorative line -->
+                    <line x1="68" y1="192" x2="112" y2="192" stroke="rgba(184,151,90,0.2)" stroke-width="0.5"/>
+                    <!-- Refill arrows -->
+                    <path d="M82 210 Q90 205 98 210" stroke="rgba(184,151,90,0.3)" stroke-width="1" fill="none"/>
+                    <path d="M98 218 Q90 223 82 218" stroke="rgba(184,151,90,0.3)" stroke-width="1" fill="none"/>
+                    <!-- Glow -->
+                    <ellipse cx="90" cy="260" rx="50" ry="8" fill="rgba(184,151,90,0.06)"/>
+                </svg>
+            </div>
+
+            <div class="packaging-copy">
+                <div class="section-tag fp">The Object</div>
+                <h2 class="fp">Designed to last<br><em>a lifetime.</em></h2>
+                <p class="fp">G-LAB flacons are designed by the brand's founder — a professional artist. They are refillable and built to endure.</p>
+                <p class="fp"><strong>When a brand creates packaging meant to be reused for years, it tells you they believe in what is inside.</strong></p>
+                <div class="packaging-attrs fp">
+                    <div class="packaging-attr">Designed by a professional artist</div>
+                    <div class="packaging-attr">Refillable — built to last a lifetime</div>
+                    <div class="packaging-attr">Pregnancy and child-safe formulas</div>
+                    <div class="packaging-attr">Founded in Lithuania</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ── FOR YOU ── -->
+    <section class="for-you">
+        <div class="for-you-inner">
+            <div class="for-you-tag fp">This is for you if</div>
+            <h2 class="fp">You have been trying to fix<br>the wrong thing.</h2>
+            <ul class="for-you-list fp">
+                <li>Your salon results never seem to last at home</li>
+                <li>Your color fades faster than it should</li>
+                <li>Your scalp never feels truly clean or balanced</li>
+                <li>You have spent years on your hair, but not your scalp</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ── CLOSING ── -->
+    <section class="closing">
+        <div class="fp">
+            <p>Your face receives intention and care every morning.</p>
+            <p>Your scalp built the hair you are trying so hard to fix.</p>
+            <br>
+            <p class="strong-line">Give it the same respect.</p>
+        </div>
+    </section>
+
+    <!-- ── CTA ── -->
+    <section class="cta-section" id="cta">
+        <div class="cta-eyebrow fp">G-LAB Scalp Science</div>
+        <h2 class="fp">The foundation<br>was always <em>the scalp.</em></h2>
+        <p class="cta-sub fp">Three targeted collections. One exceptionally pure base. Built for women who are done guessing.</p>
+        <a href="#" class="cta-btn fp">Explore Collections</a>
+        <a href="#collections" class="cta-secondary fp">See what's right for you →</a>
+        <div class="cta-trust fp">
+            <span>Refillable Packaging</span>
+            <span>Pregnancy Safe</span>
+            <span>Lithuanian Origin</span>
+            <span>Salon-Grade Science</span>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">G<span>-</span>LAB</div>
+        <div class="footer-links">
+            <a href="#">Collections</a>
+            <a href="#">About</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+    // Progress bar
+    const bar = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+        const h = document.documentElement.scrollHeight - innerHeight;
+        bar.style.width = (scrollY / h * 100) + '%';
+    }, { passive: true });
+
+    // Fade in
+    const fps = document.querySelectorAll('.fp');
+    const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach((e, i) => {
+            if (e.isIntersecting) {
+                setTimeout(() => e.target.classList.add('visible'), 50 * (i % 4));
+                obs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08 });
+    fps.forEach(el => io.observe(el));
+    </script>
+</body>
+</html>
